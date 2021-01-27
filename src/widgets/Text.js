@@ -18,7 +18,8 @@ export default class BlocksText extends Blocks {
         styles: {
           width: '100%',
           height: '100%',
-          color: 'rgba(255,255,255,1)'
+          color: 'rgba(0,0,0,1)',
+          fontSize: 10
         },
         innerText: '文本组件'
       },
