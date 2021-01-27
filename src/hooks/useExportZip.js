@@ -29,7 +29,7 @@ export default function useExportZip () {
       title: '下载页面',
       description: '下载页面描述',
       keywords: '关键词',
-      landingData: JSON.stringify(vdrList)
+      landingData: vdrList
     }
     try {
       const renderPage = await nunjucks.render('template.njk', pageConfig)

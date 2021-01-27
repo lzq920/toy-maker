@@ -30,7 +30,7 @@
         const app = Vue.createApp({
             data() {
                 return {
-                    landingList: JSON.parse({{landingData|safe}})
+                    landingList: {{landingData|dump|safe}}
                 }
             },
         });
