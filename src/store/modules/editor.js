@@ -35,7 +35,7 @@ export default {
       state.allItems.push(payload)
     },
     addActiveItem (state, payload) {
-      state.activeItems.push(payload)
+      state.activeItems = [payload]
     },
     removeActiveItem (state, payload) {
       state.activeItems = state.activeItems.filter((item) => {

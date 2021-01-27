@@ -1,7 +1,7 @@
 <template>
   <el-container class="w-screen h-screen">
     <el-header class="bg-gray-900 flex justify-end items-center">
-      <el-button type="primary">下载</el-button>
+      <el-button type="primary" @click="downloadZip">下载</el-button>
     </el-header>
     <el-container class="bg-gray-600 max-h-full">
       <el-aside width="300px" class="bg-white overflow-y-auto">
@@ -31,6 +31,7 @@
 <script>
 import { useStore } from 'vuex'
 import { computed } from 'vue'
+import useExportZip from '../hooks/useExportZip'
 export default {
   name: 'Home',
   setup () {
@@ -38,8 +39,10 @@ export default {
     const vdrList = computed(() => {
       return store.state.editor.allItems
     })
+    const { downloadZip } = useExportZip()
     return {
-      vdrList
+      vdrList,
+      downloadZip
     }
   }
 }

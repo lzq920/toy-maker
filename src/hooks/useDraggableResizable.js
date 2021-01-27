@@ -5,7 +5,6 @@ export default function useDraggableResizable (params) {
     store.dispatch('editor/addActiveItem', params)
   }
   const deactivated = () => {
-    store.dispatch('editor/removeActiveItem', params)
   }
   const dragStart = (str) => {
     console.log(str)

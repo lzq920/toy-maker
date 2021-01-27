@@ -20,7 +20,7 @@ export default {
   name: 'landing',
   props: {
     data: {
-      type: Object,
+      type: Array,
       required: true
     }
   },

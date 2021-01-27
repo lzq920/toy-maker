@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
+    <meta name="description" content="{{description}}">
+    <meta name="keywords" content="{{keywords}}">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <link rel="stylesheet" href="./generator.css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <title>Document</title>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <title>{{title}}</title>
     <style>
         html,
         body {
@@ -21,20 +20,19 @@
 
 <body>
     <div id="app">
-        <landing :data="landingData"></landing>
+        <landing :data="landingList"></landing>
     </div>
     <script crossorigin="anonymous"
         integrity="sha512-7mjRUL9551cOFF57PSrURwSa9UsUmufUCU9icwUEoUrECcxpa20PakbPplb7b4ZGbCc0StIr9ytHoXH9+v6ygA=="
         src="//lib.baomitu.com/vue/3.0.5/vue.global.prod.js"></script>
     <script src="./generator.umd.min.js"></script>
     <script>
-        const landingData = "";
         const app = Vue.createApp({
             data() {
                 return {
-                    landingData: JSON.parse(landingData)
+                    landingList: JSON.parse({{landingData|safe}})
                 }
-            }
+            },
         });
         app.use(generator);
         app.mount("#app");
