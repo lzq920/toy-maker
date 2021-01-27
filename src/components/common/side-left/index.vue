@@ -1,0 +1,39 @@
+<template>
+  <div class="relative h-full">
+    <el-tabs :tab-position="tabPosition" class="h-full">
+      <el-tab-pane v-for="(item, index) in configList" :key="index">
+        <template #label>
+          <el-tooltip :content="item.tipText" placement="right">
+            <i class="font-bold" :class="item.icon"></i>
+          </el-tooltip>
+        </template>
+        <component :is="item.component"></component>
+      </el-tab-pane>
+    </el-tabs>
+  </div>
+</template>
+
+<script>
+import { reactive, ref } from 'vue'
+export default {
+  name: 'side-left',
+  setup () {
+    const tabPosition = ref('left')
+    const configList = reactive([
+      {
+        tipText: '文本',
+        icon: 'el-icon-document',
+        component: 'blocks-text-config'
+      },
+      {
+        tipText: '图片',
+        icon: 'el-icon-picture-outline',
+        component: 'blocks-image-config'
+      }
+    ])
+    return { tabPosition, configList }
+  }
+}
+</script>
+
+<style lang="scss" scoped></style>
