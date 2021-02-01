@@ -8,18 +8,20 @@
         <side-left></side-left>
       </el-aside>
       <el-main class="bg-gray-500 relative">
-        <div
-          class="mx-auto my-0 select-none shadow-sm bg-white relative"
-          style="width: 375px; height: 667px"
-        >
-          <DraggableContainer>
-            <widget-container
-              v-for="item in vdrList"
-              :key="item.id"
-              :item="item"
-            ></widget-container>
-          </DraggableContainer>
-        </div>
+        <drag-selection @dragEnd="dragEnd" :autoClose="3000">
+          <div
+            class="mx-auto my-0 select-none shadow-sm bg-white relative"
+            style="width: 375px; height: 667px"
+          >
+            <DraggableContainer>
+              <widget-container
+                v-for="item in vdrList"
+                :key="item.id"
+                :item="item"
+              ></widget-container>
+            </DraggableContainer>
+          </div>
+        </drag-selection>
       </el-main>
       <el-aside width="300px" class="bg-white overflow-y-auto">
         <side-right></side-right>
@@ -40,9 +42,16 @@ export default {
       return store.state.editor.allItems
     })
     const { downloadZip } = useExportZip()
+    /**
+     * @description 选区位置回调
+     */
+    const dragEnd = params => {
+      console.log(params)
+    }
     return {
       vdrList,
-      downloadZip
+      downloadZip,
+      dragEnd
     }
   }
 }
