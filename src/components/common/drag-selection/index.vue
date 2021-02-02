@@ -1,10 +1,12 @@
 <template>
-  <div @mousedown.stop.self="mouseDownEvent">
+  <div @mousedown.stop.self="mouseDownEvent" ref="selection">
     <slot></slot>
   </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+
 export default {
   name: 'drag-selection',
   props: {
@@ -17,6 +19,7 @@ export default {
     }
   },
   setup (props, { emit }) {
+    const selection = ref(null)
     const mouseDownEvent = event => {
       const startX = event.clientX
       const startY = event.clientY
@@ -25,6 +28,7 @@ export default {
       lineBox.style.border = '1px solid #409EFF'
       lineBox.classList.add('line-box')
       document.body.appendChild(lineBox)
+      selection.value.parentNode.classList.add('overflow-hidden')
       const mouseMoveEvent = e => {
         const disX = Math.abs(e.clientX - startX)
         const disY = Math.abs(e.clientY - startY)
@@ -37,10 +41,11 @@ export default {
       document.addEventListener(
         'mouseup',
         () => {
-          const { left, top, width, height } = lineBox.getBoundingClientRect()
+          const { left, top, width, height, right, bottom } = lineBox.getBoundingClientRect()
           document.removeEventListener('mousemove', mouseMoveEvent)
+          selection.value.parentNode.classList.remove('overflow-hidden')
           if (width >= 10 && height >= 10) {
-            emit('dragEnd', { left, top, width, height })
+            emit('dragEnd', { left, top, width, height, right, bottom })
             setTimeout(() => {
               lineBox.remove()
             }, props.autoClose)
@@ -54,7 +59,8 @@ export default {
       )
     }
     return {
-      mouseDownEvent
+      mouseDownEvent,
+      selection
     }
   }
 }

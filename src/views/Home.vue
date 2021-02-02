@@ -8,16 +8,17 @@
         <side-left></side-left>
       </el-aside>
       <el-main class="bg-gray-500 relative">
-        <drag-selection @dragEnd="dragEnd" :autoClose="3000">
+        <drag-selection @dragEnd="dragEnd" :autoClose="3000" class="pb-40 pt-40">
           <div
             class="mx-auto my-0 select-none shadow-sm bg-white relative"
-            style="width: 375px; height: 667px"
+            style="width: 375px; height: 1334px"
           >
             <DraggableContainer>
               <widget-container
                 v-for="item in vdrList"
                 :key="item.id"
                 :item="item"
+                :data-id="item.id"
               ></widget-container>
             </DraggableContainer>
           </div>
@@ -34,6 +35,7 @@
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 import useExportZip from '../hooks/useExportZip'
+import useDragSelection from '../hooks/useDragSelection'
 export default {
   name: 'Home',
   setup () {
@@ -42,12 +44,7 @@ export default {
       return store.state.editor.allItems
     })
     const { downloadZip } = useExportZip()
-    /**
-     * @description 选区位置回调
-     */
-    const dragEnd = params => {
-      console.log(params)
-    }
+    const { dragEnd } = useDragSelection()
     return {
       vdrList,
       downloadZip,
