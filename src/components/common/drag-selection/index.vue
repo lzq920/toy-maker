@@ -26,6 +26,8 @@ export default {
       const lineBox = document.createElement('div')
       lineBox.style.position = 'absolute'
       lineBox.style.border = '1px solid #409EFF'
+      lineBox.style.backgroundColor = '#409EFF'
+      lineBox.style.opacity = '0.3'
       lineBox.classList.add('line-box')
       document.body.appendChild(lineBox)
       selection.value.parentNode.classList.add('overflow-hidden')

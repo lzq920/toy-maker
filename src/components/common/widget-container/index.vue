@@ -6,18 +6,18 @@
     v-model:y="dragInfo.top"
     v-model:w="dragInfo.width"
     v-model:h="dragInfo.height"
-    v-model:active="isActive"
+    :active="isActive"
     :draggable="true"
     :resizable="true"
     :parent="true"
     @activated="activated"
-    @deactivated="deactivated"
     @drag-start="dragStart"
     @resize-start="resizeStart"
     @dragging="dragging"
     @resizing="resizing"
     @drag-end="dragEnd"
     @resize-end="resizeEnd"
+    @click.right.stop.prevent="deactivated"
   >
     <component
       :key="widget.id"
@@ -39,7 +39,7 @@ export default {
     }
   },
   provide: {
-    modo: 'pc'
+    mode: 'pc'
   },
   setup (props) {
     const {

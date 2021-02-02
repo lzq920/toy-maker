@@ -1,4 +1,7 @@
+import { useStore } from 'vuex'
+
 export default function useDragSelection () {
+  const store = useStore()
   /**
    * @description 获取所有可拖拽元素
    * @returns {Element}
@@ -16,7 +19,7 @@ export default function useDragSelection () {
   /**
    * @description 选区位置回调
    */
-  const dragEnd = params => {
+  const dragEnd = async (params) => {
     const domList = getVdrContainerList()
     const includeIds = []
     Array.from(domList).forEach(element => {
@@ -25,7 +28,10 @@ export default function useDragSelection () {
         includeIds.push(element.dataset.id)
       }
     })
-    console.log(includeIds)
+    const activeItems = store.state.editor.allItems.filter(item => includeIds.includes(item.id))
+    for (const activeItem of activeItems) {
+      await store.dispatch('editor/addActiveItem', activeItem)
+    }
   }
   return {
     dragEnd

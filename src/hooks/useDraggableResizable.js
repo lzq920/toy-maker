@@ -1,28 +1,23 @@
 import { useStore } from 'vuex'
 export default function useDraggableResizable (params) {
   const store = useStore()
-  const activated = () => {
-    store.dispatch('editor/addActiveItem', params)
+  const activated = async () => {
+    await store.dispatch('editor/addActiveItem', params)
   }
-  const deactivated = () => {
+  const deactivated = async () => {
+    await store.dispatch('editor/removeActiveItem', params)
   }
-  const dragStart = (str) => {
-    console.log(str)
+  const dragStart = () => {
   }
-  const resizeStart = (str) => {
-    console.log(str)
+  const resizeStart = () => {
   }
-  const dragging = (str) => {
-    console.log(str)
+  const dragging = () => {
   }
-  const resizing = (str) => {
-    console.log(str)
+  const resizing = () => {
   }
-  const dragEnd = (str) => {
-    console.log(str)
+  const dragEnd = () => {
   }
-  const resizeEnd = (str) => {
-    console.log(str)
+  const resizeEnd = () => {
   }
   return {
     activated,
