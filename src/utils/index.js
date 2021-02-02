@@ -8,7 +8,7 @@
  */
 export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
   const styleObj = {
-    ...component.style
+    ...component.styles
   }
   const needUnitStr = [
     'width',
@@ -42,7 +42,7 @@ export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
   const style = {}
   for (const key in styleObj) {
     if (needUnitStr.includes(key)) {
-      style[key] = styleObj[key].includes('%')
+      style[key] = styleObj[key].toString().includes('%')
         ? styleObj[key]
         : (styleObj[key] * zoom) / scale + unit
     } else {
@@ -51,11 +51,26 @@ export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
   }
   return style
 }
+/**
+ * @description 生成UUID
+ */
 export function generatorUUID () {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
     (
       c ^
-            (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
     ).toString(16)
   )
+}
+/**
+ * @description 转换模式
+ * @param {Object} component 组件数据
+ * @param {String} mode pc or mobile
+ */
+export function transferStyleMode (component, mode = 'pc') {
+  if (mode === 'pc') {
+    return transferStyle(component, 1, 1, 'px')
+  } else if (mode === 'mobile') {
+    return transferStyle(component, 100, 2, 'rem')
+  }
 }

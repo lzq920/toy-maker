@@ -1,5 +1,6 @@
 <script>
 import { h } from 'vue'
+import { transferStyleMode } from '../../../utils/index'
 export default {
   name: 'blocks-image',
   props: {
@@ -8,9 +9,11 @@ export default {
       required: true
     }
   },
+  inject: ['mode'],
   render () {
     return h('img', {
-      src: this.config.src
+      src: this.config.src,
+      style: transferStyleMode(this.config, this.mode)
     })
   }
 }

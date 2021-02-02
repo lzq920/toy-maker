@@ -29,6 +29,11 @@ export default {
         tipText: '图片',
         icon: 'el-icon-picture-outline',
         component: 'blocks-image-config'
+      },
+      {
+        tipText: '矩形框',
+        icon: 'el-icon-receiving',
+        component: 'blocks-rect-config'
       }
     ])
     return { tabPosition, configList }

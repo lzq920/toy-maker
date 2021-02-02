@@ -24,9 +24,12 @@ export default {
       required: true
     }
   },
+  provide: {
+    modo: 'mobile'
+  },
   setup (props) {
     const list = reactive(props.data)
-    const computedRectStyle = (item) => {
+    const computedRectStyle = item => {
       const style = {
         position: 'absolute'
       }
@@ -35,8 +38,8 @@ export default {
       }
       return style
     }
-    const isNumber = (val) => typeof val === 'number'
-    const computedComponentStyle = (item) => {
+    const isNumber = val => typeof val === 'number'
+    const computedComponentStyle = item => {
       const style = {}
       for (const iterator in item.styles) {
         style[iterator] = isNumber(item.styles[iterator])

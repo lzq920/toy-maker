@@ -38,6 +38,9 @@ export default {
       required: true
     }
   },
+  provide: {
+    modo: 'pc'
+  },
   setup (props) {
     const {
       activated,

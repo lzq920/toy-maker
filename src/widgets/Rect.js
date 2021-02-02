@@ -1,14 +1,14 @@
 import { merge } from 'lodash'
 import Blocks from './Block'
 /**
- * @description 文本组件
- * @class BlocksText
+ * @description 矩形组件
+ * @class BlocksRect
  */
-export default class BlocksText extends Blocks {
+export default class BlocksRect extends Blocks {
   constructor (config) {
     config = merge(
       {
-        componentName: 'blocks-text',
+        componentName: 'blocks-rect',
         rect: {
           height: 50,
           width: 375,
@@ -17,11 +17,8 @@ export default class BlocksText extends Blocks {
         },
         styles: {
           width: '100%',
-          height: '100%',
-          color: 'rgba(0,0,0,1)',
-          fontSize: 12
-        },
-        innerText: '文本组件'
+          height: '100%'
+        }
       },
       config
     )

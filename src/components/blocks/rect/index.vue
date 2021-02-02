@@ -1,9 +1,8 @@
 <script>
-import { h } from 'vue'
 import { transferStyleMode } from '../../../utils/index'
-
+import { h } from 'vue'
 export default {
-  name: 'blocks-text',
+  name: 'blocks-rect',
   props: {
     config: {
       type: Object,
@@ -17,7 +16,7 @@ export default {
       {
         style: transferStyleMode(this.config, this.mode)
       },
-      this.config.innerText
+      ''
     )
   }
 }
