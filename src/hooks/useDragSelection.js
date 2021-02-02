@@ -28,10 +28,9 @@ export default function useDragSelection () {
         includeIds.push(element.dataset.id)
       }
     })
+    await store.dispatch('editor/clearActiveItem')
     const activeItems = store.state.editor.allItems.filter(item => includeIds.includes(item.id))
-    for (const activeItem of activeItems) {
-      await store.dispatch('editor/addActiveItem', activeItem)
-    }
+    await store.dispatch('editor/replaceActiveItem', activeItems)
   }
   return {
     dragEnd

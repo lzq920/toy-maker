@@ -22,6 +22,16 @@ export default {
       state.activeItems = state.activeItems.filter((item) => {
         return item.id !== payload.id
       })
+    },
+    replaceActiveItem (state, payload) {
+      const ids = payload.map((item) => item.id)
+      state.activeItems = state.allItems.filter((item) => {
+        return ids.includes(item.id)
+      })
+      console.log(state.activeItems)
+    },
+    clearActiveItem (state) {
+      state.activeItems.splice(0, state.activeItems.length)
     }
   },
   actions: {
@@ -29,10 +39,19 @@ export default {
       commit('addItem', payload)
     },
     addActiveItem ({ commit, getters }, payload) {
+      if (getters.activeItemIds.includes(payload.id)) {
+        return
+      }
       commit('addActiveItem', payload)
     },
     removeActiveItem ({ commit }, payload) {
       commit('removeActiveItem', payload)
+    },
+    replaceActiveItem ({ commit }, payload) {
+      commit('replaceActiveItem', payload)
+    },
+    clearActiveItem ({ commit }) {
+      commit('clearActiveItem')
     }
   }
 }

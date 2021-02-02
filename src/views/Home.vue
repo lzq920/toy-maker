@@ -8,7 +8,7 @@
         <side-left></side-left>
       </el-aside>
       <el-main class="bg-gray-500 relative">
-        <drag-selection @dragEnd="dragEnd" :autoClose="1000" class="pb-40 pt-40">
+        <drag-selection @dragEnd="dragEnd" :autoClose="1000">
           <div
             class="mx-auto my-0 select-none shadow-sm bg-white relative"
             style="width: 375px; height: 1334px"
