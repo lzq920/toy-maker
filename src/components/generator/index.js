@@ -1,12 +1,12 @@
 import landing from './landing.vue'
-import blocksImage from '../blocks/image/index.vue'
-import blocksText from '../blocks/text/index.vue'
-import blocksRect from '../blocks/rect/index.vue'
+const context = require.context('../blocks', true, /index\.vue$/)
 const install = function (app) {
   app.component('landing', landing)
-  app.component('blocks-text', blocksText)
-  app.component('blocks-image', blocksImage)
-  app.component('blocks-rect', blocksRect)
+  context.keys().forEach(key => {
+    const componentConfig = context(key)
+    const ctrl = componentConfig.default || componentConfig
+    app.component(ctrl.name, ctrl)
+  })
 }
 export default {
   install

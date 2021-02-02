@@ -43,6 +43,7 @@ import rotateResize, {
 } from './utils'
 const handlers = ['rotate', 'lt', 'ct', 'rt', 'lm', 'rm', 'lb', 'cb', 'rb']
 export default {
+  name: 'rotate-resize',
   props: {
     rect: Object
   },
