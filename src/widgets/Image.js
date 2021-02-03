@@ -1,4 +1,4 @@
-import { merge } from 'lodash'
+import { isArray, mergeWith } from 'lodash'
 import Blocks from './Block'
 /**
  * @description 图片组件
@@ -6,7 +6,7 @@ import Blocks from './Block'
  */
 export default class BlocksImage extends Blocks {
   constructor (config) {
-    config = merge(
+    config = mergeWith(
       {
         componentName: 'blocks-image',
         rect: {
@@ -22,7 +22,12 @@ export default class BlocksImage extends Blocks {
         },
         src: ''
       },
-      config
+      config,
+      function (objValue, srcValue) {
+        if (isArray(objValue)) {
+          return srcValue
+        }
+      }
     )
     super(config)
   }

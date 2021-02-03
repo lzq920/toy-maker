@@ -1,4 +1,4 @@
-import { merge } from 'lodash'
+import { mergeWith, isArray } from 'lodash'
 import Blocks from './Block'
 /**
  * @description 矩形组件
@@ -6,7 +6,7 @@ import Blocks from './Block'
  */
 export default class BlocksRect extends Blocks {
   constructor (config) {
-    config = merge(
+    config = mergeWith(
       {
         componentName: 'blocks-rect',
         rect: {
@@ -20,7 +20,12 @@ export default class BlocksRect extends Blocks {
           height: '100%'
         }
       },
-      config
+      config,
+      function (objValue, srcValue) {
+        if (isArray(objValue)) {
+          return srcValue
+        }
+      }
     )
     super(config)
   }

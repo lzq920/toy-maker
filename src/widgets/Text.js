@@ -1,4 +1,4 @@
-import { merge } from 'lodash'
+import { mergeWith, isArray } from 'lodash'
 import Blocks from './Block'
 /**
  * @description 文本组件
@@ -6,7 +6,7 @@ import Blocks from './Block'
  */
 export default class BlocksText extends Blocks {
   constructor (config) {
-    config = merge(
+    config = mergeWith(
       {
         componentName: 'blocks-text',
         rect: {
@@ -23,7 +23,12 @@ export default class BlocksText extends Blocks {
         },
         innerText: '文本组件'
       },
-      config
+      config,
+      function (objValue, srcValue) {
+        if (isArray(objValue)) {
+          return srcValue
+        }
+      }
     )
     super(config)
   }
