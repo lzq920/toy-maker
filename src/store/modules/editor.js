@@ -12,6 +12,9 @@ export default {
     }
   },
   mutations: {
+    setAllItems (state, payload) {
+      state.allItems = payload
+    },
     addItem (state, payload) {
       state.allItems.push(payload)
     },
@@ -35,6 +38,9 @@ export default {
     }
   },
   actions: {
+    setAllItems ({ commit }, payload) {
+      commit('setAllItems', payload)
+    },
     addItem ({ commit }, payload) {
       commit('addItem', payload)
     },

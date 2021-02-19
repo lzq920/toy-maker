@@ -35,10 +35,10 @@
 
 <script>
 import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import useExportZip from '../hooks/useExportZip'
 import useDragSelection from '../hooks/useDragSelection'
-
+import useUpdateComponent from '../hooks/useUpdateComponent'
 export default {
   name: 'Home',
   setup () {
@@ -48,8 +48,23 @@ export default {
     })
     const { downloadZip } = useExportZip()
     const { dragEnd } = useDragSelection()
+    const { mergeComponent } = useUpdateComponent()
+    const defaultList = [{ id: 'blocks-4bc8d34c-e3ca-4a89-a839-940232359579', componentName: 'blocks-text', rect: { height: 50, width: 375, left: 0, top: 89 }, styles: { width: '100%', height: '100%', color: 'rgba(0,0,0,1)', fontSize: 12 }, innerText: '文本' }]
+    const getAllItems = () => {
+      const result = defaultList.map(item => {
+        return mergeComponent(item)
+      })
+      store.dispatch('editor/setAllItems', result)
+    }
+    const activeItemIds = computed(() => {
+      return store.getters['editor/activeItemIds']
+    })
+    onMounted(() => {
+      getAllItems()
+    })
     return {
       vdrList,
+      activeItemIds,
       downloadZip,
       dragEnd
     }
