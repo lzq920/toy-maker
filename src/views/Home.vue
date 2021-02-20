@@ -73,7 +73,8 @@ export default {
     const handleRedo = async () => {
       await store.dispatch('editor/redoHistory')
     }
-    onMounted(() => {
+    onMounted(async () => {
+      await store.dispatch('editor/clearHistory')
       getAllItems()
     })
     return {

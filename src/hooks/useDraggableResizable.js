@@ -36,8 +36,7 @@ export default function useDraggableResizable (params) {
       }
     }
   }
-  onMounted(async () => {
-    await store.dispatch('editor/clearHistory')
+  onMounted(() => {
     document.addEventListener('keydown', globalsKeyDown)
   })
   onBeforeUnmount(() => {

@@ -65,6 +65,7 @@ export default {
     },
     addItem ({ commit }, payload) {
       commit('addItem', payload)
+      commit('addHistory')
     },
     addActiveItem ({ commit, getters }, payload) {
       if (getters.activeItemIds.includes(payload.id)) {
