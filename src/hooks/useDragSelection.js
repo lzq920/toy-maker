@@ -3,13 +3,6 @@ import { useStore } from 'vuex'
 export default function useDragSelection () {
   const store = useStore()
   /**
-   * @description 获取所有可拖拽元素
-   * @returns {Element}
-   */
-  const getVdrContainerList = () => {
-    return document.querySelectorAll('.vdr-container')
-  }
-  /**
    * @description 判断是否包含
    * @returns {Boolean}
    */
@@ -20,7 +13,7 @@ export default function useDragSelection () {
    * @description 选区位置回调
    */
   const dragEnd = async (params) => {
-    const domList = getVdrContainerList()
+    const domList = document.querySelectorAll('.vdr-container')
     const includeIds = []
     Array.from(domList).forEach(element => {
       const { left, top, bottom, right } = element.getBoundingClientRect()
@@ -28,7 +21,6 @@ export default function useDragSelection () {
         includeIds.push(element.dataset.id)
       }
     })
-    await store.dispatch('editor/clearActiveItem')
     const activeItems = store.state.editor.allItems.filter(item => includeIds.includes(item.id))
     await store.dispatch('editor/replaceActiveItem', activeItems)
   }

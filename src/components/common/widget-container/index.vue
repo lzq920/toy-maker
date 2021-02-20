@@ -17,7 +17,6 @@
     @resizing="resizing"
     @drag-end="dragEnd"
     @resize-end="resizeEnd"
-    @click.right.stop.prevent="deactivated"
   >
     <component
       :key="widget.id"
@@ -28,7 +27,7 @@
 </template>
 <script>
 import useDraggableResizable from '../../../hooks/useDraggableResizable'
-import { onMounted, computed } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 export default {
   name: 'widget-container',
@@ -68,7 +67,7 @@ export default {
       },
       set: () => {}
     })
-    onMounted(() => {})
+
     return {
       widget,
       isActive,

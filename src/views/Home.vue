@@ -1,6 +1,8 @@
 <template>
   <el-container class="w-screen h-screen overflow-hidden">
     <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
+      <el-button :disabled="canUndo" @click="handleUndo">撤销</el-button>
+      <el-button :disabled="canRedo" @click="handleRedo">重做</el-button>
       <el-button type="primary" @click="downloadZip">下载</el-button>
     </el-header>
     <el-container class="bg-gray-600 max-h-full">
@@ -59,14 +61,30 @@ export default {
     const activeItemIds = computed(() => {
       return store.getters['editor/activeItemIds']
     })
+    const canUndo = computed(() => {
+      return !store.getters['editor/canUndo']
+    })
+    const canRedo = computed(() => {
+      return !store.getters['editor/canRedo']
+    })
+    const handleUndo = async () => {
+      await store.dispatch('editor/undoHistory')
+    }
+    const handleRedo = async () => {
+      await store.dispatch('editor/redoHistory')
+    }
     onMounted(() => {
       getAllItems()
     })
     return {
       vdrList,
       activeItemIds,
+      canUndo,
+      canRedo,
       downloadZip,
-      dragEnd
+      dragEnd,
+      handleUndo,
+      handleRedo
     }
   }
 }

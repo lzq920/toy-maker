@@ -6,7 +6,7 @@
 
 <script>
 import { ref } from 'vue'
-
+import { useStore } from 'vuex'
 export default {
   name: 'drag-selection',
   props: {
@@ -19,8 +19,10 @@ export default {
     }
   },
   setup (props, { emit }) {
+    const store = useStore()
     const selection = ref(null)
     const mouseDownEvent = event => {
+      store.dispatch('editor/clearActiveItem')
       const startX = event.clientX
       const startY = event.clientY
       const lineBox = document.createElement('div')

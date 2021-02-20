@@ -1,14 +1,23 @@
+import History from '../../utils/History'
+
 export default {
   namespaced: true,
   state: {
     activeItems: [], // 当前选中的组件
     pageConfigId: '', // 页面ID
     pageConfigTitle: '', // 页面标题
-    allItems: [] // 当前页面所有编辑组件
+    allItems: [], // 当前页面所有编辑组件
+    historyStack: new History()
   },
   getters: {
     activeItemIds (state) {
       return state.activeItems.map((item) => item.id)
+    },
+    canUndo (state) {
+      return state.historyStack.canUndo
+    },
+    canRedo (state) {
+      return state.historyStack.canRedo
     }
   },
   mutations: {
@@ -31,10 +40,23 @@ export default {
       state.activeItems = state.allItems.filter((item) => {
         return ids.includes(item.id)
       })
-      console.log(state.activeItems)
     },
     clearActiveItem (state) {
       state.activeItems.splice(0, state.activeItems.length)
+    },
+    addHistory (state) {
+      state.historyStack.record(state.allItems)
+    },
+    undoHistory (state) {
+      state.activeItems = []
+      state.allItems = state.historyStack.undo() || []
+    },
+    redoHistory (state) {
+      state.activeItems = []
+      state.allItems = state.historyStack.redo() || []
+    },
+    clearHistory (state) {
+      state.historyStack.clear()
     }
   },
   actions: {
@@ -58,6 +80,18 @@ export default {
     },
     clearActiveItem ({ commit }) {
       commit('clearActiveItem')
+    },
+    addHistory ({ commit }) {
+      commit('addHistory')
+    },
+    undoHistory ({ commit }) {
+      commit('undoHistory')
+    },
+    redoHistory ({ commit }) {
+      commit('redoHistory')
+    },
+    clearHistory ({ commit }) {
+      commit('clearHistory')
     }
   }
 }
