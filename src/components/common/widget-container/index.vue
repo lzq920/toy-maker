@@ -28,8 +28,8 @@
 </template>
 <script>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
 import useDraggableResizable from '../../../hooks/useDraggableResizable'
+
 export default {
   name: 'widget-container',
   props: {
@@ -50,17 +50,9 @@ export default {
       resizeStart,
       resizeEnd,
       dragging,
-      resizing
+      resizing,
+      isActive
     } = useDraggableResizable(props.item)
-    const store = useStore()
-    const isActive = computed({
-      get: () => {
-        return store.getters['editor/activeItemIds'].includes(props.item.id)
-      },
-      set: () => {
-
-      }
-    })
     const dragInfo = computed({
       get: () => {
         return props.item.rect

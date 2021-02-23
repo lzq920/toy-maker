@@ -1,12 +1,28 @@
 import { useStore } from 'vuex'
-import { onBeforeUnmount, onMounted } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+
 export default function useDraggableResizable (params) {
   const store = useStore()
+  const isActive = ref(false)
+  const ctrlKey = ref(false)
+  const activeItemIds = computed(() => {
+    return store.getters['editor/activeItemIds']
+  })
+  watch(activeItemIds, (value) => {
+    isActive.value = value.includes(params.id)
+  })
   const activated = async () => {
-    await store.dispatch('editor/addActiveItem', params)
+    if (ctrlKey.value) {
+      await store.dispatch('editor/addActiveItem', params)
+    } else {
+      await store.dispatch('editor/replaceActiveItem', [params])
+    }
   }
   const deactivated = async () => {
-    await store.dispatch('editor/removeActiveItem', params)
+    await nextTick(() => {
+      isActive.value = activeItemIds.value.includes(params.id)
+    })
+    // await store.dispatch('editor/removeActiveItem', params)
   }
   const dragStart = () => {
   }
@@ -23,6 +39,7 @@ export default function useDraggableResizable (params) {
     await store.dispatch('editor/addHistory')
   }
   const globalsKeyDown = async (e) => {
+    ctrlKey.value = e.ctrlKey || e.metaKey
     if (e.ctrlKey && e.code === 'KeyZ') {
       e.preventDefault()
       if (store.getters['editor/canUndo']) {
@@ -43,6 +60,7 @@ export default function useDraggableResizable (params) {
     document.removeEventListener('keydown', globalsKeyDown)
   })
   return {
+    isActive,
     activated,
     deactivated,
     dragStart,
