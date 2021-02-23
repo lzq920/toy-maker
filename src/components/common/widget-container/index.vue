@@ -6,11 +6,12 @@
     v-model:y="dragInfo.top"
     v-model:w="dragInfo.width"
     v-model:h="dragInfo.height"
-    :active="isActive"
+    v-model:active="isActive"
     :draggable="true"
     :resizable="true"
     :parent="true"
     @activated="activated"
+    @deactivated="deactivated"
     @drag-start="dragStart"
     @resize-start="resizeStart"
     @dragging="dragging"
@@ -26,9 +27,9 @@
   </Vue3DraggableResizable>
 </template>
 <script>
-import useDraggableResizable from '../../../hooks/useDraggableResizable'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import useDraggableResizable from '../../../hooks/useDraggableResizable'
 export default {
   name: 'widget-container',
   props: {
@@ -52,8 +53,13 @@ export default {
       resizing
     } = useDraggableResizable(props.item)
     const store = useStore()
-    const isActive = computed(() => {
-      return store.getters['editor/activeItemIds'].includes(props.item.id)
+    const isActive = computed({
+      get: () => {
+        return store.getters['editor/activeItemIds'].includes(props.item.id)
+      },
+      set: () => {
+
+      }
     })
     const dragInfo = computed({
       get: () => {
@@ -67,7 +73,6 @@ export default {
       },
       set: () => {}
     })
-
     return {
       widget,
       isActive,
