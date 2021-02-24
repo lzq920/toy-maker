@@ -10,7 +10,6 @@
         <side-left></side-left>
       </el-aside>
       <el-main class="bg-gray-50 relative p-0">
-<!--        <drag-selection @dragEnd="dragEnd" :autoClose="1000" class="absolute left-0 top-0 right-0 bottom-0"></drag-selection>-->
         <canvas-setting></canvas-setting>
         <el-scrollbar>
           <div
@@ -39,7 +38,6 @@
 import { useStore } from 'vuex'
 import { computed, onMounted } from 'vue'
 import useExportZip from '../hooks/useExportZip'
-import useDragSelection from '../hooks/useDragSelection'
 import useUpdateComponent from '../hooks/useUpdateComponent'
 import useUndoRedo from '../hooks/useUndoRedo'
 import CanvasSetting from '@/components/common/canvas-setting'
@@ -53,7 +51,6 @@ export default {
       return store.state.editor.allItems
     })
     const { downloadZip } = useExportZip()
-    const { dragEnd } = useDragSelection()
     const { mergeComponent } = useUpdateComponent()
     const {
       canRedo,
@@ -103,7 +100,6 @@ export default {
       canUndo,
       canRedo,
       downloadZip,
-      dragEnd,
       handleUndo,
       handleRedo,
       canvasStyle
