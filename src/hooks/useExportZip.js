@@ -34,7 +34,6 @@ function loadFile (url) {
  */
 export default function useExportZip () {
   const store = useStore()
-  const vdrList = store.state.editor.allItems
   /**
    * @description 下载Zip包文件
    * @returns {Promise<void>}
@@ -44,7 +43,7 @@ export default function useExportZip () {
       title: '下载页面',
       description: '下载页面描述',
       keywords: '关键词',
-      landingData: vdrList
+      landingData: store.state.editor.allItems
     }
     try {
       const renderPage = await nunjucks.render('template.njk', pageConfig)
