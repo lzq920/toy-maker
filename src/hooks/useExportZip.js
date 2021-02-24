@@ -2,6 +2,12 @@ import { useStore } from 'vuex'
 import nunjucks from 'nunjucks'
 import JSZIP from 'jszip'
 import FileSaver from 'file-saver'
+
+/**
+ * @description 获取远程地址文件流
+ * @param url
+ * @returns {Promise<unknown>}
+ */
 function loadFile (url) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest()
@@ -21,9 +27,18 @@ function loadFile (url) {
     xhr.send()
   })
 }
+
+/**
+ * @description 导出Zip打包文件
+ * @returns {{downloadZip: (function(): Promise<void>)}}
+ */
 export default function useExportZip () {
   const store = useStore()
   const vdrList = store.state.editor.allItems
+  /**
+   * @description 下载Zip包文件
+   * @returns {Promise<void>}
+   */
   const downloadZip = async () => {
     const pageConfig = {
       title: '下载页面',

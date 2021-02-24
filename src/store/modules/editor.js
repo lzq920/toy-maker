@@ -7,7 +7,11 @@ export default {
     pageConfigId: '', // 页面ID
     pageConfigTitle: '', // 页面标题
     allItems: [], // 当前页面所有编辑组件
-    historyStack: new History()
+    historyStack: new History(), // 历史操作记录
+    canvasSetting: {
+      width: 375,
+      height: 667
+    }
   },
   getters: {
     activeItemIds (state) {
@@ -57,6 +61,9 @@ export default {
     },
     clearHistory (state) {
       state.historyStack.clear()
+    },
+    setCanvas (state, payload) {
+      state.canvasSetting = payload
     }
   },
   actions: {
@@ -93,6 +100,9 @@ export default {
     },
     clearHistory ({ commit }) {
       commit('clearHistory')
+    },
+    setCanvas ({ commit }, payload) {
+      commit('setCanvas', payload)
     }
   }
 }

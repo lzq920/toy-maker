@@ -1,16 +1,20 @@
 import { useStore } from 'vuex'
 
+/**
+ * @description 拖拽选区事件Hook
+ * @returns {{dragEnd: (function(*=): Promise<void>)}}
+ */
 export default function useDragSelection () {
   const store = useStore()
   /**
-   * @description 判断是否包含
+   * @description 判断组件是否包含在选区内部
    * @returns {Boolean}
    */
   const hasContains = (big, small) => {
     return big.left <= small.left && big.top <= small.top && big.right > small.right && big.bottom >= small.bottom
   }
   /**
-   * @description 选区位置回调
+   * @description 选区结束事件回调
    */
   const dragEnd = async (params) => {
     const domList = document.querySelectorAll('.vdr-container')

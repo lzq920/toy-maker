@@ -10,22 +10,22 @@
         <side-left></side-left>
       </el-aside>
       <el-main class="bg-gray-50 relative p-0">
+<!--        <drag-selection @dragEnd="dragEnd" :autoClose="1000" class="absolute left-0 top-0 right-0 bottom-0"></drag-selection>-->
+        <canvas-setting></canvas-setting>
         <el-scrollbar>
-          <drag-selection @dragEnd="dragEnd" :autoClose="1000" class="absolute left-0 top-0 right-0 bottom-0">
-            <div
-              class="mx-auto my-10 select-none shadow-sm bg-white relative"
-              style="width: 375px; height: 667px"
-            >
-              <DraggableContainer>
-                <widget-container
-                  v-for="item in vdrList"
-                  :key="item.id"
-                  :item="item"
-                  :data-id="item.id"
-                ></widget-container>
-              </DraggableContainer>
-            </div>
-          </drag-selection>
+          <div
+            class="mx-auto my-10 select-none shadow-sm bg-white relative transition-all"
+            :style="canvasStyle"
+          >
+            <DraggableContainer>
+              <widget-container
+                v-for="item in vdrList"
+                :key="item.id"
+                :item="item"
+                :data-id="item.id"
+              ></widget-container>
+            </DraggableContainer>
+          </div>
         </el-scrollbar>
       </el-main>
       <el-aside width="300px" class="bg-white">
@@ -41,8 +41,12 @@ import { computed, onMounted } from 'vue'
 import useExportZip from '../hooks/useExportZip'
 import useDragSelection from '../hooks/useDragSelection'
 import useUpdateComponent from '../hooks/useUpdateComponent'
+import useUndoRedo from '../hooks/useUndoRedo'
+import CanvasSetting from '@/components/common/canvas-setting'
+
 export default {
   name: 'Home',
+  components: { CanvasSetting },
   setup () {
     const store = useStore()
     const vdrList = computed(() => {
@@ -51,31 +55,47 @@ export default {
     const { downloadZip } = useExportZip()
     const { dragEnd } = useDragSelection()
     const { mergeComponent } = useUpdateComponent()
-    const defaultList = [{ id: 'blocks-4bc8d34c-e3ca-4a89-a839-940232359579', componentName: 'blocks-text', rect: { height: 50, width: 375, left: 0, top: 89 }, styles: { width: '100%', height: '100%', color: 'rgba(0,0,0,1)', fontSize: 12 }, innerText: '文本' }]
-    const getAllItems = () => {
+    const {
+      canRedo,
+      canUndo,
+      handleRedo,
+      handleUndo
+    } = useUndoRedo()
+    const defaultList = [{
+      id: 'blocks-4bc8d34c-e3ca-4a89-a839-940232359579',
+      componentName: 'blocks-text',
+      rect: {
+        height: 50,
+        width: 375,
+        left: 0,
+        top: 89
+      },
+      styles: {
+        width: '100%',
+        height: '100%',
+        color: 'rgba(0,0,0,1)',
+        fontSize: 12
+      },
+      innerText: '文本'
+    }]
+    const getAllItems = async () => {
       const result = defaultList.map(item => {
         return mergeComponent(item)
       })
-      store.dispatch('editor/setAllItems', result)
+      await store.dispatch('editor/setAllItems', result)
     }
     const activeItemIds = computed(() => {
       return store.getters['editor/activeItemIds']
     })
-    const canUndo = computed(() => {
-      return !store.getters['editor/canUndo']
+    const canvasStyle = computed(() => {
+      return {
+        width: store.state.editor.canvasSetting.width + 'px',
+        height: store.state.editor.canvasSetting.height + 'px'
+      }
     })
-    const canRedo = computed(() => {
-      return !store.getters['editor/canRedo']
-    })
-    const handleUndo = async () => {
-      await store.dispatch('editor/undoHistory')
-    }
-    const handleRedo = async () => {
-      await store.dispatch('editor/redoHistory')
-    }
     onMounted(async () => {
       await store.dispatch('editor/clearHistory')
-      getAllItems()
+      await getAllItems()
     })
     return {
       vdrList,
@@ -85,7 +105,8 @@ export default {
       downloadZip,
       dragEnd,
       handleUndo,
-      handleRedo
+      handleRedo,
+      canvasStyle
     }
   }
 }
