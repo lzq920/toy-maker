@@ -1,5 +1,5 @@
 import History from '../../utils/History'
-
+import { cloneDeep } from 'lodash'
 export default {
   namespaced: true,
   state: {
@@ -11,7 +11,8 @@ export default {
     canvasSetting: {
       width: 375,
       height: 667
-    }
+    },
+    copyData: []
   },
   getters: {
     activeItemIds (state) {
@@ -52,6 +53,9 @@ export default {
     },
     clearActiveItem (state) {
       state.activeItems.splice(0, state.activeItems.length)
+    },
+    copyActiveItems (state) {
+      state.copyData = cloneDeep(state.activeItems)
     },
     addHistory (state) {
       state.historyStack.record(state.allItems)
@@ -94,6 +98,9 @@ export default {
     },
     replaceActiveItem ({ commit }, payload) {
       commit('replaceActiveItem', payload)
+    },
+    copyActiveItems ({ commit }) {
+      commit('copyActiveItems')
     },
     clearActiveItem ({ commit }) {
       commit('clearActiveItem')

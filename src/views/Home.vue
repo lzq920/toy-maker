@@ -41,7 +41,7 @@ import useExportZip from '../hooks/useExportZip'
 import useUpdateComponent from '../hooks/useUpdateComponent'
 import useUndoRedo from '../hooks/useUndoRedo'
 import CanvasSetting from '@/components/common/canvas-setting'
-
+import useGlobalKeyEvent from '@/hooks/useGlobalKeyEvent'
 export default {
   name: 'Home',
   components: { CanvasSetting },
@@ -58,6 +58,7 @@ export default {
       handleRedo,
       handleUndo
     } = useUndoRedo()
+    const { globalsKeyDown } = useGlobalKeyEvent()
     const defaultList = [{
       id: 'blocks-4bc8d34c-e3ca-4a89-a839-940232359579',
       componentName: 'blocks-text',
@@ -102,7 +103,8 @@ export default {
       downloadZip,
       handleUndo,
       handleRedo,
-      canvasStyle
+      canvasStyle,
+      globalsKeyDown
     }
   }
 }
