@@ -25,7 +25,7 @@ export default {
     }
   },
   provide: {
-    modo: 'mobile'
+    mode: 'mobile'
   },
   setup (props) {
     const list = reactive(props.data)
