@@ -31,6 +31,11 @@ export default {
     addItem (state, payload) {
       state.allItems.push(payload)
     },
+    removeItem (state, payload) {
+      state.allItems = state.allItems.filter((item) => {
+        return item.id !== payload.id
+      })
+    },
     addActiveItem (state, payload) {
       state.activeItems.push(payload)
     },
@@ -73,6 +78,10 @@ export default {
     addItem ({ commit }, payload) {
       commit('addItem', payload)
       commit('addHistory')
+    },
+    removeItem ({ commit }, payload) {
+      commit('clearActiveItem')
+      commit('removeItem', payload)
     },
     addActiveItem ({ commit, getters }, payload) {
       if (getters.activeItemIds.includes(payload.id)) {

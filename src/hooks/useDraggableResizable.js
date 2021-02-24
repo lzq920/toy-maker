@@ -1,6 +1,6 @@
 import { useStore } from 'vuex'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-
+import { cloneDeep } from 'lodash'
 /**
  * @description 拖拽组件事件集合Hook
  * @param {Object} params 拖拽组件参数对象
@@ -72,23 +72,36 @@ export default function useDraggableResizable (params) {
     await store.dispatch('editor/addHistory')
   }
   /**
-   * @description 监听 Ctrl 或 Command 按下
+   * @description 监听 Ctrl 按下
    * @param e 事件对象
    * @returns {Promise<void>}
    */
   const globalsKeyDown = async (e) => {
-    ctrlKey.value = e.ctrlKey || e.metaKey
+    ctrlKey.value = e.ctrlKey
+    if (e.target !== document.body) {
+      return
+    }
     if (e.ctrlKey && e.code === 'KeyZ') {
+      console.log('Ctrl+Z')
       e.preventDefault()
       if (store.getters['editor/canUndo']) {
         await store.dispatch('editor/undoHistory')
       }
     }
     if (e.ctrlKey && e.code === 'KeyY') {
+      console.log('Ctrl+Y')
       e.preventDefault()
       if (store.getters['editor/canRedo']) {
         await store.dispatch('editor/redoHistory')
       }
+    }
+    if (e.ctrlKey && e.code === 'KeyD') {
+      console.log('Ctrl+D')
+      e.preventDefault()
+      const removeQueue = cloneDeep(store.state.editor.activeItems).map(item => {
+        return store.dispatch('editor/removeItem', item)
+      })
+      await Promise.all(removeQueue)
     }
   }
   onMounted(() => {
