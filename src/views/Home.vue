@@ -10,22 +10,24 @@
         <side-left></side-left>
       </el-aside>
       <el-main class="bg-gray-50 relative p-0">
-        <canvas-setting></canvas-setting>
-        <el-scrollbar>
-          <div
-            class="mx-auto my-10 select-none shadow-sm bg-white relative transition-all"
-            :style="canvasStyle"
-          >
-            <DraggableContainer>
-              <widget-container
-                v-for="item in vdrList"
-                :key="item.id"
-                :item="item"
-                :data-id="item.id"
-              ></widget-container>
-            </DraggableContainer>
-          </div>
-        </el-scrollbar>
+        <div class="absolute left-0 top-0 right-0 bottom-0">
+          <el-scrollbar>
+            <div
+              class="mx-auto my-10 select-none shadow-sm bg-white relative transition-all"
+              :style="canvasStyle"
+            >
+              <DraggableContainer>
+                <widget-container
+                  v-for="item in vdrList"
+                  :key="item.id"
+                  :item="item"
+                  :data-id="item.id"
+                ></widget-container>
+              </DraggableContainer>
+            </div>
+          </el-scrollbar>
+          <canvas-setting></canvas-setting>
+        </div>
       </el-main>
       <el-aside width="300px" class="bg-white">
         <side-right></side-right>
@@ -42,6 +44,7 @@ import useUpdateComponent from '../hooks/useUpdateComponent'
 import useUndoRedo from '../hooks/useUndoRedo'
 import CanvasSetting from '@/components/common/canvas-setting'
 import useGlobalKeyEvent from '@/hooks/useGlobalKeyEvent'
+
 export default {
   name: 'Home',
   components: { CanvasSetting },
