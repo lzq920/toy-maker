@@ -1,5 +1,5 @@
 import { useStore } from 'vuex'
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 /**
  * @description 拖拽组件事件集合Hook
  * @param {Object} params 拖拽组件参数对象
@@ -8,9 +8,11 @@ import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 export default function useDraggableResizable (params) {
   const store = useStore()
   const isActive = ref(false)
-  const ctrlKey = ref(false)
   const activeItemIds = computed(() => {
     return store.getters['editor/activeItemIds']
+  })
+  const ctrlKey = computed(() => {
+    return store.state.editor.globalsKeyEvent.ctrlKey
   })
   watch(activeItemIds, (value) => {
     isActive.value = value.includes(params.id)
@@ -70,16 +72,6 @@ export default function useDraggableResizable (params) {
   const resizeEnd = async () => {
     await store.dispatch('editor/addHistory')
   }
-  onMounted(() => {
-    document.addEventListener('keydown', (e) => {
-      ctrlKey.value = e.ctrlKey
-    })
-  })
-  onBeforeUnmount(() => {
-    document.removeEventListener('keydown', (e) => {
-      ctrlKey.value = e.ctrlKey
-    })
-  })
   return {
     isActive,
     activated,

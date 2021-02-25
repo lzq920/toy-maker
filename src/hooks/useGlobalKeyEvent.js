@@ -1,12 +1,11 @@
 import { cloneDeep } from 'lodash'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 import useUpdateComponent from '@/hooks/useUpdateComponent'
 import { useStore } from 'vuex'
 import { generatorUUID } from '@/utils'
 
 export default function useGlobalKeyEvent () {
   const { mergeComponent } = useUpdateComponent()
-  const ctrlKey = ref(false)
   const store = useStore()
   /**
    * @description 监听 Ctrl 按下
@@ -14,7 +13,7 @@ export default function useGlobalKeyEvent () {
    * @returns {Promise<void>}
    */
   const globalsKeyDown = async (e) => {
-    ctrlKey.value = e.ctrlKey
+    await store.dispatch('editor/ctrlKeyDown', e.ctrlKey)
     if (e.target !== document.body) {
       return
     }
@@ -63,12 +62,16 @@ export default function useGlobalKeyEvent () {
       }
     }
   }
-
+  const globalsKeyUp = async () => {
+    await store.dispatch('editor/ctrlKeyDown', false)
+  }
   onMounted(() => {
     document.addEventListener('keydown', globalsKeyDown)
+    document.addEventListener('keyup', globalsKeyUp)
   })
   onBeforeUnmount(() => {
     document.removeEventListener('keydown', globalsKeyDown)
+    document.removeEventListener('keyup', globalsKeyUp)
   })
   return {
     globalsKeyDown

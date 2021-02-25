@@ -12,6 +12,9 @@ export default {
       width: 375,
       height: 667
     },
+    globalsKeyEvent: {
+      ctrlKey: false
+    },
     copyData: []
   },
   getters: {
@@ -73,6 +76,9 @@ export default {
     },
     setCanvas (state, payload) {
       state.canvasSetting = payload
+    },
+    ctrlKeyDown (state, payload) {
+      state.globalsKeyEvent.ctrlKey = payload
     }
   },
   actions: {
@@ -119,6 +125,9 @@ export default {
     },
     setCanvas ({ commit }, payload) {
       commit('setCanvas', payload)
+    },
+    ctrlKeyDown ({ commit }, payload) {
+      commit('ctrlKeyDown', payload)
     }
   }
 }
