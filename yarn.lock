@@ -4676,6 +4676,11 @@ globby@^9.2.0:
     pify "^4.0.1"
     slash "^2.0.0"
 
+godb@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.npm.taobao.org/godb/download/godb-0.6.1.tgz#20ef2b4081de1da2b56926a4a2869b24104be5f9"
+  integrity sha1-IO8rQIHeHaK1aSakooabJBBL5fk=
+
 graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.2:
   version "4.2.6"
   resolved "https://registry.npm.taobao.org/graceful-fs/download/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"

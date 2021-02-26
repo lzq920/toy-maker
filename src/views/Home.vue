@@ -1,9 +1,11 @@
 <template>
-  <el-container class="w-screen h-screen overflow-hidden">
+  <el-container v-loading="pageLoading" class="w-screen h-screen overflow-hidden"
+                element-loading-spinner="el-icon-loading" element-loading-text="加载中">
     <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
       <el-button :disabled="canUndo" @click="handleUndo">撤销</el-button>
       <el-button :disabled="canRedo" @click="handleRedo">重做</el-button>
-      <el-button type="primary" @click="downloadZip">下载</el-button>
+      <el-button :loading="saveLoading" type="success" @click="savePageData">保存</el-button>
+      <el-button type="primary" @click="handleExportZip">下载</el-button>
     </el-header>
     <el-container class="bg-gray-600 max-h-full">
       <el-aside width="300px" class="bg-white">
@@ -16,6 +18,7 @@
               class="mx-auto my-10 select-none shadow-sm bg-white relative transition-all"
               :style="canvasStyle"
             >
+              <el-empty v-if="vdrList.length===0" description="暂无组件数据"></el-empty>
               <DraggableContainer>
                 <widget-container
                   v-for="item in vdrList"
@@ -38,23 +41,27 @@
 
 <script>
 import { useStore } from 'vuex'
+import { ElMessageBox } from 'element-plus'
 import { computed, onMounted } from 'vue'
 import useExportZip from '../hooks/useExportZip'
-import useUpdateComponent from '../hooks/useUpdateComponent'
 import useUndoRedo from '../hooks/useUndoRedo'
-import CanvasSetting from '@/components/common/canvas-setting'
 import useGlobalKeyEvent from '@/hooks/useGlobalKeyEvent'
+import useEditorMethod from '@/hooks/useEditorMethod'
 
 export default {
   name: 'Home',
-  components: { CanvasSetting },
   setup () {
     const store = useStore()
     const vdrList = computed(() => {
       return store.state.editor.allItems
     })
     const { downloadZip } = useExportZip()
-    const { mergeComponent } = useUpdateComponent()
+    const {
+      getPageData,
+      savePageData,
+      saveLoading,
+      pageLoading
+    } = useEditorMethod()
     const {
       canRedo,
       canUndo,
@@ -62,29 +69,6 @@ export default {
       handleUndo
     } = useUndoRedo()
     const { globalsKeyDown } = useGlobalKeyEvent()
-    const defaultList = [{
-      id: 'blocks-4bc8d34c-e3ca-4a89-a839-940232359579',
-      componentName: 'blocks-text',
-      rect: {
-        height: 50,
-        width: 375,
-        left: 0,
-        top: 89
-      },
-      styles: {
-        width: '100%',
-        height: '100%',
-        color: 'rgba(0,0,0,1)',
-        fontSize: 12
-      },
-      innerText: '文本'
-    }]
-    const getAllItems = async () => {
-      const result = defaultList.map(item => {
-        return mergeComponent(item)
-      })
-      await store.dispatch('editor/setAllItems', result)
-    }
     const activeItemIds = computed(() => {
       return store.getters['editor/activeItemIds']
     })
@@ -94,20 +78,33 @@ export default {
         height: store.state.editor.canvasSetting.height + 'px'
       }
     })
+    const handleExportZip = () => {
+      ElMessageBox.confirm('是否导出单独部署的Zip压缩包？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      }).then(() => {
+        downloadZip()
+      })
+    }
     onMounted(async () => {
+      await getPageData()
       await store.dispatch('editor/clearHistory')
-      await getAllItems()
     })
     return {
       vdrList,
       activeItemIds,
       canUndo,
       canRedo,
-      downloadZip,
+      handleExportZip,
       handleUndo,
       handleRedo,
       canvasStyle,
-      globalsKeyDown
+      globalsKeyDown,
+      savePageData,
+      saveLoading,
+      pageLoading
     }
   }
 }
