@@ -26,10 +26,16 @@ export default function useEditorMethod () {
     pageLoading.value = true
     const result = await pageTable.get(1)
     if (result) {
-      const allItemsArray = result.allItems
-      const items = allItemsArray.map(item => {
+      const {
+        allItems,
+        pageConfig,
+        canvasSetting
+      } = result
+      const items = allItems.map(item => {
         return mergeComponent(item)
       })
+      await store.dispatch('editor/setPageConfig', pageConfig)
+      await store.dispatch('editor/setCanvas', canvasSetting)
       await store.dispatch('editor/setAllItems', items)
     }
     pageLoading.value = false
@@ -38,8 +44,7 @@ export default function useEditorMethod () {
     saveLoading.value = true
     await pageTable.put({
       id: 1,
-      pageConfigId: '',
-      pageConfigTitle: '',
+      pageConfig: toRaw(store.state.editor.pageConfig),
       canvasSetting: toRaw(store.state.editor.canvasSetting),
       allItems: toRaw(vdrList.value)
     })

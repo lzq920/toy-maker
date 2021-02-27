@@ -1,11 +1,16 @@
 import History from '../../utils/History'
 import { cloneDeep } from 'lodash'
+
 export default {
   namespaced: true,
   state: {
     activeItems: [], // 当前选中的组件
-    pageConfigId: '', // 页面ID
-    pageConfigTitle: '', // 页面标题
+    pageConfig: {
+      id: '',
+      title: '',
+      description: '',
+      keywords: ''
+    },
     allItems: [], // 当前页面所有编辑组件
     historyStack: new History(), // 历史操作记录
     canvasSetting: {
@@ -77,6 +82,9 @@ export default {
     setCanvas (state, payload) {
       state.canvasSetting = payload
     },
+    setPageConfig (state, payload) {
+      state.pageConfig = payload
+    },
     ctrlKeyDown (state, payload) {
       state.globalsKeyEvent.ctrlKey = payload
     }
@@ -93,7 +101,10 @@ export default {
       commit('clearActiveItem')
       commit('removeItem', payload)
     },
-    addActiveItem ({ commit, getters }, payload) {
+    addActiveItem ({
+      commit,
+      getters
+    }, payload) {
       if (getters.activeItemIds.includes(payload.id)) {
         return
       }
@@ -128,6 +139,9 @@ export default {
     },
     ctrlKeyDown ({ commit }, payload) {
       commit('ctrlKeyDown', payload)
+    },
+    setPageConfig ({ commit }, payload) {
+      commit('setPageConfig', payload)
     }
   }
 }

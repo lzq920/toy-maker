@@ -40,9 +40,9 @@ export default function useExportZip () {
    */
   const downloadZip = async () => {
     const pageConfig = {
-      title: '下载页面',
-      description: '下载页面描述',
-      keywords: '关键词',
+      title: store.state.editor.pageConfig.title,
+      description: store.state.editor.pageConfig.description,
+      keywords: store.state.editor.pageConfig.keywords,
       landingData: store.state.editor.allItems
     }
     try {
@@ -54,7 +54,7 @@ export default function useExportZip () {
       zipFile.file('generator.umd.min.js', generatorJavascript)
       zipFile.file('favicon.ico', faviconIco)
       const zipFileBlob = await zipFile.generateAsync({ type: 'blob' })
-      FileSaver.saveAs(zipFileBlob, `${new Date()}.zip`)
+      FileSaver.saveAs(zipFileBlob, `${store.state.editor.pageConfig.title}.zip`)
     } catch (error) {
       throw new Error(error)
     }
