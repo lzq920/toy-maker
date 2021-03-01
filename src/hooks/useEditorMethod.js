@@ -14,6 +14,7 @@ export default function useEditorMethod () {
       allItems: Array
     }
   }
+  const pageId = ref(1)
   const tokMakerDB = new GoDB('tokMakerDB', schema)
   const pageTable = tokMakerDB.table('page')
   const store = useStore()
@@ -24,7 +25,7 @@ export default function useEditorMethod () {
   const pageLoading = ref(false)
   const getPageData = async () => {
     pageLoading.value = true
-    const result = await pageTable.get(1)
+    const result = await pageTable.get(pageId.value)
     if (result) {
       const {
         allItems,
@@ -43,7 +44,7 @@ export default function useEditorMethod () {
   const savePageData = async () => {
     saveLoading.value = true
     await pageTable.put({
-      id: 1,
+      id: pageId.value,
       pageConfig: toRaw(store.state.editor.pageConfig),
       canvasSetting: toRaw(store.state.editor.canvasSetting),
       allItems: toRaw(vdrList.value)
