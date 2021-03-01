@@ -21,7 +21,12 @@ export default class BlocksText extends Blocks {
           color: 'rgba(0,0,0,1)',
           fontSize: 12
         },
-        innerText: '文本组件'
+        innerText: '文本组件',
+        events: [{
+          key: 'alert',
+          name: '系统弹窗',
+          message: 'fuck'
+        }]
       },
       config,
       function (objValue, srcValue) {

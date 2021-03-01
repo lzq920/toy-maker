@@ -20,6 +20,7 @@ export default class BlocksImage extends Blocks {
           height: '100%',
           overflow: 'hidden'
         },
+        events: [],
         src: ''
       },
       config,

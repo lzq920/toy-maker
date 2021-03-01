@@ -18,7 +18,8 @@ export default class BlocksRect extends Blocks {
         styles: {
           width: '100%',
           height: '100%'
-        }
+        },
+        events: []
       },
       config,
       function (objValue, srcValue) {

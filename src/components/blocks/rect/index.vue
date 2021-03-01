@@ -1,6 +1,7 @@
 <script>
 import { transferStyleMode } from '../../../utils/index'
-import { h } from 'vue'
+import { h, inject } from 'vue'
+import useClickedEvents from '@/hooks/useClickedEvents'
 export default {
   name: 'blocks-rect',
   props: {
@@ -10,11 +11,19 @@ export default {
     }
   },
   inject: ['mode'],
+  setup (props) {
+    const mode = inject('mode')
+    const { handleClick } = useClickedEvents(props.config.events, mode)
+    return {
+      handleClick
+    }
+  },
   render () {
     return h(
       'div',
       {
-        style: transferStyleMode(this.config, this.mode)
+        style: transferStyleMode(this.config, this.mode),
+        onClick: this.handleClick
       },
       ''
     )
