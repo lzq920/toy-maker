@@ -898,6 +898,11 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
+"@lzq920/vue3-draggable-resizable@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.npm.taobao.org/@lzq920/vue3-draggable-resizable/download/@lzq920/vue3-draggable-resizable-1.7.0.tgz#8c97be3e4bd42a4d62a66002023150f683d8145a"
+  integrity sha1-jJe+PkvUKk1ipmACAjFQ9oPYFFo=
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.npm.taobao.org/@mrmlnc/readdir-enhanced/download/@mrmlnc/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -9238,11 +9243,6 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.npm.taobao.org/vue-template-es2015-compiler/download/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha1-HuO8mhbsv1EYvjNLsV+cRvgvWCU=
-
-vue3-draggable-resizable@^1.5.4:
-  version "1.5.4"
-  resolved "https://registry.npm.taobao.org/vue3-draggable-resizable/download/vue3-draggable-resizable-1.5.4.tgz#d57b1fa2c072fe4e46f9e52c1b32b6d863f26c81"
-  integrity sha1-1XsfosBy/k5G+eUsGzK22GPybIE=
 
 vue@^3.0.0:
   version "3.0.5"

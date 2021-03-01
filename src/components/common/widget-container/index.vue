@@ -10,6 +10,7 @@
     :draggable="true"
     :resizable="true"
     :parent="true"
+    :prevent-deactivated="true"
     @activated="activated"
     @deactivated="deactivated"
     @drag-start="dragStart"
