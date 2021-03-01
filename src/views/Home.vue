@@ -19,7 +19,7 @@
               :style="canvasStyle"
             >
               <el-empty v-if="vdrList.length===0" description="暂无组件数据"></el-empty>
-              <DraggableContainer>
+              <DraggableContainer class="editor-area">
                 <widget-container
                   v-for="item in vdrList"
                   :key="item.id"

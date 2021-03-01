@@ -9,8 +9,9 @@ export default {
       id: '',
       title: '',
       description: '',
-      keywords: ''
-    },
+      keywords: '',
+      cover: ''
+    }, // 页面配置
     allItems: [], // 当前页面所有编辑组件
     historyStack: new History(), // 历史操作记录
     canvasSetting: {

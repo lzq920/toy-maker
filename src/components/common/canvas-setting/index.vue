@@ -31,6 +31,7 @@ export default {
           width: width.value,
           height: value
         })
+        window.dispatchEvent(new Event('resize'))
       }
     })
     return {
