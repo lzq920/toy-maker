@@ -49,7 +49,7 @@ import useGlobalKeyEvent from '@/hooks/useGlobalKeyEvent'
 import useEditorMethod from '@/hooks/useEditorMethod'
 
 export default {
-  name: 'Home',
+  name: 'PageCreate',
   setup () {
     const store = useStore()
     const vdrList = computed(() => {

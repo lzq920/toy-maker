@@ -3,7 +3,8 @@
 </template>
 <script>
 import { useRoute } from 'vue-router'
-import { ref, watch } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
+import { initJsStore } from '@/service/idbConfig'
 
 export default {
   setup () {
@@ -11,6 +12,18 @@ export default {
     const key = ref(route.fullPath)
     watch(route, (val) => {
       key.value = val.fullPath
+    })
+    onBeforeMount(async () => {
+      try {
+        const isDbCreated = await initJsStore()
+        if (isDbCreated) {
+          console.log('db created')
+        } else {
+          console.log('db opened')
+        }
+      } catch (ex) {
+        console.error(ex)
+      }
     })
     return {
       key: key
