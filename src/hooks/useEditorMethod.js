@@ -71,7 +71,6 @@ export default function useEditorMethod () {
       })
     }
   }
-
   return {
     getPageData,
     savePageData,

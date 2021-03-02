@@ -88,7 +88,11 @@ export default {
         downloadZip()
       })
     }
+    const initPageConfig = async () => {
+      await store.dispatch('editor/initPageConfig')
+    }
     onMounted(async () => {
+      await initPageConfig()
       await getPageData()
       await store.dispatch('editor/clearHistory')
     })

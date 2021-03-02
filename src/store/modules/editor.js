@@ -35,6 +35,23 @@ export default {
     }
   },
   mutations: {
+    initPageConfig (state) {
+      state.canvasSetting = {
+        width: 375,
+        height: 667
+      }
+      state.pageConfig = {
+        id: '',
+        title: '',
+        description: '',
+        keywords: '',
+        cover: ''
+      }
+      state.allItems = []
+      state.copyData = []
+      state.activeItems = []
+      state.historyStack.clear()
+    },
     setAllItems (state, payload) {
       state.allItems = payload
     },
@@ -143,6 +160,9 @@ export default {
     },
     setPageConfig ({ commit }, payload) {
       commit('setPageConfig', payload)
+    },
+    initPageConfig ({ commit }) {
+      commit('initPageConfig')
     }
   }
 }
