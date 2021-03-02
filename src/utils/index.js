@@ -74,3 +74,26 @@ export function transferStyleMode (component, mode = 'pc') {
     return transferStyle(component, 100, 2, 'rem')
   }
 }
+
+/**
+ * @description 原生ajax封装GET请求
+ * @param url {String} 请求地址
+ */
+export function httpGet (url) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url, true)
+    xhr.responseType = 'json'
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(xhr.response)
+      } else {
+        reject(xhr.statusText)
+      }
+    }
+    xhr.onerror = function () {
+      reject(xhr.statusText)
+    }
+    xhr.send()
+  })
+}
