@@ -16,16 +16,19 @@ export default {
     const mode = inject('mode')
     const { handleClick } = useClickedEvents(props.config.events, mode)
     return {
-      handleClick
+      handleClick,
+      mode
     }
   },
   render () {
     return h('video', {
-      src: this.config.src,
       poster: this.config.poster,
       style: transferStyleMode(this.config, this.mode),
-      onClick: this.handleClick
-    })
+      onClick: this.handleClick,
+      controls: this.mode === 'mobile'
+    }, [h('source', {
+      src: this.config.src
+    })])
   }
 }
 </script>
