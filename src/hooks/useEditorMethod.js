@@ -5,6 +5,8 @@ import { ElMessage } from 'element-plus'
 import domToImage from 'dom-to-image'
 import { PageService } from '@/service/pageService'
 import { useRoute, useRouter } from 'vue-router'
+import { generatorUUID } from '@/utils'
+
 export default function useEditorMethod () {
   const { mergeComponent } = useUpdateComponent()
   const store = useStore()
@@ -56,7 +58,7 @@ export default function useEditorMethod () {
       saveLoading.value = false
     } else {
       const result = await pageStore.addPage({
-        id: new Date().getTime().toString(),
+        id: generatorUUID(),
         pageConfig: toRaw(store.state.editor.pageConfig),
         allItems: toRaw(store.state.editor.allItems),
         canvasSetting: toRaw(store.state.editor.canvasSetting)

@@ -1,5 +1,5 @@
 import History from '../../utils/History'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, set } from 'lodash'
 
 export default {
   namespaced: true,
@@ -66,6 +66,14 @@ export default {
     addActiveItem (state, payload) {
       state.activeItems.push(payload)
     },
+    updateItem (state, {
+      id,
+      path,
+      value
+    }) {
+      const activeItems = state.activeItems.find((item) => item.id === id)
+      set(activeItems, path, value)
+    },
     removeActiveItem (state, payload) {
       state.activeItems = state.activeItems.filter((item) => {
         return item.id !== payload.id
@@ -118,6 +126,18 @@ export default {
     removeItem ({ commit }, payload) {
       commit('clearActiveItem')
       commit('removeItem', payload)
+    },
+    updateItem ({ commit }, {
+      id,
+      path,
+      value
+    }) {
+      commit('updateItem', {
+        id,
+        path,
+        value
+      })
+      commit('addHistory')
     },
     addActiveItem ({
       commit,

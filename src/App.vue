@@ -1,18 +1,12 @@
 <template>
-  <router-view :key="key"></router-view>
+  <router-view></router-view>
 </template>
 <script>
-import { useRoute } from 'vue-router'
-import { onBeforeMount, ref, watch } from 'vue'
+import { onBeforeMount } from 'vue'
 import { initJsStore } from '@/service/idbConfig'
 
 export default {
   setup () {
-    const route = useRoute()
-    const key = ref(route.fullPath)
-    watch(route, (val) => {
-      key.value = val.fullPath
-    })
     onBeforeMount(async () => {
       try {
         const isDbCreated = await initJsStore()
@@ -25,9 +19,6 @@ export default {
         console.error(ex)
       }
     })
-    return {
-      key: key
-    }
   }
 }
 </script>

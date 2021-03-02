@@ -12,7 +12,6 @@
           <div class="flex flex-col mt-4">
             <div class="font-bold">{{ item.pageConfig.title || '未命名落地页' }}</div>
             <div class="flex justify-between items-center">
-              <span>{{ new Date().toLocaleDateString() }}</span>
               <el-button type="primary" @click="toEdit(item.id)">编辑</el-button>
               <el-button type="danger" @click="handleDelete(item.id)">刪除</el-button>
             </div>
@@ -28,6 +27,7 @@ import { PageService } from '@/service/pageService'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessageBox } from 'element-plus'
+
 export default {
   name: 'PageList',
   setup () {

@@ -1,6 +1,7 @@
-import Image from '../widgets/Image'
-import Rect from '../widgets/Rect'
-import Text from '../widgets/Text'
+import BlocksImage from '../widgets/Image'
+import BlocksRect from '../widgets/Rect'
+import BlocksText from '../widgets/Text'
+import BlocksVideo from '../widgets/Video'
 
 /**
  * @description 更新组件数据Hook
@@ -11,14 +12,16 @@ export default function useUpdateComponent () {
     let block = null
     switch (params.componentName) {
       case 'blocks-text':
-        block = new Text(params)
+        block = new BlocksText(params)
         break
       case 'blocks-rect':
-        block = new Rect(params)
+        block = new BlocksRect(params)
         break
       case 'blocks-image':
-        block = new Image(params)
+        block = new BlocksImage(params)
         break
+      case 'blocks-video':
+        block = new BlocksVideo(params)
     }
     return block
   }

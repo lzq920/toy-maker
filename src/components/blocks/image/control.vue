@@ -41,9 +41,11 @@ export default {
     const dialog = ref(false)
     const chooseImage = async (val) => {
       dialog.value = false
-      // 此处需要修改，不直接修改props
-      // props.config.src = val
-      await store.dispatch('editor/addHistory')
+      await store.dispatch('editor/updateItem', {
+        id: props.config.id,
+        path: 'src',
+        value: val
+      })
     }
     return {
       dragInfo,

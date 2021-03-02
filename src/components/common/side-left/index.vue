@@ -15,6 +15,7 @@
 
 <script>
 import { reactive, ref } from 'vue'
+
 export default {
   name: 'side-left',
   setup () {
@@ -34,9 +35,17 @@ export default {
         tipText: '矩形框',
         icon: 'el-icon-receiving',
         component: 'blocks-rect-config'
+      },
+      {
+        tipText: '视频',
+        icon: 'el-icon-video-camera-solid',
+        component: 'blocks-video-config'
       }
     ])
-    return { tabPosition, configList }
+    return {
+      tabPosition,
+      configList
+    }
   }
 }
 </script>
