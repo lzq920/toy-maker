@@ -14,7 +14,7 @@
         <el-button type="primary" @click="searchList">搜索</el-button>
       </el-col>
     </el-row>
-    <div class="grid grid-cols-5 gap-1 mt-4 mb-4">
+    <div class="grid grid-cols-5 gap-1 mt-4 mb-4 h-full">
       <div v-for="item in videoList" :key="item.id" class="relative">
         <el-image :hide-on-click-modal="true" :src="`https://i.vimeocdn.com/video/${item.picture_id}_200x150.jpg`"
                   @click="handleClick(item)">

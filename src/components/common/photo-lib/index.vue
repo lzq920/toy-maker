@@ -20,7 +20,7 @@
         <el-button type="primary" @click="searchList">搜索</el-button>
       </el-col>
     </el-row>
-    <div class="grid grid-cols-5 gap-1 mt-4 mb-4">
+    <div class="grid grid-cols-5 gap-1 mt-4 mb-4 h-full">
       <div class="relative" v-for="item in imageList" :key="item.id">
         <el-image :src="item.previewURL" :hide-on-click-modal="true" @click="handleClick(item)">
         </el-image>

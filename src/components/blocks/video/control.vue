@@ -7,7 +7,7 @@
     <p>
       <el-button type="primary" @click="dialog = true">选择视频</el-button>
     </p>
-    <el-dialog :model-value="dialog" center title="图库" @close="dialog = false">
+    <el-dialog :model-value="dialog" center title="视频" @close="dialog = false">
       <video-lib v-if="dialog" @choose="chooseVideo"></video-lib>
     </el-dialog>
   </div>
