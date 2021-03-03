@@ -2,6 +2,10 @@
   <el-container v-loading="pageLoading" class="w-screen h-screen overflow-hidden"
                 element-loading-spinner="el-icon-loading" element-loading-text="加载中">
     <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
+      <el-button type="info" @click="handleUpload">
+        <input ref="psd" type="file" class="hidden" @change="uploadFile" accept=".psd">
+        上传PSD
+      </el-button>
       <el-button :disabled="canUndo" @click="handleUndo">撤销</el-button>
       <el-button :disabled="canRedo" @click="handleRedo">重做</el-button>
       <el-button :loading="saveLoading" type="success" @click="savePageData">保存</el-button>
@@ -42,11 +46,12 @@
 <script>
 import { useStore } from 'vuex'
 import { ElMessageBox } from 'element-plus'
-import { computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import useExportZip from '../hooks/useExportZip'
 import useUndoRedo from '../hooks/useUndoRedo'
 import useGlobalKeyEvent from '@/hooks/useGlobalKeyEvent'
 import useEditorMethod from '@/hooks/useEditorMethod'
+import usePsdParse from '@/hooks/usePsdParse'
 
 export default {
   name: 'PageCreate',
@@ -56,6 +61,7 @@ export default {
       return store.state.editor.allItems
     })
     const { downloadZip } = useExportZip()
+    const { uploadFile } = usePsdParse()
     const {
       getPageData,
       savePageData,
@@ -91,6 +97,10 @@ export default {
     const initPageConfig = async () => {
       await store.dispatch('editor/initPageConfig')
     }
+    const psd = ref('')
+    const handleUpload = () => {
+      psd.value.click()
+    }
     onMounted(async () => {
       await initPageConfig()
       await getPageData()
@@ -108,7 +118,10 @@ export default {
       globalsKeyDown,
       savePageData,
       saveLoading,
-      pageLoading
+      pageLoading,
+      uploadFile,
+      psd,
+      handleUpload
     }
   }
 }

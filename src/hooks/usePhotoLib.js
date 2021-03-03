@@ -1,6 +1,10 @@
 import { reactive, ref } from 'vue'
 import { httpGet } from '@/utils'
 
+/**
+ * @default 图片库Hooks
+ * @returns {{total: Ref<UnwrapRef<number>>, getPhotos: (function(): Promise<void>), params: UnwrapNestedRefs<{q: string, orientation: string, pre_page: number, page: number, key: string, image_type: string}>, loading: Ref<UnwrapRef<boolean>>, imageList: ToRef<*[]>}}
+ */
 export default function usePhotoLib () {
   const params = reactive({
     key: '20485886-dda014e4596844ce09c6cf7f3',
@@ -22,6 +26,10 @@ export default function usePhotoLib () {
   const imageList = ref([])
   const total = ref(0)
   const loading = ref(false)
+  /**
+   * @description 获取图片库列表
+   * @returns {Promise<void>}
+   */
   const getPhotos = async () => {
     try {
       loading.value = true
