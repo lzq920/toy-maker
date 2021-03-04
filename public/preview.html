@@ -13,9 +13,14 @@
     <style>
         html,
         body {
-            font-size: calc(100vw / 7.5);
             padding: 0;
             margin: 0;
+        }
+
+        #app {
+            margin: 0 auto;
+            position: relative;
+            transform: translate(0, 0);
         }
     </style>
 </head>
@@ -25,28 +30,68 @@
     <landing :data="landingList"></landing>
 </div>
 <script crossorigin="anonymous"
-        integrity="sha512-7mjRUL9551cOFF57PSrURwSa9UsUmufUCU9icwUEoUrECcxpa20PakbPplb7b4ZGbCc0StIr9ytHoXH9+v6ygA=="
-        src="//lib.baomitu.com/vue/3.0.5/vue.global.prod.js"></script>
-<script src="./generator/generator.umd.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/jsstore/dist/jsstore.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsstore/dist/jsstore.worker.min.js"></script>
+        integrity="sha512-+i5dAv2T8IUOP7oRl2iqlAErpjtBOkNtREnW/Te+4VgQ52h4tAY5biFFQJmF03jVDWU4R7l47BwV8H6qQ+/MfA=="
+        src="//lib.baomitu.com/vue/3.0.7/vue.global.js"></script>
+<script src="/generator/generator.umd.min.js"></script>
 <script>
-  const app = Vue.createApp({
-    data () {
-      return {
-        landingList: []
+  (function () {
+    function autoRootFontSize () {
+      const u = navigator.userAgent
+      let clientWidth = document.documentElement.clientWidth
+      if (!!!u.match(/AppleWebKit.*Mobile.*/)) {
+        clientWidth = 414
+        document
+          .querySelector('#app')
+          .style
+          .width = '' + clientWidth + 'px'
       }
-    },
-    methods: {
-      getPageData () {
-      }
-    },
-    mounted () {
-      this.getPageData()
+      document.documentElement.style.fontSize = clientWidth / 7.5 + 'px'
     }
-  })
-  app.use(generator)
-  app.mount('#app')
+
+    window.addEventListener('resize', autoRootFontSize)
+    autoRootFontSize()
+  })()
+  window.onload = function () {
+    const queryObject = new URLSearchParams(location.search)
+    const id = queryObject.get('id')
+    let db
+
+    function read (id) {
+      const transaction = db.transaction(['Page'])
+      const objectStore = transaction.objectStore('Page')
+      const request = objectStore.get(id)
+      request.onerror = function (event) {
+        console.log('事务失败')
+      }
+      request.onsuccess = function () {
+        if (request.result) {
+          const app = Vue.createApp({
+            data () {
+              return {
+                landingList: request.result.allItems
+              }
+            }
+          })
+          app.use(generator)
+          app.mount('#app')
+        } else {
+          console.log('未获得数据记录')
+        }
+      }
+    }
+
+    if (id) {
+      const request = window.indexedDB.open('toy-maker-db', 1)
+      request.onerror = function () {
+        console.log('数据库打开报错')
+      }
+      request.onsuccess = function (event) {
+        db = event.target.result
+        console.log('数据库打开成功')
+        read(id)
+      }
+    }
+  }
 </script>
 </body>
 

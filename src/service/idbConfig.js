@@ -24,7 +24,7 @@ const getDatabase = () => {
     }
   }
   return {
-    name: 'toy-marker-db',
+    name: 'toy-maker-db',
     tables: [tblPage]
   }
 }
