@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{description}}">
-    <meta name="keywords" content="{{keywords}}">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-    <title>{{title}}</title>
+    <title>预览</title>
     <style>
         html,
         body {
@@ -21,24 +21,33 @@
 </head>
 
 <body>
-    <div id="app">
-        <landing :data="landingList"></landing>
-    </div>
-    <script crossorigin="anonymous"
+<div id="app">
+    <landing :data="landingList"></landing>
+</div>
+<script crossorigin="anonymous"
         integrity="sha512-7mjRUL9551cOFF57PSrURwSa9UsUmufUCU9icwUEoUrECcxpa20PakbPplb7b4ZGbCc0StIr9ytHoXH9+v6ygA=="
         src="//lib.baomitu.com/vue/3.0.5/vue.global.prod.js"></script>
-    <script src="./generator.umd.min.js"></script>
-    <script>
-        const app = Vue.createApp({
-            data() {
-                return {
-                    landingList: {{landingData|dump|safe}}
-                }
-            },
-        });
-        app.use(generator);
-        app.mount("#app");
-    </script>
+<script src="./generator/generator.umd.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jsstore/dist/jsstore.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsstore/dist/jsstore.worker.min.js"></script>
+<script>
+  const app = Vue.createApp({
+    data () {
+      return {
+        landingList: []
+      }
+    },
+    methods: {
+      getPageData () {
+      }
+    },
+    mounted () {
+      this.getPageData()
+    }
+  })
+  app.use(generator)
+  app.mount('#app')
+</script>
 </body>
 
 </html>
