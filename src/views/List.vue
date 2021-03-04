@@ -13,6 +13,7 @@
             <div class="font-bold">{{ item.pageConfig.title || '未命名落地页' }}</div>
             <div class="flex justify-between items-center">
               <el-button type="primary" @click="toEdit(item.id)">编辑</el-button>
+              <el-button type="info" @click="toPreview(item.id)">预览</el-button>
               <el-button type="danger" @click="handleDelete(item.id)">刪除</el-button>
             </div>
           </div>
@@ -51,6 +52,9 @@ export default {
         name: 'Create'
       })
     }
+    const toPreview = (id) => {
+      window.open(`${location.origin}/preview.html?id=${id}`)
+    }
     const handleDelete = async (id) => {
       ElMessageBox.confirm('正在删除该落地页，是否继续？', '提示', {
         confirmButtonText: '确定',
@@ -70,6 +74,7 @@ export default {
       loading,
       toEdit,
       toCreate,
+      toPreview,
       handleDelete
     }
   }
