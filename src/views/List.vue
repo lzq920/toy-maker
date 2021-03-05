@@ -27,7 +27,7 @@
 import { PageService } from '@/service/pageService'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessageBox } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 export default {
   name: 'PageList',
@@ -37,9 +37,14 @@ export default {
     const router = useRouter()
     const loading = ref(false)
     const getPageList = async () => {
-      loading.value = true
-      pageList.value = await pageStore.getPages()
-      loading.value = false
+      try {
+        loading.value = true
+        pageList.value = await pageStore.getPages()
+        loading.value = false
+      } catch (error) {
+        ElMessage.error(error.message)
+        loading.value = false
+      }
     }
     const toEdit = (id) => {
       router.push({
@@ -62,7 +67,11 @@ export default {
         type: 'warning',
         center: true
       }).then(async () => {
-        await pageStore.removePage(id)
+        try {
+          await pageStore.removePage(id)
+        } catch (error) {
+          ElMessage.error(error.message)
+        }
         await getPageList()
       })
     }

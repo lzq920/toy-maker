@@ -27,7 +27,7 @@ export default function useEditorMethod () {
     pageLoading.value = true
     if (pageId.value) {
       const result = await pageStore.getPageById(pageId.value)
-      if (result.length) {
+      if (result.length > 0) {
         const {
           allItems,
           pageConfig,
@@ -48,29 +48,39 @@ export default function useEditorMethod () {
     saveLoading.value = true
     store.state.editor.pageConfig.cover = await screenshot(document.querySelector('.editor-area'))
     if (pageId.value) {
-      await pageStore.updatePageById({
-        id: pageId.value,
-        pageConfig: toRaw(store.state.editor.pageConfig),
-        allItems: toRaw(store.state.editor.allItems),
-        canvasSetting: toRaw(store.state.editor.canvasSetting)
-      })
-      ElMessage.success('保存成功')
-      saveLoading.value = false
+      try {
+        await pageStore.updatePageById({
+          id: pageId.value,
+          pageConfig: toRaw(store.state.editor.pageConfig),
+          allItems: toRaw(store.state.editor.allItems),
+          canvasSetting: toRaw(store.state.editor.canvasSetting)
+        })
+        ElMessage.success('保存成功')
+        saveLoading.value = false
+      } catch (error) {
+        ElMessage.error(error.message)
+        saveLoading.value = false
+      }
     } else {
-      const result = await pageStore.addPage({
-        id: generatorUUID(),
-        pageConfig: toRaw(store.state.editor.pageConfig),
-        allItems: toRaw(store.state.editor.allItems),
-        canvasSetting: toRaw(store.state.editor.canvasSetting)
-      })
-      ElMessage.success('新增成功')
-      saveLoading.value = false
-      await router.replace({
-        name: 'Edit',
-        params: {
-          id: result[0].id
-        }
-      })
+      try {
+        const result = await pageStore.addPage({
+          id: generatorUUID(),
+          pageConfig: toRaw(store.state.editor.pageConfig),
+          allItems: toRaw(store.state.editor.allItems),
+          canvasSetting: toRaw(store.state.editor.canvasSetting)
+        })
+        ElMessage.success('新增成功')
+        saveLoading.value = false
+        await router.replace({
+          name: 'Edit',
+          params: {
+            id: result[0].id
+          }
+        })
+      } catch (error) {
+        ElMessage.error(error.message)
+        saveLoading.value = false
+      }
     }
   }
   return {
