@@ -1,12 +1,6 @@
 <template>
   <div>
-    <p>w: <input v-model.number.lazy="dragInfo.width" type="text" @change="addHistory"/></p>
-    <p>h: <input v-model.number.lazy="dragInfo.height" type="text" @change="addHistory"/></p>
-    <p>x: <input v-model.number.lazy="dragInfo.left" type="text" @change="addHistory"/></p>
-    <p>y: <input v-model.number.lazy="dragInfo.top" type="text" @change="addHistory"/></p>
-    <p>
-      <el-button type="primary" @click="dialog = true">选择视频</el-button>
-    </p>
+    <el-button type="primary" @click="dialog = true">选择视频</el-button>
     <el-dialog :model-value="dialog" center title="视频" @close="dialog = false">
       <video-lib v-if="dialog" @choose="chooseVideo"></video-lib>
     </el-dialog>

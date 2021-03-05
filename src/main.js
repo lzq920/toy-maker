@@ -9,7 +9,7 @@ import 'element-plus/lib/theme-chalk/index.css'
 import Vue3DraggableResizable from '@lzq920/vue3-draggable-resizable'
 // 需引入默认样式
 import '@lzq920/vue3-draggable-resizable/dist/Vue3DraggableResizable.css'
-import './assets/tailwind.css'
+
 const app = createApp(App)
 app.use(store)
 app.use(router)

@@ -1,14 +1,16 @@
 <template>
   <div class="relative h-full">
-    <div v-if="vdrList.length === 1">
-      <component
-        v-for="item in vdrList"
-        :key="item.id"
-        :is="`${item.componentName}-control`"
-        :config="item"
-      ></component>
-    </div>
-    <div v-if="vdrList.length > 1">多个组件操作</div>
+    <el-scrollbar>
+      <template v-if="vdrList.length === 1">
+        <component
+          :is="`${item.componentName}-control`"
+          v-for="item in vdrList"
+          :key="item.id"
+          :config="item"
+        ></component>
+      </template>
+      <template v-if="vdrList.length > 1">多个组件操作</template>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -16,6 +18,7 @@
 import config from '../../blocks/image/config.vue'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
+
 export default {
   components: { config },
   name: 'side-right',

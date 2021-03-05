@@ -1,15 +1,13 @@
 <template>
   <div>
-    <p>w: <input type="text" v-model.number.lazy="dragInfo.width" @change="addHistory"/></p>
-    <p>h: <input type="text" v-model.number.lazy="dragInfo.height" @change="addHistory"/></p>
-    <p>x: <input type="text" v-model.number.lazy="dragInfo.left" @change="addHistory"/></p>
-    <p>y: <input type="text" v-model.number.lazy="dragInfo.top" @change="addHistory"/></p>
+
   </div>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+
 export default {
   name: 'blocks-rect-control',
   props: {
