@@ -17,7 +17,13 @@
             padding: 0;
             margin: 0;
         }
+        #app{
+            position: relative;
+            width: 100%;
+            min-height: 100%;
+        }
     </style>
+    <link rel="stylesheet" href="./generator/generator.css">
 </head>
 
 <body>
@@ -25,8 +31,8 @@
         <landing :data="landingList"></landing>
     </div>
     <script crossorigin="anonymous"
-        integrity="sha512-7mjRUL9551cOFF57PSrURwSa9UsUmufUCU9icwUEoUrECcxpa20PakbPplb7b4ZGbCc0StIr9ytHoXH9+v6ygA=="
-        src="//lib.baomitu.com/vue/3.0.5/vue.global.prod.js"></script>
+            integrity="sha512-+i5dAv2T8IUOP7oRl2iqlAErpjtBOkNtREnW/Te+4VgQ52h4tAY5biFFQJmF03jVDWU4R7l47BwV8H6qQ+/MfA=="
+            src="//lib.baomitu.com/vue/3.0.7/vue.global.js"></script>
     <script src="./generator.umd.min.js"></script>
     <script>
         const app = Vue.createApp({

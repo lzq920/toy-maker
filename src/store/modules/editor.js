@@ -1,5 +1,5 @@
 import History from '../../utils/History'
-import { cloneDeep, set } from 'lodash'
+import { cloneDeep, findIndex, last, set } from 'lodash'
 
 export default {
   namespaced: true,
@@ -113,6 +113,21 @@ export default {
     },
     ctrlKeyDown (state, payload) {
       state.globalsKeyEvent.ctrlKey = payload
+    },
+    moveNext (state) {
+      const moveItem = last(state.activeItems)
+      const index = findIndex(state.allItems, (item) => item.id === moveItem.id)
+      const maxIndex = state.allItems.length - 1
+      if (index < maxIndex) {
+        [state.allItems[index], state.allItems[index + 1]] = [state.allItems[index + 1], state.allItems[index]]
+      }
+    },
+    movePrev (state) {
+      const moveItem = last(state.activeItems)
+      const index = findIndex(state.allItems, (item) => item.id === moveItem.id)
+      if (index > 0) {
+        [state.allItems[index], state.allItems[index - 1]] = [state.allItems[index - 1], state.allItems[index]]
+      }
     }
   },
   actions: {
@@ -183,6 +198,12 @@ export default {
     },
     initPageConfig ({ commit }) {
       commit('initPageConfig')
+    },
+    moveNext ({ commit }) {
+      commit('moveNext')
+    },
+    movePrev ({ commit }) {
+      commit('movePrev')
     }
   }
 }

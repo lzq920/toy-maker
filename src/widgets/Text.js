@@ -9,6 +9,7 @@ export default class BlocksText extends Blocks {
     config = mergeWith(
       {
         componentName: 'blocks-text',
+        description: '文本组件',
         rect: {
           height: 50,
           width: 375,
@@ -22,6 +23,7 @@ export default class BlocksText extends Blocks {
           fontSize: 12
         },
         innerText: '文本组件',
+        animations: [],
         events: [{
           key: 'alert',
           name: '系统弹窗',

@@ -9,6 +9,7 @@ export default class BlocksImage extends Blocks {
     config = mergeWith(
       {
         componentName: 'blocks-image',
+        description: '图片组件',
         rect: {
           height: 200,
           width: 375,
@@ -21,6 +22,7 @@ export default class BlocksImage extends Blocks {
           overflow: 'hidden'
         },
         events: [],
+        animations: [],
         src: ''
       },
       config,

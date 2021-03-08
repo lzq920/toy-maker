@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="landing">
     <div
       v-for="item in list"
       :key="item.id"
@@ -16,6 +16,7 @@
 
 <script>
 import { reactive } from 'vue'
+
 export default {
   name: 'landing',
   props: {
@@ -53,4 +54,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.landing {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+</style>

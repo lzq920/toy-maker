@@ -9,6 +9,7 @@ export default class BlocksRect extends Blocks {
     config = mergeWith(
       {
         componentName: 'blocks-rect',
+        description: '矩形框组件',
         rect: {
           height: 50,
           width: 375,
@@ -19,6 +20,7 @@ export default class BlocksRect extends Blocks {
           width: '100%',
           height: '100%'
         },
+        animations: [],
         events: []
       },
       config,

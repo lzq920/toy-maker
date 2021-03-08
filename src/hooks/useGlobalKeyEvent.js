@@ -3,10 +3,14 @@ import { onBeforeUnmount, onMounted } from 'vue'
 import useUpdateComponent from '@/hooks/useUpdateComponent'
 import { useStore } from 'vuex'
 import { generatorUUID } from '@/utils'
+import useEditorMethod from '@/hooks/useEditorMethod'
+import { useRoute } from 'vue-router'
 
 export default function useGlobalKeyEvent () {
   const { mergeComponent } = useUpdateComponent()
+  const { savePageData } = useEditorMethod()
   const store = useStore()
+  const route = useRoute()
   /**
    * @description 监听 Ctrl 按下
    * @param e 事件对象
@@ -60,6 +64,29 @@ export default function useGlobalKeyEvent () {
       } else {
         console.log('没有要粘贴的组件')
       }
+    }
+    if (e.ctrlKey && e.code === 'KeyS') {
+      console.log('Ctrl+S')
+      e.preventDefault()
+      await savePageData()
+    }
+    if (e.ctrlKey && e.code === 'KeyP') {
+      console.log('Ctrl+P')
+      e.preventDefault()
+      const pageId = route.params.id
+      if (pageId) {
+        window.open(`${location.origin}/preview.html?id=${pageId}`)
+      }
+    }
+    if (e.altKey && e.code === 'ArrowDown') {
+      console.log('Alt+ArrowDown')
+      e.preventDefault()
+      await store.dispatch('editor/moveNext')
+    }
+    if (e.altKey && e.code === 'ArrowUp') {
+      console.log('Alt+ArrowUp')
+      e.preventDefault()
+      await store.dispatch('editor/movePrev')
     }
   }
   const globalsKeyUp = async () => {

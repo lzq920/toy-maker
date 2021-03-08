@@ -10,6 +10,7 @@ export default class BlocksVideo extends Blocks {
     config = mergeWith(
       {
         componentName: 'blocks-video',
+        description: '视频组件',
         rect: {
           height: 200,
           width: 375,
@@ -22,6 +23,7 @@ export default class BlocksVideo extends Blocks {
           overflow: 'hidden'
         },
         events: [],
+        animations: [],
         src: '',
         poster: ''
       },
