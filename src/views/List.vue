@@ -14,6 +14,7 @@
             <div class="flex justify-between items-center">
               <el-button type="primary" @click="toEdit(item.id)">编辑</el-button>
               <el-button type="info" @click="toPreview(item.id)">预览</el-button>
+              <el-button type="warning" @click="toCopy(item)">复制</el-button>
               <el-button type="danger" @click="handleDelete(item.id)">刪除</el-button>
             </div>
           </div>
@@ -28,7 +29,8 @@ import { PageService } from '@/service/pageService'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-
+import { cloneDeep } from 'lodash'
+import { generatorUUID } from '../utils'
 export default {
   name: 'PageList',
   setup () {
@@ -60,6 +62,16 @@ export default {
     const toPreview = (id) => {
       window.open(`${location.origin}/preview.html?id=${id}`)
     }
+    const toCopy = async (item) => {
+      try {
+        const newPage = cloneDeep(item)
+        newPage.id = generatorUUID()
+        await pageStore.addPage(newPage)
+        await getPageList()
+      } catch (error) {
+        ElMessage.error(error.message)
+      }
+    }
     const handleDelete = async (id) => {
       ElMessageBox.confirm('正在删除该落地页，是否继续？', '提示', {
         confirmButtonText: '确定',
@@ -84,7 +96,8 @@ export default {
       toEdit,
       toCreate,
       toPreview,
-      handleDelete
+      handleDelete,
+      toCopy
     }
   }
 }
