@@ -34,6 +34,7 @@ export default {
       return state.historyStack.canRedo
     }
   },
+  watch: {},
   mutations: {
     initPageConfig (state) {
       state.canvasSetting = {
@@ -59,9 +60,8 @@ export default {
       state.allItems.push(payload)
     },
     removeItem (state, payload) {
-      state.allItems = state.allItems.filter((item) => {
-        return item.id !== payload.id
-      })
+      const index = findIndex(state.allItems, (item) => item.id === payload.id)
+      state.allItems.splice(index, 1)
     },
     addActiveItem (state, payload) {
       state.activeItems.push(payload)

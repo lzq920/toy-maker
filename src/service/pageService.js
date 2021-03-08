@@ -1,5 +1,5 @@
 import { connection } from './jsStoreConnection'
-import { cloneDeep } from 'lodash'
+
 export class PageService {
   constructor () {
     this.tableName = 'Page'
@@ -41,9 +41,9 @@ export class PageService {
     return connection.update({
       in: this.tableName,
       set: {
-        pageConfig: cloneDeep(page.pageConfig),
-        allItems: cloneDeep(page.allItems),
-        canvasSetting: cloneDeep(page.canvasSetting)
+        pageConfig: page.pageConfig,
+        allItems: page.allItems,
+        canvasSetting: page.canvasSetting
       },
       where: {
         id: page.id

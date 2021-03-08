@@ -9,7 +9,7 @@
     v-model:active="isActive"
     :draggable="true"
     :resizable="true"
-    :parent="true"
+    :parent="false"
     :prevent-deactivated="true"
     @activated="activated"
     @deactivated="deactivated"
