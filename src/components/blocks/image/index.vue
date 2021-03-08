@@ -14,13 +14,14 @@ export default {
   inject: ['mode'],
   setup (props) {
     const mode = inject('mode')
-    const { handleClick } = useClickedEvents(props.config.events, mode)
+    const { handleClick } = useClickedEvents(props.config, mode)
     return {
       handleClick
     }
   },
   render () {
     return h('img', {
+      id: this.config.id,
       src: this.config.src,
       style: transferStyleMode(this.config, this.mode),
       onClick: this.handleClick

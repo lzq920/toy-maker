@@ -14,7 +14,8 @@ export default {
   inject: ['mode'],
   setup (props) {
     const mode = inject('mode')
-    const { handleClick } = useClickedEvents(props.config.events, mode)
+    const { handleClick } = useClickedEvents(props.config, mode)
+
     return {
       handleClick,
       mode
@@ -22,6 +23,7 @@ export default {
   },
   render () {
     return h('video', {
+      id: this.config.id,
       poster: this.config.poster,
       style: transferStyleMode(this.config, this.mode),
       onClick: this.handleClick,

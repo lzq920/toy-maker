@@ -1,14 +1,22 @@
 <template>
-  <div>
-    <el-button type="primary" @click="dialog = true">选择图片</el-button>
-    <el-dialog :model-value="dialog" title="图库" center @close="dialog = false">
-      <photo-lib v-if="dialog" @choose="chooseImage"></photo-lib>
-    </el-dialog>
-  </div>
+  <el-tabs v-model="activeName" class="pl-2 pr-2">
+    <el-tab-pane label="属性" name="attrs">
+      <el-button type="primary" @click="dialog = true">选择图片</el-button>
+      <el-dialog :model-value="dialog" title="图库" center @close="dialog = false">
+        <photo-lib v-if="dialog" @choose="chooseImage"></photo-lib>
+      </el-dialog>
+    </el-tab-pane>
+    <el-tab-pane label="事件" name="events">
+      <event-setting :config="config"></event-setting>
+    </el-tab-pane>
+    <el-tab-pane label="动画" name="animations">
+      <animation-setting :config="config"></animation-setting>
+    </el-tab-pane>
+  </el-tabs>
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
@@ -21,14 +29,7 @@ export default {
   },
   setup (props) {
     const store = useStore()
-    const dragInfo = computed({
-      get: () => {
-        return props.config.rect
-      },
-      set: () => {
-
-      }
-    })
+    const activeName = ref('attrs')
     const addHistory = async () => {
       await store.dispatch('editor/addHistory')
     }
@@ -42,7 +43,7 @@ export default {
       })
     }
     return {
-      dragInfo,
+      activeName,
       addHistory,
       dialog,
       chooseImage

@@ -2,6 +2,7 @@
   <el-container v-loading="pageLoading" class="w-screen h-screen overflow-hidden"
                 element-loading-spinner="el-icon-loading" element-loading-text="加载中">
     <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
+      <el-button type="danger" @click="clearCanvas">清空画布</el-button>
       <el-button type="info" @click="handleUpload">
         <input ref="psd" type="file" class="hidden" @change="uploadFile" accept=".psd">
         上传PSD
@@ -101,6 +102,10 @@ export default {
     const handleUpload = () => {
       psd.value.click()
     }
+    const clearCanvas = async () => {
+      await store.dispatch('editor/clearActiveItem')
+      await store.dispatch('editor/setAllItems', [])
+    }
     onMounted(async () => {
       await initPageConfig()
       await getPageData()
@@ -121,7 +126,8 @@ export default {
       pageLoading,
       uploadFile,
       psd,
-      handleUpload
+      handleUpload,
+      clearCanvas
     }
   }
 }

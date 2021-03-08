@@ -1,55 +1,52 @@
-import { reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
+import { runAnimation } from '@/utils'
 
 /**
  * @description 定义组件点击Hooks
- * @param params
- * @param mode
- * @returns {{eventsList: UnwrapNestedRefs<({name: string, event: UnwrapRef<function(*=): void>, key: string, url: string}|{name: string, event: UnwrapRef<function(*=): void>, message: string, key: string})[]>, handleClick: handleClick}}
+ * @param config 组件配置
+ * @param mode 运行环境
+ * @returns {{handleClick: (function(): undefined)}}
  */
-export default function useClickedEvents (params, mode) {
-  const events = reactive({
-    redirect (url) {
-      if (url) {
-        location.href = url
+export default function useClickedEvents (config, mode) {
+  const eventList = config.events
+  const eventUtils = reactive({
+    redirect (str) {
+      if (str) {
+        location.href = str
       }
     },
-    alert (message) {
-      if (message) {
-        alert(message)
+    alert (str) {
+      if (str) {
+        alert(str)
       }
     }
   })
-  const eventsList = reactive([
-    {
-      key: 'redirect',
-      name: '页面跳转',
-      url: ''
-    },
-    {
-      key: 'alert',
-      name: '系统弹窗',
-      message: ''
-    }
-  ])
   const handleClick = () => {
     if (mode === 'pc') {
       return
     }
-    if (params instanceof Array) {
-      Object.keys(params).forEach((event) => {
-        switch (params[event].key) {
+    if (eventList instanceof Array) {
+      Object.keys(eventList).forEach((event) => {
+        switch (eventList[event].key) {
           case 'alert':
-            events.alert(params[event].message)
+            eventUtils.alert(eventList[event].params)
             break
           case 'redirect':
-            events.redirect(params[event].url)
+            eventUtils.redirect(eventList[event].params)
             break
         }
       })
     }
   }
+  const playAnimations = async () => {
+    if (mode !== 'pc') {
+      await runAnimation(document.querySelector(`#${config.id}`), config.animations)
+    }
+  }
+  onMounted(async () => {
+    await playAnimations()
+  })
   return {
-    eventsList,
     handleClick
   }
 }

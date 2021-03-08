@@ -97,3 +97,28 @@ export function httpGet (url) {
     xhr.send()
   })
 }
+
+/**
+ * @description 动画预览播放
+ * @param $el dom元素
+ * @param animations 动画列表
+ * @returns {Promise<void>}
+ */
+export async function runAnimation ($el, animations = []) {
+  const play = (animation) => new Promise(resolve => {
+    $el.classList.add(animation, 'animated')
+    const removeAnimation = () => {
+      $el.removeEventListener('animationend', removeAnimation)
+      $el.removeEventListener('animationcancel', removeAnimation)
+      $el.classList.remove(animation, 'animated')
+      resolve()
+    }
+
+    $el.addEventListener('animationend', removeAnimation)
+    $el.addEventListener('animationcancel', removeAnimation)
+  })
+
+  for (let i = 0, len = animations.length; i < len; i++) {
+    await play(animations[i])
+  }
+}

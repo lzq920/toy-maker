@@ -27,7 +27,7 @@ export default class BlocksText extends Blocks {
         events: [{
           key: 'alert',
           name: '系统弹窗',
-          message: 'fuck'
+          params: 'fuck'
         }]
       },
       config,
