@@ -45,6 +45,9 @@ export default {
     const events = ref([])
     const eventOptions = reactive(event)
     const handleCommand = async (params) => {
+      if (events.value.some(item => item.key === params.key)) {
+        return
+      }
       events.value.push(params)
       await store.dispatch('editor/updateItem', {
         id: props.config.id,

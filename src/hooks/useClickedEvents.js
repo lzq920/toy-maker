@@ -11,31 +11,30 @@ export default function useClickedEvents (config, mode) {
   const eventList = config.events
   const eventUtils = reactive({
     redirect (str) {
-      if (str) {
-        location.href = str
-      }
+      return new Promise((resolve, reject) => {
+        if (str) {
+          location.href = str
+          resolve()
+        }
+      })
     },
     alert (str) {
-      if (str) {
-        alert(str)
-      }
+      return new Promise((resolve, reject) => {
+        if (str) {
+          alert(str)
+        }
+      })
     }
   })
-  const handleClick = () => {
+  const handleClick = async () => {
     if (mode === 'pc') {
       return
     }
     if (eventList instanceof Array) {
-      Object.keys(eventList).forEach((event) => {
-        switch (eventList[event].key) {
-          case 'alert':
-            eventUtils.alert(eventList[event].params)
-            break
-          case 'redirect':
-            eventUtils.redirect(eventList[event].params)
-            break
-        }
-      })
+      for (let i = 0; i <= eventList.length; i++) {
+        const element = eventList[i]
+        await eventUtils[element.key](element.params)
+      }
     }
   }
   const playAnimations = async () => {
