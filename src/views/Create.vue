@@ -42,8 +42,8 @@
         <side-right></side-right>
       </el-aside>
     </el-container>
-    <el-dialog v-model="dialog" :center="true" title="页面配置" width="30%">
-      <el-tabs tab-position="left" style="height:400px">
+    <el-dialog v-model="dialog" :center="true" title="页面配置">
+      <el-tabs v-model="tabActive" style="height:400px" tab-position="left">
         <el-tab-pane name="pageConfig" label="页面">
           <el-form v-model="pageConfig" label-width="80px">
             <el-form-item label="标题">
@@ -59,7 +59,7 @@
           </el-form>
         </el-tab-pane>
         <el-tab-pane name="dataSource" label="数据源">
-          <monaco-editor></monaco-editor>
+          <monaco-editor style="width:100%"></monaco-editor>
         </el-tab-pane>
       </el-tabs>
       <template #footer>
@@ -135,6 +135,7 @@ export default {
     const handleUpload = () => {
       psd.value.click()
     }
+    const tabActive = ref('pageConfig')
     const clearCanvas = async () => {
       await store.dispatch('editor/clearActiveItem')
       await store.dispatch('editor/setAllItems', [])
@@ -164,7 +165,8 @@ export default {
       pageConfig,
       openDialog,
       dialog,
-      setPageConfig
+      setPageConfig,
+      tabActive
     }
   }
 }

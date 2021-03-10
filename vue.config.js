@@ -5,8 +5,6 @@ module.exports = {
     output: {
       libraryExport: 'default'
     },
-    plugins: [new MonacoWebpackPlugin({
-      languages: ['javascript']
-    })]
+    plugins: [new MonacoWebpackPlugin()]
   }
 }
