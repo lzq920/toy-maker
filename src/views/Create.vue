@@ -2,6 +2,7 @@
   <el-container v-loading="pageLoading" class="w-screen h-screen overflow-hidden"
                 element-loading-spinner="el-icon-loading" element-loading-text="加载中">
     <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
+      <el-button @click="openDialog(true)">页面配置</el-button>
       <el-button type="danger" @click="clearCanvas">清空画布</el-button>
       <el-button type="info" @click="handleUpload">
         <input ref="psd" type="file" class="hidden" @change="uploadFile" accept=".psd">
@@ -41,18 +42,36 @@
         <side-right></side-right>
       </el-aside>
     </el-container>
+    <el-dialog v-model="dialog" :center="true" title="页面配置" width="30%">
+      <el-form v-model="pageConfig" label-width="80px">
+        <el-form-item label="标题">
+          <el-input v-model="pageConfig.title" placeholder="请输入页面标题" maxlength="20" show-word-limit></el-input>
+        </el-form-item>
+        <el-form-item label="描述">
+          <el-input v-model="pageConfig.description" placeholder="请输入页面描述" maxlength="50" show-word-limit></el-input>
+        </el-form-item>
+        <el-form-item label="关键词">
+          <el-input v-model="pageConfig.keywords" placeholder="请输入页面关键词" maxlength="50" show-word-limit></el-input>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="openDialog(false)">取消</el-button>
+        <el-button type="primary" @click="setPageConfig">确定</el-button>
+      </template>
+    </el-dialog>
   </el-container>
 </template>
 
 <script>
 import { useStore } from 'vuex'
 import { ElMessageBox } from 'element-plus'
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import useExportZip from '../hooks/useExportZip'
 import useUndoRedo from '../hooks/useUndoRedo'
 import useGlobalKeyEvent from '@/hooks/useGlobalKeyEvent'
 import useEditorMethod from '@/hooks/useEditorMethod'
 import usePsdParse from '@/hooks/usePsdParse'
+import usePageConfig from '@/hooks/usePageConfig'
 
 export default {
   name: 'PageCreate',
@@ -76,6 +95,12 @@ export default {
       handleUndo
     } = useUndoRedo()
     const { globalsKeyDown } = useGlobalKeyEvent()
+    const {
+      pageConfig,
+      openDialog,
+      dialog,
+      setPageConfig
+    } = usePageConfig()
     const activeItemIds = computed(() => {
       return store.getters['editor/activeItemIds']
     })
@@ -98,7 +123,7 @@ export default {
     const initPageConfig = async () => {
       await store.dispatch('editor/initPageConfig')
     }
-    const psd = ref('')
+    const psd = ref('psd')
     const handleUpload = () => {
       psd.value.click()
     }
@@ -127,7 +152,11 @@ export default {
       uploadFile,
       psd,
       handleUpload,
-      clearCanvas
+      clearCanvas,
+      pageConfig,
+      openDialog,
+      dialog,
+      setPageConfig
     }
   }
 }

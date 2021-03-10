@@ -109,7 +109,7 @@ export default {
       state.canvasSetting = payload
     },
     setPageConfig (state, payload) {
-      state.pageConfig = payload
+      state.pageConfig = Object.assign(state.pageConfig, payload)
     },
     ctrlKeyDown (state, payload) {
       state.globalsKeyEvent.ctrlKey = payload

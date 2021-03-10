@@ -52,9 +52,11 @@ export default function useExportZip () {
       const generatorJavascript = await loadFile('generator/generator.umd.min.js')
       const generatorCss = await loadFile('generator/generator.css')
       const faviconIco = await loadFile('favicon.ico')
+      const animateCss = await loadFile('style/animate.css')
       zipFile.file('generator.umd.min.js', generatorJavascript)
       zipFile.file('favicon.ico', faviconIco)
       zipFile.file('generator.css', generatorCss)
+      zipFile.file('animate.css', animateCss)
       const zipFileBlob = await zipFile.generateAsync({ type: 'blob' })
       FileSaver.saveAs(zipFileBlob, `${store.state.editor.pageConfig.title}.zip`)
     } catch (error) {

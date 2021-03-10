@@ -46,7 +46,8 @@ export default function useEditorMethod () {
   const savePageData = async () => {
     await store.dispatch('editor/clearActiveItem')
     saveLoading.value = true
-    store.state.editor.pageConfig.cover = await screenshot(document.querySelector('.editor-area'))
+    const cover = await screenshot(document.querySelector('.editor-area'))
+    await store.dispatch('editor/setPageConfig', { cover: cover })
     if (pageId.value) {
       try {
         await pageStore.updatePageById({
