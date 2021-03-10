@@ -2,6 +2,8 @@
 import { transferStyleMode } from '../../../utils/index'
 import { h, inject } from 'vue'
 import useClickedEvents from '@/hooks/useClickedEvents'
+import useDataSource from '@/hooks/useDataSource'
+
 export default {
   name: 'blocks-rect',
   props: {
@@ -10,12 +12,16 @@ export default {
       required: true
     }
   },
-  inject: ['mode'],
   setup (props) {
     const mode = inject('mode')
+    const dataSource = inject('dataSource')
     const { handleClick } = useClickedEvents(props.config, mode)
+    const { isExpression, getExpression } = useDataSource(dataSource)
     return {
-      handleClick
+      dataSource,
+      handleClick,
+      isExpression,
+      getExpression
     }
   },
   render () {

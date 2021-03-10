@@ -28,8 +28,9 @@
   </Vue3DraggableResizable>
 </template>
 <script>
-import { computed } from 'vue'
+import { computed, provide, reactive, watch } from 'vue'
 import useDraggableResizable from '../../../hooks/useDraggableResizable'
+import { useStore } from 'vuex'
 
 export default {
   name: 'widget-container',
@@ -39,10 +40,18 @@ export default {
       required: true
     }
   },
-  provide: {
-    mode: 'pc'
-  },
   setup (props) {
+    const store = useStore()
+    const mode = 'pc'
+    const dataSourceConfig = computed(() => {
+      return store.state.editor.dataSource
+    })
+    let dataSource = reactive({})
+    watch(dataSourceConfig, (val) => {
+      dataSource = val
+    })
+    provide('mode', mode)
+    provide('dataSource', dataSource)
     const {
       activated,
       deactivated,

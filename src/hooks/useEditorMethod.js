@@ -31,7 +31,8 @@ export default function useEditorMethod () {
         const {
           allItems,
           pageConfig,
-          canvasSetting
+          canvasSetting,
+          dataSource
         } = result[0]
         const items = allItems.map(item => {
           return mergeComponent(item)
@@ -39,6 +40,7 @@ export default function useEditorMethod () {
         await store.dispatch('editor/setPageConfig', pageConfig)
         await store.dispatch('editor/setCanvas', canvasSetting)
         await store.dispatch('editor/setAllItems', items)
+        await store.dispatch('editor/setDataSource', dataSource)
       }
     }
     pageLoading.value = false
@@ -54,7 +56,8 @@ export default function useEditorMethod () {
           id: pageId.value,
           pageConfig: toRaw(store.state.editor.pageConfig),
           allItems: toRaw(store.state.editor.allItems),
-          canvasSetting: toRaw(store.state.editor.canvasSetting)
+          canvasSetting: toRaw(store.state.editor.canvasSetting),
+          dataSource: toRaw(store.state.editor.dataSource)
         })
         ElMessage.success('保存成功')
         saveLoading.value = false
@@ -68,7 +71,8 @@ export default function useEditorMethod () {
           id: generatorUUID(),
           pageConfig: toRaw(store.state.editor.pageConfig),
           allItems: toRaw(store.state.editor.allItems),
-          canvasSetting: toRaw(store.state.editor.canvasSetting)
+          canvasSetting: toRaw(store.state.editor.canvasSetting),
+          dataSource: toRaw(store.state.editor.dataSource)
         })
         ElMessage.success('新增成功')
         saveLoading.value = false

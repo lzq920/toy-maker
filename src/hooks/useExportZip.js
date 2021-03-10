@@ -43,7 +43,8 @@ export default function useExportZip () {
       title: store.state.editor.pageConfig.title,
       description: store.state.editor.pageConfig.description,
       keywords: store.state.editor.pageConfig.keywords,
-      landingData: store.state.editor.allItems
+      landingData: store.state.editor.allItems,
+      dataSource: store.state.editor.dataSource
     }
     try {
       const renderPage = await nunjucks.render('template.njk', pageConfig)

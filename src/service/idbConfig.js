@@ -20,6 +20,10 @@ const getDatabase = () => {
       canvasSetting: {
         notNull: true,
         dataType: DATA_TYPE.Object
+      },
+      dataSource: {
+        notNull: true,
+        dataType: DATA_TYPE.Object
       }
     }
   }

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { provide, reactive } from 'vue'
 
 export default {
   name: 'landing',
@@ -23,12 +23,16 @@ export default {
     data: {
       type: Array,
       required: true
+    },
+    source: {
+      type: Object
     }
   },
-  provide: {
-    mode: 'mobile'
-  },
   setup (props) {
+    const mode = 'mobile'
+    const dataSource = reactive(props.source)
+    provide('mode', mode)
+    provide('dataSource', dataSource)
     const list = reactive(props.data)
     const computedRectStyle = item => {
       const style = {
@@ -49,7 +53,11 @@ export default {
       }
       return style
     }
-    return { list, computedRectStyle, computedComponentStyle }
+    return {
+      list,
+      computedRectStyle,
+      computedComponentStyle
+    }
   }
 }
 </script>

@@ -20,7 +20,7 @@ export default {
     const store = useStore()
     const configList = ref([
       {
-        innerText: '文本'
+        innerText: '#{{id}}'
       }
     ])
     const handleClick = (item) => {

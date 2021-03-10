@@ -43,7 +43,8 @@ export class PageService {
       set: {
         pageConfig: page.pageConfig,
         allItems: page.allItems,
-        canvasSetting: page.canvasSetting
+        canvasSetting: page.canvasSetting,
+        dataSource: page.dataSource
       },
       where: {
         id: page.id

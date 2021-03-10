@@ -4,7 +4,7 @@
       <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
         <el-button type="primary" @click="toCreate">新增</el-button>
       </el-header>
-      <el-main class="bg-white max-h-full">
+      <el-main class="bg-white w-screen">
         <el-empty v-if="pageList.length===0" description="暂无数据"></el-empty>
         <div class="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 gap-4">
           <div v-for="item in pageList" :key="item.id"

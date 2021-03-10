@@ -29,7 +29,7 @@
 
 <body>
 <div id="app">
-    <landing :data="landingList"></landing>
+    <landing :data="landingList" :source="dataSource"></landing>
 </div>
 <script crossorigin="anonymous"
         integrity="sha512-+i5dAv2T8IUOP7oRl2iqlAErpjtBOkNtREnW/Te+4VgQ52h4tAY5biFFQJmF03jVDWU4R7l47BwV8H6qQ+/MfA=="
@@ -70,7 +70,8 @@
           const app = Vue.createApp({
             data () {
               return {
-                landingList: request.result.allItems
+                landingList: request.result.allItems,
+                dataSource: request.result.dataSource
               }
             }
           })

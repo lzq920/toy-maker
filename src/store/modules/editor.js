@@ -12,6 +12,7 @@ export default {
       keywords: '',
       cover: ''
     }, // 页面配置
+    dataSource: {}, // 数据源
     allItems: [], // 当前页面所有编辑组件
     historyStack: new History(), // 历史操作记录
     canvasSetting: {
@@ -48,10 +49,14 @@ export default {
         keywords: '',
         cover: ''
       }
+      state.dataSource = {}
       state.allItems = []
       state.copyData = []
       state.activeItems = []
       state.historyStack.clear()
+    },
+    setDataSource (state, payload) {
+      state.dataSource = Object.assign({}, payload)
     },
     setAllItems (state, payload) {
       state.allItems = payload
@@ -198,6 +203,9 @@ export default {
     },
     initPageConfig ({ commit }) {
       commit('initPageConfig')
+    },
+    setDataSource ({ commit }, payload) {
+      commit('setDataSource', payload)
     },
     moveNext ({ commit }) {
       commit('moveNext')
