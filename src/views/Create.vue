@@ -43,17 +43,25 @@
       </el-aside>
     </el-container>
     <el-dialog v-model="dialog" :center="true" title="页面配置" width="30%">
-      <el-form v-model="pageConfig" label-width="80px">
-        <el-form-item label="标题">
-          <el-input v-model="pageConfig.title" placeholder="请输入页面标题" maxlength="20" show-word-limit></el-input>
-        </el-form-item>
-        <el-form-item label="描述">
-          <el-input v-model="pageConfig.description" placeholder="请输入页面描述" maxlength="50" show-word-limit></el-input>
-        </el-form-item>
-        <el-form-item label="关键词">
-          <el-input v-model="pageConfig.keywords" placeholder="请输入页面关键词" maxlength="50" show-word-limit></el-input>
-        </el-form-item>
-      </el-form>
+      <el-tabs tab-position="left" style="height:400px">
+        <el-tab-pane name="pageConfig" label="页面">
+          <el-form v-model="pageConfig" label-width="80px">
+            <el-form-item label="标题">
+              <el-input v-model="pageConfig.title" placeholder="请输入页面标题" maxlength="20" show-word-limit></el-input>
+            </el-form-item>
+            <el-form-item label="描述">
+              <el-input v-model="pageConfig.description" placeholder="请输入页面描述" maxlength="50"
+                        show-word-limit></el-input>
+            </el-form-item>
+            <el-form-item label="关键词">
+              <el-input v-model="pageConfig.keywords" placeholder="请输入页面关键词" maxlength="50" show-word-limit></el-input>
+            </el-form-item>
+          </el-form>
+        </el-tab-pane>
+        <el-tab-pane name="dataSource" label="数据源">
+          <monaco-editor></monaco-editor>
+        </el-tab-pane>
+      </el-tabs>
       <template #footer>
         <el-button @click="openDialog(false)">取消</el-button>
         <el-button type="primary" @click="setPageConfig">确定</el-button>
