@@ -59,7 +59,9 @@
           </el-form>
         </el-tab-pane>
         <el-tab-pane name="dataSource" label="数据源">
-          <monaco-editor style="width:100%"></monaco-editor>
+          <div class="w-full" style="height:400px;">
+            <monaco-editor class="w-full h-full"></monaco-editor>
+          </div>
         </el-tab-pane>
       </el-tabs>
       <template #footer>

@@ -17,12 +17,13 @@ export default {
       return store.state.editor.dataSource
     })
     onMounted(() => {
-      editorInstance = monaco.editor.create(document.getElementById('monaco-editor'), {
+      editorInstance = monaco.editor.create(document.querySelector('#monaco-editor'), {
         value: '',
         language: 'json',
-        theme: 'vs',
+        theme: 'vs-dark',
         formatOnPaste: true,
-        fontSize: 18
+        fontSize: 18,
+        automaticLayout: true
       })
       editorInstance.setValue(`${JSON.stringify(code.value)}`)
       editorInstance.onDidChangeModelContent(() => {
