@@ -4,18 +4,18 @@
 
 <script>
 import * as monaco from 'monaco-editor'
-import { computed, onBeforeUnmount, onMounted } from 'vue'
-import { useStore } from 'vuex'
-import { isPlainObject } from 'lodash'
+import { onBeforeUnmount, onMounted } from 'vue'
 
 export default {
   name: 'monaco-editor',
-  setup () {
+  props: {
+    code: {
+      type: String,
+      required: true
+    }
+  },
+  setup (props, { emit }) {
     let editorInstance
-    const store = useStore()
-    const code = computed(() => {
-      return store.state.editor.dataSource
-    })
     onMounted(() => {
       editorInstance = monaco.editor.create(document.querySelector('#monaco-editor'), {
         value: '',
@@ -25,22 +25,15 @@ export default {
         fontSize: 18,
         automaticLayout: true
       })
-      editorInstance.setValue(`${JSON.stringify(code.value)}`)
+      editorInstance.setValue(props.code)
       editorInstance.onDidChangeModelContent(() => {
-        try {
-          const result = JSON.parse(editorInstance.getValue())
-          if (isPlainObject(result)) {
-            store.dispatch('editor/setDataSource', result)
-          }
-        } catch (e) {
-          console.log('json format error')
-        }
+        emit('change', editorInstance.getValue())
       })
     })
     onBeforeUnmount(() => {
       editorInstance.dispose()
     })
-    return { code }
+    return {}
   }
 }
 </script>

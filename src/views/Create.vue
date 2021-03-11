@@ -60,7 +60,7 @@
         </el-tab-pane>
         <el-tab-pane name="dataSource" label="数据源">
           <div class="w-full" style="height:400px;">
-            <monaco-editor class="w-full h-full"></monaco-editor>
+            <monaco-editor :code="dataSource" class="w-full h-full" @change="changeDataSource"></monaco-editor>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -109,7 +109,9 @@ export default {
       pageConfig,
       openDialog,
       dialog,
-      setPageConfig
+      setPageConfig,
+      dataSource,
+      changeDataSource
     } = usePageConfig()
     const activeItemIds = computed(() => {
       return store.getters['editor/activeItemIds']
@@ -168,7 +170,9 @@ export default {
       openDialog,
       dialog,
       setPageConfig,
-      tabActive
+      tabActive,
+      dataSource,
+      changeDataSource
     }
   }
 }
