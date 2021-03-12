@@ -69,6 +69,7 @@
         <el-button type="primary" @click="setPageConfig">确定</el-button>
       </template>
     </el-dialog>
+    <help-toolbar></help-toolbar>
   </el-container>
 </template>
 
