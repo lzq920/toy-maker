@@ -134,6 +134,21 @@ export default {
       if (index > 0) {
         [state.allItems[index], state.allItems[index - 1]] = [state.allItems[index - 1], state.allItems[index]]
       }
+    },
+    moveFirst (state) {
+      const moveItem = last(state.activeItems)
+      const index = findIndex(state.allItems, (item) => item.id === moveItem.id)
+      if (index > 0) {
+        [state.allItems[index], state.allItems[0]] = [state.allItems[0], state.allItems[index]]
+      }
+    },
+    moveLast (state) {
+      const moveItem = last(state.activeItems)
+      const index = findIndex(state.allItems, (item) => item.id === moveItem.id)
+      const maxIndex = state.allItems.length - 1
+      if (index !== maxIndex) {
+        [state.allItems[index], state.allItems[maxIndex]] = [state.allItems[maxIndex], state.allItems[index]]
+      }
     }
   },
   actions: {
@@ -213,6 +228,12 @@ export default {
     },
     movePrev ({ commit }) {
       commit('movePrev')
+    },
+    moveFirst ({ commit }) {
+      commit('moveFirst')
+    },
+    moveLast ({ commit }) {
+      commit('moveLast')
     }
   }
 }

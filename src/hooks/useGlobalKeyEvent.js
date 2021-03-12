@@ -22,21 +22,21 @@ export default function useGlobalKeyEvent () {
       return
     }
     if (e.ctrlKey && e.code === 'KeyZ') {
-      console.log('Ctrl+Z')
+      console.log('Ctrl+Z', '撤销')
       e.preventDefault()
       if (store.getters['editor/canUndo']) {
         await store.dispatch('editor/undoHistory')
       }
     }
     if (e.ctrlKey && e.code === 'KeyY') {
-      console.log('Ctrl+Y')
+      console.log('Ctrl+Y', '重做')
       e.preventDefault()
       if (store.getters['editor/canRedo']) {
         await store.dispatch('editor/redoHistory')
       }
     }
     if (e.ctrlKey && e.code === 'KeyD') {
-      console.log('Ctrl+D')
+      console.log('Ctrl+D', '删除')
       e.preventDefault()
       const removeQueue = cloneDeep(store.state.editor.activeItems).map(item => {
         return store.dispatch('editor/removeItem', item)
@@ -48,12 +48,12 @@ export default function useGlobalKeyEvent () {
       }
     }
     if (e.ctrlKey && e.code === 'KeyC') {
-      console.log('Ctrl+C')
+      console.log('Ctrl+C', '复制')
       e.preventDefault()
       await store.dispatch('editor/copyActiveItems')
     }
     if (e.ctrlKey && e.code === 'KeyV') {
-      console.log('Ctrl+V')
+      console.log('Ctrl+V', '粘贴')
       e.preventDefault()
       const addQueue = store.state.editor.copyData.map(item => {
         const target = Object.assign({}, item, { id: `blocks-${generatorUUID()}` })
@@ -66,27 +66,37 @@ export default function useGlobalKeyEvent () {
       }
     }
     if (e.ctrlKey && e.code === 'KeyS') {
-      console.log('Ctrl+S')
+      console.log('Ctrl+S', '保存')
       e.preventDefault()
       await savePageData()
     }
     if (e.ctrlKey && e.code === 'KeyP') {
-      console.log('Ctrl+P')
+      console.log('Ctrl+P', '预览')
       e.preventDefault()
       const pageId = route.params.id
       if (pageId) {
         window.open(`${location.origin}/preview.html?id=${pageId}`)
       }
     }
-    if (e.altKey && e.code === 'ArrowDown') {
-      console.log('Alt+ArrowDown')
+    if (e.altKey && e.code === 'ArrowDown' && !e.shiftKey) {
+      console.log('Alt+ArrowDown', '下移')
       e.preventDefault()
       await store.dispatch('editor/moveNext')
     }
-    if (e.altKey && e.code === 'ArrowUp') {
-      console.log('Alt+ArrowUp')
+    if (e.altKey && e.code === 'ArrowUp' && !e.shiftKey) {
+      console.log('Alt+ArrowUp', '上移')
       e.preventDefault()
       await store.dispatch('editor/movePrev')
+    }
+    if (e.altKey && e.code === 'ArrowDown' && e.shiftKey) {
+      console.log('Shift+Alt+ArrowDown', '置底')
+      e.preventDefault()
+      await store.dispatch('editor/moveLast')
+    }
+    if (e.altKey && e.code === 'ArrowUp' && e.shiftKey) {
+      console.log('Shift+Alt+ArrowUp', '置顶')
+      e.preventDefault()
+      await store.dispatch('editor/moveFirst')
     }
   }
   const globalsKeyUp = async () => {
