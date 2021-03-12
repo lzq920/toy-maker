@@ -1,5 +1,6 @@
 import History from '../../utils/History'
 import { cloneDeep, findIndex, last, set } from 'lodash'
+import tip from '@/enum/tip'
 
 export default {
   namespaced: true,
@@ -56,7 +57,7 @@ export default {
       state.historyStack.clear()
     },
     setDataSource (state, payload) {
-      state.dataSource = Object.assign({}, payload)
+      state.dataSource = Object.assign({}, tip, payload)
     },
     setAllItems (state, payload) {
       state.allItems = payload

@@ -1,8 +1,6 @@
 <script>
-import { h, inject } from 'vue'
-import { transferStyleMode } from '../../../utils/index'
-import useClickedEvents from '@/hooks/useClickedEvents'
-import useDataSource from '@/hooks/useDataSource'
+import { h } from 'vue'
+import useComponentCommon from '@/hooks/useComponentCommon'
 
 export default {
   name: 'blocks-text',
@@ -14,14 +12,10 @@ export default {
   },
   inject: ['mode'],
   setup (props) {
-    const mode = inject('mode')
-    const dataSource = inject('dataSource')
-    const { handleClick } = useClickedEvents(props.config, mode)
-    const { isExpression, getExpression } = useDataSource(dataSource)
+    const { handleClick, computedStyle, getExpression } = useComponentCommon(props.config)
     return {
-      dataSource,
+      computedStyle,
       handleClick,
-      isExpression,
       getExpression
     }
   },
@@ -30,10 +24,10 @@ export default {
       'div',
       {
         id: this.config.id,
-        style: transferStyleMode(this.config, this.mode),
+        style: this.computedStyle,
         onClick: this.handleClick
       },
-      this.isExpression(this.config.innerText) ? this.getExpression(this.config.innerText) : this.config.innerText
+      this.getExpression(this.config.innerText)
     )
   }
 }

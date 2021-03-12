@@ -1,8 +1,6 @@
 <script>
-import { h, inject } from 'vue'
-import { transferStyleMode } from '../../../utils/index'
-import useClickedEvents from '@/hooks/useClickedEvents'
-import useDataSource from '@/hooks/useDataSource'
+import { h } from 'vue'
+import useComponentCommon from '@/hooks/useComponentCommon'
 
 export default {
   name: 'blocks-video',
@@ -14,23 +12,24 @@ export default {
   },
   inject: ['mode'],
   setup (props) {
-    const mode = inject('mode')
-    const dataSource = inject('dataSource')
-    const { handleClick } = useClickedEvents(props.config, mode)
-    const { isExpression, getExpression } = useDataSource(dataSource)
+    const {
+      handleClick,
+      computedStyle,
+      getExpression,
+      mode
+    } = useComponentCommon(props.config)
     return {
-      dataSource,
       handleClick,
       mode,
-      isExpression,
-      getExpression
+      getExpression,
+      computedStyle
     }
   },
   render () {
     return h('video', {
       id: this.config.id,
-      poster: this.isExpression(this.config.poster) ? this.getExpression(this.config.poster) : this.config.poster,
-      style: transferStyleMode(this.config, this.mode),
+      poster: this.getExpression(this.config.poster),
+      style: this.computedStyle,
       onClick: this.handleClick,
       controls: this.mode === 'mobile'
     }, [h('source', {

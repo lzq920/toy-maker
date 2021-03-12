@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { provide, reactive } from 'vue'
+import { provide, ref, reactive, readonly } from 'vue'
 
 export default {
   name: 'landing',
@@ -29,10 +29,10 @@ export default {
     }
   },
   setup (props) {
-    const mode = 'mobile'
-    const dataSource = reactive(props.source)
-    provide('mode', mode)
-    provide('dataSource', dataSource)
+    const mode = ref('mobile')
+    const dataSource = ref(props.source)
+    provide('mode', readonly(mode))
+    provide('dataSource', readonly(dataSource))
     const list = reactive(props.data)
     const computedRectStyle = item => {
       const style = {

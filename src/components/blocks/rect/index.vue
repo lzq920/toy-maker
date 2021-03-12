@@ -1,9 +1,6 @@
 <script>
-import { transferStyleMode } from '../../../utils/index'
-import { h, inject } from 'vue'
-import useClickedEvents from '@/hooks/useClickedEvents'
-import useDataSource from '@/hooks/useDataSource'
-
+import { h } from 'vue'
+import useComponentCommon from '@/hooks/useComponentCommon'
 export default {
   name: 'blocks-rect',
   props: {
@@ -13,15 +10,11 @@ export default {
     }
   },
   setup (props) {
-    const mode = inject('mode')
-    const dataSource = inject('dataSource')
-    const { handleClick } = useClickedEvents(props.config, mode)
-    const { isExpression, getExpression } = useDataSource(dataSource)
+    const { handleClick, computedStyle, getExpression } = useComponentCommon(props.config)
     return {
-      dataSource,
       handleClick,
-      isExpression,
-      getExpression
+      getExpression,
+      computedStyle
     }
   },
   render () {
@@ -29,7 +22,7 @@ export default {
       'div',
       {
         id: this.config.id,
-        style: transferStyleMode(this.config, this.mode),
+        style: this.computedStyle,
         onClick: this.handleClick
       },
       ''
