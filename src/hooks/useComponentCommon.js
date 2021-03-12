@@ -57,8 +57,8 @@ export default function useComponentCommon (config) {
       return
     }
     const eventList = config.events
-    if (eventList instanceof Array) {
-      for (let i = 0; i <= eventList.length; i++) {
+    if (Array.isArray(eventList) && eventList.length > 0) {
+      for (let i = 0; i < eventList.length; i++) {
         const element = eventList[i]
         await eventUtils[element.key](element.params)
       }
