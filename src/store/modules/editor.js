@@ -50,7 +50,7 @@ export default {
         keywords: '',
         cover: ''
       }
-      state.dataSource = {}
+      state.dataSource = Object.assign({}, tip)
       state.allItems = []
       state.copyData = []
       state.activeItems = []

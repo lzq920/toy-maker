@@ -20,7 +20,7 @@ export default {
     const store = useStore()
     const configList = ref([
       {
-        innerText: '#{{id}}'
+        innerText: '#{{defaultText}}'
       }
     ])
     const handleClick = (item) => {
