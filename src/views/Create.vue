@@ -12,7 +12,7 @@
       <el-button :disabled="canRedo" @click="handleRedo">重做</el-button>
       <el-button :loading="saveLoading" type="success" @click="savePageData">保存</el-button>
       <el-button type="primary" @click="handleExportZip">下载</el-button>
-      <el-button type="primary" @click="publish($route.params.id)">发布</el-button>
+      <el-button :loading="publishLoading" type="primary" @click="publish($route.params.id)">发布</el-button>
     </el-header>
     <el-container class="bg-gray-600 max-h-full">
       <el-aside width="300px" class="bg-white">
@@ -119,7 +119,10 @@ export default {
       dataSource,
       changeDataSource
     } = usePageConfig()
-    const { publish } = usePublishRemote()
+    const {
+      publish,
+      publishLoading
+    } = usePublishRemote()
     const activeItemIds = computed(() => {
       return store.getters['editor/activeItemIds']
     })
@@ -180,7 +183,8 @@ export default {
       tabActive,
       dataSource,
       changeDataSource,
-      publish
+      publish,
+      publishLoading
     }
   }
 }

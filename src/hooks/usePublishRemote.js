@@ -4,12 +4,18 @@ import nunjucks from 'nunjucks'
 import { loadFile } from '@/utils'
 import { Base64 } from 'js-base64'
 import { ElMessage, ElNotification } from 'element-plus'
+import { ref } from 'vue'
 
+/**
+ * @description 远程发布Hook
+ * @returns {{publish: (function(*=): Promise<IMessageHandle|undefined>), publishLoading: Ref<UnwrapRef<boolean>>}}
+ */
 export default function usePublishRemote () {
   const store = useStore()
   let accessToken = localStorage.getItem('accessToken')
   let githubName = localStorage.getItem('githubName')
   let githubRepo = localStorage.getItem('githubRepo')
+  const publishLoading = ref(false)
   const publish = async (pageId) => {
     accessToken = localStorage.getItem('accessToken')
     githubName = localStorage.getItem('githubName')
@@ -24,6 +30,7 @@ export default function usePublishRemote () {
       landingData: store.state.editor.allItems,
       dataSource: store.state.editor.dataSource
     }
+    publishLoading.value = true
     const indexPage = await nunjucks.render('template.njk', pageConfig)
     const generatorJavascript = await loadFile('generator/generator.umd.min.js', 'text')
     const generatorCss = await loadFile('generator/generator.css', 'text')
@@ -43,13 +50,18 @@ export default function usePublishRemote () {
     }]
     for (let index = 0; index < fileList.length; index++) {
       const element = fileList[index]
-      await uploadQueue(element.path, element.content)
+      try {
+        await uploadQueue(element.path, element.content)
+      } catch (e) {
+        publishLoading.value = false
+        ElMessage.error(e.message)
+      }
     }
-    ElMessage.success('发布成功')
+    publishLoading.value = false
     ElNotification({
       title: '发布成功',
       dangerouslyUseHTMLString: true,
-      message: `<a href="https://toy-maker-website.vercel.app/${tempPath}">查看</a>`
+      message: `<a href="https://${githubName}.github.io/${githubRepo}/${tempPath}" target="_blank">查看</a>`
     })
   }
   /**
@@ -73,6 +85,7 @@ export default function usePublishRemote () {
     })
   }
   return {
-    publish
+    publish,
+    publishLoading
   }
 }
