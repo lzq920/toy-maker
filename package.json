@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@lzq920/vue3-draggable-resizable": "^1.7.0",
+    "@octokit/rest": "^18.3.5",
     "core-js": "^3.6.5",
     "dom-to-image": "^2.6.0",
     "element-plus": "^1.0.2-beta.30",
     "file-saver": "^2.0.5",
+    "js-base64": "^3.6.0",
     "jsstore": "^3.12.0",
     "jszip": "^3.5.0",
     "lodash": "^4.17.20",

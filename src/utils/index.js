@@ -51,6 +51,7 @@ export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
   }
   return style
 }
+
 /**
  * @description 生成UUID
  */
@@ -62,6 +63,7 @@ export function generatorUUID () {
     ).toString(16)
   )
 }
+
 /**
  * @description 转换模式
  * @param {Object} component 组件数据
@@ -121,4 +123,29 @@ export async function runAnimation ($el, animations = []) {
   for (let i = 0, len = animations.length; i < len; i++) {
     await play(animations[i])
   }
+}
+
+/**
+ * @description 获取远程地址文件流
+ * @param url
+ * @returns {Promise<unknown>}
+ */
+export function loadFile (url, responseType = 'blob') {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', `${url}?v=${new Date().getTime()}`)
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        resolve(xhr.response)
+      }
+    }
+    xhr.onerror = () => {
+      reject(new Error('请求出错'))
+    }
+    xhr.onprogress = (event) => {
+      console.log(`Received ${event.loaded} of ${event.total}`)
+    }
+    xhr.responseType = responseType
+    xhr.send()
+  })
 }

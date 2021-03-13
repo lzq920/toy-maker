@@ -12,6 +12,7 @@
       <el-button :disabled="canRedo" @click="handleRedo">重做</el-button>
       <el-button :loading="saveLoading" type="success" @click="savePageData">保存</el-button>
       <el-button type="primary" @click="handleExportZip">下载</el-button>
+      <el-button type="primary" @click="publish($route.params.id)">发布</el-button>
     </el-header>
     <el-container class="bg-gray-600 max-h-full">
       <el-aside width="300px" class="bg-white">
@@ -83,6 +84,7 @@ import useGlobalKeyEvent from '@/hooks/useGlobalKeyEvent'
 import useEditorMethod from '@/hooks/useEditorMethod'
 import usePsdParse from '@/hooks/usePsdParse'
 import usePageConfig from '@/hooks/usePageConfig'
+import usePublishRemote from '@/hooks/usePublishRemote'
 
 export default {
   name: 'PageCreate',
@@ -114,6 +116,7 @@ export default {
       dataSource,
       changeDataSource
     } = usePageConfig()
+    const { publish } = usePublishRemote()
     const activeItemIds = computed(() => {
       return store.getters['editor/activeItemIds']
     })
@@ -173,7 +176,8 @@ export default {
       setPageConfig,
       tabActive,
       dataSource,
-      changeDataSource
+      changeDataSource,
+      publish
     }
   }
 }
