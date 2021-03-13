@@ -7,12 +7,16 @@ import { ElMessage, ElNotification } from 'element-plus'
 
 export default function usePublishRemote () {
   const store = useStore()
-  const octokit = new Octokit({
-    auth: process.env.accessToken
-  })
+  let accessToken = localStorage.getItem('accessToken')
+  let githubName = localStorage.getItem('githubName')
+  let githubRepo = localStorage.getItem('githubRepo')
   const publish = async (pageId) => {
+    accessToken = localStorage.getItem('accessToken')
+    githubName = localStorage.getItem('githubName')
+    githubRepo = localStorage.getItem('githubRepo')
     if (!pageId) return ElMessage.error('发布前请先保存页面')
-    const tempPath = new Date().getTime()
+    if (!accessToken || !githubName || !githubRepo) return ElMessage.error('请完善发布配置信息')
+    const tempPath = `page-${new Date().getTime()}`
     const pageConfig = {
       title: store.state.editor.pageConfig.title,
       description: store.state.editor.pageConfig.description,
@@ -25,6 +29,9 @@ export default function usePublishRemote () {
     const generatorCss = await loadFile('generator/generator.css', 'text')
     const animateCss = await loadFile('style/animate.css', 'text')
     const fileList = [{
+      path: `${tempPath}/index.html`,
+      content: Base64.encode(indexPage)
+    }, {
       path: `${tempPath}/generator.umd.min.js`,
       content: Base64.encode(generatorJavascript)
     }, {
@@ -33,9 +40,6 @@ export default function usePublishRemote () {
     }, {
       path: `${tempPath}/animate.css`,
       content: Base64.encode(animateCss)
-    }, {
-      path: `${tempPath}/index.html`,
-      content: Base64.encode(indexPage)
     }]
     for (let index = 0; index < fileList.length; index++) {
       const element = fileList[index]
@@ -57,9 +61,12 @@ export default function usePublishRemote () {
   const uploadQueue = async (
     path, content
   ) => {
+    const octokit = new Octokit({
+      auth: accessToken
+    })
     await octokit.repos.createOrUpdateFileContents({
-      owner: 'lzq920',
-      repo: 'toy-maker-publish',
+      owner: githubName,
+      repo: githubRepo,
       path: path,
       message: `update ${path}`,
       content: content

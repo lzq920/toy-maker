@@ -64,6 +64,9 @@
             <monaco-editor :code="dataSource" class="w-full h-full" @change="changeDataSource"></monaco-editor>
           </div>
         </el-tab-pane>
+        <el-tab-pane label="发布配置" name="githubConfig">
+          <publish-setting></publish-setting>
+        </el-tab-pane>
       </el-tabs>
       <template #footer>
         <el-button @click="openDialog(false)">取消</el-button>

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { provide, ref, reactive, computed } from 'vue'
+import { computed, provide, reactive, ref } from 'vue'
 
 export default {
   name: 'landing',
@@ -25,7 +25,8 @@ export default {
       required: true
     },
     source: {
-      type: Object
+      type: Object,
+      required: true
     }
   },
   setup (props) {
