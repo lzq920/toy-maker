@@ -35,7 +35,7 @@ export default function useExportZip () {
       zipFile.file('generator.css', generatorCss)
       zipFile.file('animate.css', animateCss)
       const zipFileBlob = await zipFile.generateAsync({ type: 'blob' })
-      FileSaver.saveAs(zipFileBlob, `${store.state.editor.pageConfig.title}.zip`)
+      FileSaver.saveAs(zipFileBlob, `${store.state.editor.pageConfig.title || '未命名页面'}.zip`)
     } catch (error) {
       throw new Error(error)
     }
