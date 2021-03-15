@@ -5,6 +5,7 @@ import { loadFile } from '@/utils'
 import { Base64 } from 'js-base64'
 import { ElMessage, ElNotification } from 'element-plus'
 import { ref } from 'vue'
+import { PublishService } from '@/service/publishService'
 
 /**
  * @description 远程发布Hook
@@ -15,6 +16,7 @@ export default function usePublishRemote () {
   let accessToken = localStorage.getItem('accessToken')
   let githubName = localStorage.getItem('githubName')
   let githubRepo = localStorage.getItem('githubRepo')
+  const publishStore = new PublishService()
   const publishLoading = ref(false)
   const publish = async (pageId) => {
     accessToken = localStorage.getItem('accessToken')
@@ -57,6 +59,10 @@ export default function usePublishRemote () {
         ElMessage.error(e.message)
       }
     }
+    await publishStore.addPublish({
+      pageId: pageId,
+      url: `https://${githubName}.github.io/${githubRepo}/${tempPath}`
+    })
     publishLoading.value = false
     ElNotification({
       title: '发布成功',

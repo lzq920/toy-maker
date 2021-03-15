@@ -41,6 +41,10 @@ const getDatabase = () => {
       createTime: {
         notNull: true,
         dataType: DATA_TYPE.DateTime
+      },
+      url: {
+        notNull: true,
+        dataType: DATA_TYPE.String
       }
     }
   }

@@ -1,11 +1,17 @@
 import { connection } from './jsStoreConnection'
 
-export class PublishService {
+export class PageService {
   constructor () {
-    this.tableName = 'Publish'
+    this.tableName = 'Page'
   }
 
-  addPublish (page) {
+  getPages () {
+    return connection.select({
+      from: this.tableName
+    })
+  }
+
+  addPage (page) {
     return connection.insert({
       into: this.tableName,
       values: [page],
@@ -13,11 +19,35 @@ export class PublishService {
     })
   }
 
-  getPublishByPageId (id) {
+  getPageById (id) {
     return connection.select({
       from: this.tableName,
       where: {
-        pageId: id
+        id: id
+      }
+    })
+  }
+
+  removePage (id) {
+    return connection.remove({
+      from: this.tableName,
+      where: {
+        id: id
+      }
+    })
+  }
+
+  updatePageById (page) {
+    return connection.update({
+      in: this.tableName,
+      set: {
+        pageConfig: page.pageConfig,
+        allItems: page.allItems,
+        canvasSetting: page.canvasSetting,
+        dataSource: page.dataSource
+      },
+      where: {
+        id: page.id
       }
     })
   }
