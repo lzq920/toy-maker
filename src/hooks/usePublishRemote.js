@@ -61,6 +61,7 @@ export default function usePublishRemote () {
     }
     await publishStore.addPublish({
       pageId: pageId,
+      createTime: new Date().getTime(),
       url: `https://${githubName}.github.io/${githubRepo}/${tempPath}`
     })
     publishLoading.value = false

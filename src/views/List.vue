@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { PageService } from '@/service/publishService'
+import { PageService } from '@/service/pageService'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'

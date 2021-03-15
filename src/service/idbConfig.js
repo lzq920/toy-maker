@@ -32,7 +32,7 @@ const getDatabase = () => {
     columns: {
       id: {
         primaryKey: true,
-        dataType: DATA_TYPE.Number
+        autoIncrement: true
       },
       pageId: {
         notNull: true,
@@ -40,7 +40,7 @@ const getDatabase = () => {
       },
       createTime: {
         notNull: true,
-        dataType: DATA_TYPE.DateTime
+        dataType: DATA_TYPE.Number
       },
       url: {
         notNull: true,
