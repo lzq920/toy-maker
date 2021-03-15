@@ -62,13 +62,13 @@ export default function usePublishRemote () {
     await publishStore.addPublish({
       pageId: pageId,
       createTime: new Date().getTime(),
-      url: `https://${githubName}.github.io/${githubRepo}/${tempPath}`
+      url: `https://${githubName}.github.io/${githubRepo}/${tempPath}/`
     })
     publishLoading.value = false
     ElNotification({
       title: '发布成功',
       dangerouslyUseHTMLString: true,
-      message: `<a href="https://${githubName}.github.io/${githubRepo}/${tempPath}" target="_blank">查看</a>`
+      message: `<a href="https://${githubName}.github.io/${githubRepo}/${tempPath}/" target="_blank">查看</a>`
     })
   }
   /**
