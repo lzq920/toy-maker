@@ -5,6 +5,12 @@ export class PublishService {
     this.tableName = 'Publish'
   }
 
+  getPublish () {
+    return connection.select({
+      from: this.tableName
+    })
+  }
+
   addPublish (page) {
     return connection.insert({
       into: this.tableName,

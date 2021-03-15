@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+
 const routes = [
   {
     path: '/',
@@ -17,6 +18,10 @@ const routes = [
     path: '/list',
     name: 'List',
     component: () => import(/* webpackChunkName:"list" */'../views/List.vue')
+  }, {
+    path: '/publish',
+    name: 'Publish',
+    component: () => import(/* webpackChunkName:"publish" */'../views/Publish.vue')
   }
 ]
 
