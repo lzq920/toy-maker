@@ -27,9 +27,26 @@ const getDatabase = () => {
       }
     }
   }
+  const tblPublish = {
+    name: 'Publish',
+    columns: {
+      id: {
+        primaryKey: true,
+        dataType: DATA_TYPE.Number
+      },
+      pageId: {
+        notNull: true,
+        dataType: DATA_TYPE.String
+      },
+      createTime: {
+        notNull: true,
+        dataType: DATA_TYPE.DateTime
+      }
+    }
+  }
   return {
     name: 'toy-maker-db',
-    tables: [tblPage]
+    tables: [tblPage, tblPublish]
   }
 }
 
