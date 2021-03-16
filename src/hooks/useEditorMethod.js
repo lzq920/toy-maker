@@ -1,6 +1,6 @@
 import useUpdateComponent from '@/hooks/useUpdateComponent'
 import { useStore } from 'vuex'
-import { ref, toRaw } from 'vue'
+import { ref, toRaw, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import domToImage from 'dom-to-image'
 import { PageService } from '@/service/pageService'
@@ -17,6 +17,9 @@ export default function useEditorMethod () {
   const pageStore = new PageService()
   const saveLoading = ref(false)
   const pageLoading = ref(false)
+  watch(route, (val) => {
+    pageId.value = val.params.id
+  })
   const screenshot = async (dom) => {
     return domToImage.toPng(dom, {
       height: 667,

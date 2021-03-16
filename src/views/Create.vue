@@ -80,7 +80,7 @@
 <script>
 import { useStore } from 'vuex'
 import { ElMessageBox } from 'element-plus'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import useExportZip from '../hooks/useExportZip'
 import useUndoRedo from '../hooks/useUndoRedo'
 import useGlobalKeyEvent from '@/hooks/useGlobalKeyEvent'
@@ -88,11 +88,13 @@ import useEditorMethod from '@/hooks/useEditorMethod'
 import usePsdParse from '@/hooks/usePsdParse'
 import usePageConfig from '@/hooks/usePageConfig'
 import usePublishRemote from '@/hooks/usePublishRemote'
+import { useRoute } from 'vue-router'
 
 export default {
   name: 'PageCreate',
   setup () {
     const store = useStore()
+    const route = useRoute()
     const vdrList = computed(() => {
       return store.state.editor.allItems
     })
@@ -154,6 +156,11 @@ export default {
       await store.dispatch('editor/clearActiveItem')
       await store.dispatch('editor/setAllItems', [])
     }
+    watch(route, async (val) => {
+      await initPageConfig()
+      await getPageData()
+      await store.dispatch('editor/clearHistory')
+    })
     onMounted(async () => {
       await initPageConfig()
       await getPageData()
