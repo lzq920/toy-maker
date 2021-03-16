@@ -3,13 +3,13 @@ import Blocks from './Block'
 
 /**
  * @description 文本组件
- * @class BlocksText
+ * @class BlocksMultipleText
  */
-export default class BlocksText extends Blocks {
+export default class BlocksMultipleText extends Blocks {
   constructor (config) {
     config = mergeWith(
       {
-        componentName: 'blocks-text',
+        componentName: 'blocks-multiple-text',
         description: '文本组件',
         rect: {
           height: 50,
@@ -21,9 +21,14 @@ export default class BlocksText extends Blocks {
           width: '100%',
           height: '100%',
           color: 'rgba(0,0,0,1)',
-          fontSize: 12
+          fontSize: 12,
+          '-webkit-line-clamp': 2,
+          display: '-webkit-box',
+          '-webkit-box-orient': 'vertical',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
         },
-        innerText: '文本组件',
+        innerText: '多行文本组件',
         animations: [],
         events: []
       },

@@ -1,28 +1,28 @@
 <template>
   <div>
     <el-button
-      type="primary"
       v-for="(item, index) in configList"
       :key="index"
+      type="primary"
       @click="handleClick(item)"
-    >文字
-    </el-button
     >
+      多行文字
+    </el-button>
   </div>
 </template>
 
 <script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
-import BlocksText from '../../../widgets/Text'
+import BlocksMultipleText from '@/widgets/MultipleText'
 
 export default {
-  name: 'blocks-text-config',
+  name: 'blocks-multiple-text-config',
   setup () {
     const store = useStore()
     const configList = ref([
       {
-        innerText: '#{{defaultText}}',
+        innerText: '#{{defaultMultipleText}}',
         styles: {
           width: '100%',
           height: '100%',
@@ -31,7 +31,7 @@ export default {
           backgroundColor: 'rgba(255,255,255,1)'
         }
       }, {
-        innerText: '#{{defaultText}}',
+        innerText: '#{{defaultMultipleText}}',
         styles: {
           width: '100%',
           height: '100%',
@@ -43,7 +43,7 @@ export default {
       }
     ])
     const handleClick = (item) => {
-      store.dispatch('editor/addItem', new BlocksText(item))
+      store.dispatch('editor/addItem', new BlocksMultipleText(item))
     }
     return {
       configList,

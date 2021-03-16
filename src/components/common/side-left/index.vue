@@ -27,6 +27,16 @@ export default {
         component: 'blocks-text-config'
       },
       {
+        tipText: '单行文本',
+        icon: 'el-icon-document',
+        component: 'blocks-single-text-config'
+      },
+      {
+        tipText: '多文本',
+        icon: 'el-icon-document',
+        component: 'blocks-multiple-text-config'
+      },
+      {
         tipText: '图片',
         icon: 'el-icon-picture-outline',
         component: 'blocks-image-config'

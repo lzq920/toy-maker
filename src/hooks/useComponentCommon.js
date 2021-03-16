@@ -1,4 +1,4 @@
-import { inject, onMounted, reactive } from 'vue'
+import { computed, inject, onMounted, reactive } from 'vue'
 import { runAnimation, transferStyleMode } from '@/utils'
 import { get } from 'lodash'
 
@@ -73,13 +73,9 @@ export default function useComponentCommon (config) {
       await runAnimation(document.querySelector(`#${config.id}`), config.animations)
     }
   }
-  /**
-   * @description 计算不同环境下的样式
-   * @returns {Object}
-   */
-  const computedStyle = () => {
+  const computedStyle = computed(() => {
     return transferStyleMode(config, mode.value)
-  }
+  })
   onMounted(async () => {
     await playAnimations()
   })

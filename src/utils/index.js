@@ -36,6 +36,7 @@ export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
     'borderTopRightRadius',
     'borderBottomLeftRadius',
     'borderBottomRightRadius',
+    'borderRadius',
     'letterSpacing',
     'lineHeight'
   ]
@@ -128,6 +129,7 @@ export async function runAnimation ($el, animations = []) {
 /**
  * @description 获取远程地址文件流
  * @param url
+ * @param responseType
  * @returns {Promise<unknown>}
  */
 export function loadFile (url, responseType = 'blob') {

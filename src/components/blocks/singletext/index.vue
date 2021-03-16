@@ -3,7 +3,7 @@ import { h } from 'vue'
 import useComponentCommon from '@/hooks/useComponentCommon'
 
 export default {
-  name: 'blocks-text',
+  name: 'blocks-single-text',
   props: {
     config: {
       type: Object,
