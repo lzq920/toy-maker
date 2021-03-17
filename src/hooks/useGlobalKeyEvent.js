@@ -38,11 +38,10 @@ export default function useGlobalKeyEvent () {
     if (e.ctrlKey && e.code === 'KeyD') {
       console.log('Ctrl+D', '删除')
       e.preventDefault()
-      const removeQueue = cloneDeep(store.state.editor.activeItems).map(item => {
-        return store.dispatch('editor/removeItem', item)
-      })
-      if (removeQueue.length) {
-        await Promise.all(removeQueue)
+      if (store.state.editor.activeItems.length > 0) {
+        await Promise.all(cloneDeep(store.state.editor.activeItems).map(item => {
+          return store.dispatch('editor/removeItem', item)
+        }))
       } else {
         console.log('没有活跃的组件')
       }
@@ -55,12 +54,11 @@ export default function useGlobalKeyEvent () {
     if (e.ctrlKey && e.code === 'KeyV') {
       console.log('Ctrl+V', '粘贴')
       e.preventDefault()
-      const addQueue = store.state.editor.copyData.map(item => {
-        const target = Object.assign({}, item, { id: `blocks-${generatorUUID()}` })
-        return store.dispatch('editor/addItem', mergeComponent(target))
-      })
-      if (addQueue.length) {
-        await Promise.all(addQueue)
+      if (store.state.editor.copyData.length > 0) {
+        await Promise.all(store.state.editor.copyData.map(item => {
+          const target = Object.assign({}, item, { id: `blocks-${generatorUUID()}` })
+          return store.dispatch('editor/addItem', mergeComponent(target))
+        }))
       } else {
         console.log('没有要粘贴的组件')
       }
