@@ -37,7 +37,6 @@ export default function useEditorMethod () {
           canvasSetting,
           dataSource
         } = result[0]
-        debugger
         const items = allItems.map(item => {
           return mergeComponent(item)
         })
