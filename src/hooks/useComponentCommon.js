@@ -13,6 +13,9 @@ export default function useComponentCommon (config) {
         if (str) {
           location.href = str
           resolve()
+        } else {
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject('未定义参数')
         }
       })
     },
@@ -21,6 +24,9 @@ export default function useComponentCommon (config) {
         if (str) {
           alert(str)
           resolve()
+        } else {
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject('未定义参数')
         }
       })
     }

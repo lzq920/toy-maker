@@ -62,7 +62,7 @@
       const transaction = db.transaction(['Page'])
       const objectStore = transaction.objectStore('Page')
       const request = objectStore.get(id)
-      request.onerror = function (event) {
+      request.onerror = function () {
         console.log('事务失败')
       }
       request.onsuccess = function () {

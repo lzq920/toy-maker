@@ -64,7 +64,7 @@ export default class History {
 
   checkRepeat (snapshot) {
     const next = snapshot
-    let prev = []
+    let prev
     if (this.cursor >= 0) {
       prev = this.snapshots[this.cursor]
     } else {

@@ -1,5 +1,6 @@
-import { generatorUUID } from '../utils'
-import { mergeWith, isArray } from 'lodash'
+import { generatorUUID } from '@/utils'
+import { isArray, mergeWith } from 'lodash'
+
 /**
  * @description 公共组件
  * @class Blocks

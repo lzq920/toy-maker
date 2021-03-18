@@ -32,7 +32,7 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { cloneDeep } from 'lodash'
-import { generatorUUID } from '../utils'
+import { generatorUUID } from '@/utils'
 
 export default {
   name: 'PageList',

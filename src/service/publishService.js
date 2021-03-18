@@ -18,13 +18,4 @@ export class PublishService {
       return: true
     })
   }
-
-  getPublishByPageId (id) {
-    return connection.select({
-      from: this.tableName,
-      where: {
-        pageId: id
-      }
-    })
-  }
 }

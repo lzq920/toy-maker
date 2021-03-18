@@ -28,7 +28,13 @@ export default {
       'div',
       {
         id: this.config.id,
-        style: this.computedStyle,
+        style: Object.assign(this.computedStyle, {
+          display: '-webkit-box',
+          '-webkit-line-clamp': this.config.lineClamp,
+          '-webkit-box-orient': 'vertical',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
+        }),
         onClick: this.handleClick
       },
       this.getExpression(this.config.innerText)

@@ -156,7 +156,7 @@ export default {
       await store.dispatch('editor/clearActiveItem')
       await store.dispatch('editor/setAllItems', [])
     }
-    watch(route, async (val) => {
+    watch(route, async () => {
       await initPageConfig()
       await getPageData()
       await store.dispatch('editor/clearHistory')

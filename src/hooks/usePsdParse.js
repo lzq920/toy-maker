@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import useUpdateComponent from '@/hooks/useUpdateComponent'
+
 const PSD = require('psd.js')
 
 export default function usePsdParse () {
@@ -43,7 +44,7 @@ export default function usePsdParse () {
           src: img.src
         })
       } catch (e) {
-        continue
+        console.log(e)
       }
     }
     if (psdSourceList.length) {

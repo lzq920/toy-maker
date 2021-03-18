@@ -10,7 +10,7 @@ export default class BlocksMultipleText extends Blocks {
     config = mergeWith(
       {
         componentName: 'blocks-multiple-text',
-        description: '文本组件',
+        description: '多行文本组件',
         rect: {
           height: 50,
           width: 375,
@@ -21,13 +21,9 @@ export default class BlocksMultipleText extends Blocks {
           width: '100%',
           height: '100%',
           color: 'rgba(0,0,0,1)',
-          fontSize: 12,
-          '-webkit-line-clamp': 2,
-          display: '-webkit-box',
-          '-webkit-box-orient': 'vertical',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis'
+          fontSize: 12
         },
+        lineClamp: 2,
         innerText: '多行文本组件',
         animations: [],
         events: []

@@ -29,7 +29,7 @@ export default {
       required: true
     }
   },
-  setup (props) {
+  setup: function (props) {
     const mode = ref('mobile')
     const dataSource = computed(() => props.source)
     provide('mode', mode)

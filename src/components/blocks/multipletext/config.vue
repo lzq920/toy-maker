@@ -29,9 +29,16 @@ export default {
           color: 'rgba(0,0,0,1)',
           fontSize: 20,
           backgroundColor: 'rgba(255,255,255,1)'
-        }
+        },
+        rect: {
+          height: 60
+        },
+        lineClamp: 2
       }, {
         innerText: '#{{defaultMultipleText}}',
+        rect: {
+          height: 88
+        },
         styles: {
           width: '100%',
           height: '100%',
@@ -39,7 +46,8 @@ export default {
           fontSize: 20,
           backgroundColor: 'rgba(255,255,255,1)',
           borderRadius: 10
-        }
+        },
+        lineClamp: 3
       }
     ])
     const handleClick = (item) => {
