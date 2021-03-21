@@ -7,6 +7,11 @@ const routes = [
     redirect: '/list'
   },
   {
+    path: '/signup',
+    name: 'Signup',
+    component: () => import(/* webpackChunkName:"signup" */'../views/SignUp')
+  },
+  {
     path: '/create',
     name: 'Create',
     component: () => import(/* webpackChunkName: "home" */ '../views/Create.vue')
