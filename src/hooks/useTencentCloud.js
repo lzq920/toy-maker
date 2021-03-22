@@ -1,5 +1,4 @@
 import cloudbase from '@cloudbase/js-sdk'
-import { ElMessage } from 'element-plus'
 import { computed, reactive } from 'vue'
 
 export default function useTencentCloud () {
@@ -57,9 +56,7 @@ export default function useTencentCloud () {
    * @description 退出登录
    */
   const signOut = () => {
-    auth.signOut().then(() => {
-      ElMessage.success('退出登录')
-    })
+    return auth.signOut()
   }
   /**
    * @description 页面Service

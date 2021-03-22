@@ -3,6 +3,7 @@
     <el-scrollbar>
       <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
         <el-button type="primary" @click="toCreate">新增</el-button>
+        <el-button type="danger" @click="logout">退出登录</el-button>
       </el-header>
       <el-main class="bg-white w-screen">
         <el-empty v-if="pageList.length===0" description="暂无数据"></el-empty>
@@ -36,7 +37,7 @@ import useTencentCloud from '@/hooks/useTencentCloud'
 export default {
   name: 'PageList',
   setup () {
-    const { pageService } = useTencentCloud()
+    const { pageService, signOut } = useTencentCloud()
     const pageList = ref([])
     const router = useRouter()
     const loading = ref(false)
@@ -93,6 +94,13 @@ export default {
         await getPageList()
       })
     }
+    const logout = async () => {
+      await signOut()
+      ElMessage.success('退出登录')
+      await router.replace({
+        name: 'Signup'
+      })
+    }
     onMounted(async () => {
       await getPageList()
     })
@@ -103,7 +111,8 @@ export default {
       toCreate,
       toPreview,
       handleDelete,
-      toCopy
+      toCopy,
+      logout
     }
   }
 }
