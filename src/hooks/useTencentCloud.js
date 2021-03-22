@@ -67,7 +67,9 @@ export default function useTencentCloud () {
      * @description 获取所有页面
      */
     getPageList () {
-      return pageCollection.get()
+      return pageCollection.field({
+        pageConfig: true
+      }).get()
     },
     /**
      * @description 获取单个页面
