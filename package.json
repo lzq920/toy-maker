@@ -9,6 +9,7 @@
     "generator": "vue-cli-service build --formats umd-min --target lib --name generator src/components/generator/index.js --dest public/generator"
   },
   "dependencies": {
+    "@cloudbase/js-sdk": "^1.4.1",
     "@lzq920/vue3-draggable-resizable": "^1.7.0",
     "@octokit/rest": "^18.3.5",
     "core-js": "^3.6.5",

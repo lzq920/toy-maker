@@ -3,18 +3,17 @@ import { useStore } from 'vuex'
 import { ref, toRaw, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import domToImage from 'dom-to-image'
-import { PageService } from '@/service/pageService'
 import { useRoute, useRouter } from 'vue-router'
-import { generatorUUID } from '@/utils'
+import useTencentCloud from '@/hooks/useTencentCloud'
 
 export default function useEditorMethod () {
+  const { pageService } = useTencentCloud()
   const { mergeComponent } = useUpdateComponent()
   const store = useStore()
   const route = useRoute()
   const { params } = route
   const router = useRouter()
   const pageId = ref(params.id)
-  const pageStore = new PageService()
   const saveLoading = ref(false)
   const pageLoading = ref(false)
   watch(route, (val) => {
@@ -29,14 +28,14 @@ export default function useEditorMethod () {
   const getPageData = async () => {
     pageLoading.value = true
     if (pageId.value) {
-      const result = await pageStore.getPageById(pageId.value)
-      if (result.length > 0) {
+      const { data } = await pageService.getPageById(pageId.value)
+      if (data.length > 0) {
         const {
           allItems,
           pageConfig,
           canvasSetting,
           dataSource
-        } = result[0]
+        } = data[0]
         const items = allItems.map(item => {
           return mergeComponent(item)
         })
@@ -55,8 +54,8 @@ export default function useEditorMethod () {
     await store.dispatch('editor/setPageConfig', { cover: cover })
     if (pageId.value) {
       try {
-        await pageStore.updatePageById({
-          id: pageId.value,
+        await pageService.updatePageById({
+          _id: pageId.value,
           pageConfig: toRaw(store.state.editor.pageConfig),
           allItems: toRaw(store.state.editor.allItems),
           canvasSetting: toRaw(store.state.editor.canvasSetting),
@@ -70,19 +69,19 @@ export default function useEditorMethod () {
       }
     } else {
       try {
-        const result = await pageStore.addPage({
-          id: generatorUUID(),
+        saveLoading.value = true
+        const { id } = await pageService.addPage({
           pageConfig: toRaw(store.state.editor.pageConfig),
           allItems: toRaw(store.state.editor.allItems),
           canvasSetting: toRaw(store.state.editor.canvasSetting),
           dataSource: toRaw(store.state.editor.dataSource)
         })
-        ElMessage.success('新增成功')
         saveLoading.value = false
+        ElMessage.success('创建成功')
         await router.replace({
           name: 'Edit',
           params: {
-            id: result[0].id
+            id: id
           }
         })
       } catch (error) {

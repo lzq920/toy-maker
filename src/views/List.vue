@@ -7,16 +7,16 @@
       <el-main class="bg-white w-screen">
         <el-empty v-if="pageList.length===0" description="暂无数据"></el-empty>
         <div class="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 gap-4">
-          <div v-for="item in pageList" :key="item.id"
+          <div v-for="item in pageList" :key="item._id"
                class="bg-white rounded-md flex flex-col border-2 border-blue-700 p-2 overflow-hidden">
             <img :src="item.pageConfig.cover" alt="cover" class="border-2">
             <div class="flex flex-col mt-4">
               <div class="font-bold">{{ item.pageConfig.title || '未命名落地页' }}</div>
               <div class="flex justify-between items-center mt-2">
-                <el-button size="mini" type="primary" @click="toEdit(item.id)" icon="el-icon-edit"></el-button>
-                <el-button size="mini" type="info" @click="toPreview(item.id)" icon="el-icon-view"></el-button>
+                <el-button size="mini" type="primary" @click="toEdit(item._id)" icon="el-icon-edit"></el-button>
+                <el-button size="mini" type="info" @click="toPreview(item._id)" icon="el-icon-view"></el-button>
                 <el-button size="mini" type="warning" @click="toCopy(item)" icon="el-icon-document-copy"></el-button>
-                <el-button size="mini" type="danger" @click="handleDelete(item.id)" icon="el-icon-delete"></el-button>
+                <el-button size="mini" type="danger" @click="handleDelete(item._id)" icon="el-icon-delete"></el-button>
               </div>
             </div>
           </div>
@@ -27,27 +27,26 @@
 </template>
 
 <script>
-import { PageService } from '@/service/pageService'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { cloneDeep } from 'lodash'
-import { generatorUUID } from '@/utils'
+import useTencentCloud from '@/hooks/useTencentCloud'
 
 export default {
   name: 'PageList',
   setup () {
-    const pageStore = new PageService()
+    const { pageService } = useTencentCloud()
     const pageList = ref([])
     const router = useRouter()
     const loading = ref(false)
     const getPageList = async () => {
       try {
         loading.value = true
-        pageList.value = await pageStore.getPages()
+        const { data } = await pageService.getPageList()
+        pageList.value = data
         loading.value = false
       } catch (error) {
-        ElMessage.error(error.message)
         loading.value = false
       }
     }
@@ -67,9 +66,13 @@ export default {
     }
     const toCopy = async (item) => {
       try {
-        const newPage = cloneDeep(item)
-        newPage.id = generatorUUID()
-        await pageStore.addPage(newPage)
+        const {
+          _id,
+          _openid,
+          ...items
+        } = item
+        const newPage = cloneDeep(items)
+        await pageService.addPage(newPage)
         await getPageList()
       } catch (error) {
         ElMessage.error(error.message)
@@ -83,7 +86,7 @@ export default {
         center: true
       }).then(async () => {
         try {
-          await pageStore.removePage(id)
+          await pageService.removePageById(id)
         } catch (error) {
           ElMessage.error(error.message)
         }

@@ -13,17 +13,18 @@
 
 <script>
 import { onMounted, ref } from 'vue'
-import { PublishService } from '@/service/publishService'
 import { ElMessage } from 'element-plus'
+import useTencentCloud from '@/hooks/useTencentCloud'
 
 export default {
   name: 'Publish',
   setup () {
     const activities = ref([])
-    const publishStore = new PublishService()
+    const { publishService } = useTencentCloud()
     const getPublishList = async () => {
       try {
-        activities.value = await publishStore.getPublish()
+        const { data } = await publishService.getPublishList()
+        activities.value = data
       } catch (e) {
         ElMessage.error('出错啦')
       }

@@ -5,7 +5,7 @@ import { loadFile } from '@/utils'
 import { Base64 } from 'js-base64'
 import { ElMessage, ElNotification } from 'element-plus'
 import { ref } from 'vue'
-import { PublishService } from '@/service/publishService'
+import useTencentCloud from '@/hooks/useTencentCloud'
 
 /**
  * @description 远程发布Hook
@@ -16,7 +16,7 @@ export default function usePublishRemote () {
   let accessToken = localStorage.getItem('accessToken')
   let githubName = localStorage.getItem('githubName')
   let githubRepo = localStorage.getItem('githubRepo')
-  const publishStore = new PublishService()
+  const { publishService } = useTencentCloud()
   const publishLoading = ref(false)
   const publish = async (pageId) => {
     accessToken = localStorage.getItem('accessToken')
@@ -59,7 +59,7 @@ export default function usePublishRemote () {
         ElMessage.error(e.message)
       }
     }
-    await publishStore.addPublish({
+    await publishService.addPublish({
       pageId: pageId,
       createTime: new Date().getTime(),
       url: `https://${githubName}.github.io/${githubRepo}/${tempPath}/`

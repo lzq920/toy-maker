@@ -35,6 +35,7 @@
         integrity="sha512-+i5dAv2T8IUOP7oRl2iqlAErpjtBOkNtREnW/Te+4VgQ52h4tAY5biFFQJmF03jVDWU4R7l47BwV8H6qQ+/MfA=="
         src="//lib.baomitu.com/vue/3.0.7/vue.global.js"></script>
 <script src="/generator/generator.umd.min.js"></script>
+<script src="//imgcache.qq.com/qcloud/cloudbase-js-sdk/1.4.1/cloudbase.full.js"></script>
 <script>
   (function () {
     function autoRootFontSize () {
@@ -54,47 +55,33 @@
     autoRootFontSize()
   })()
   window.onload = function () {
+
     const queryObject = new URLSearchParams(location.search)
     const id = queryObject.get('id')
-    let db
-
-    function read (id) {
-      const transaction = db.transaction(['Page'])
-      const objectStore = transaction.objectStore('Page')
-      const request = objectStore.get(id)
-      request.onerror = function () {
-        console.log('事务失败')
-      }
-      request.onsuccess = function () {
-        if (request.result) {
-          const app = Vue.createApp({
-            data () {
-              return {
-                landingList: request.result.allItems,
-                dataSource: request.result.dataSource
-              }
-            }
-          })
-          app.use(generator)
-          app.mount('#app')
-        } else {
-          console.log('未获得数据记录')
+    const cloud = cloudbase.init({
+      env: 'cloud-dev-1gokvxnv79e12706'
+    })
+    const auth = cloud.auth({
+      persistence: 'local'
+    })
+    const db = cloud.database()
+    const pageCollection = db.collection('toy-maker-pages')
+    pageCollection.doc(id).get().then(res => {
+      const { data } = res
+      const app = Vue.createApp({
+        data () {
+          return {
+            landingList: data[0].allItems,
+            dataSource: data[0].dataSource
+          }
         }
-      }
-    }
+      })
+      app.use(generator)
+      app.mount('#app')
+    })
 
-    if (id) {
-      const request = window.indexedDB.open('toy-maker-db', 1)
-      request.onerror = function () {
-        console.log('数据库打开报错')
-      }
-      request.onsuccess = function (event) {
-        db = event.target.result
-        console.log('数据库打开成功')
-        read(id)
-      }
-    }
   }
+
 </script>
 </body>
 
