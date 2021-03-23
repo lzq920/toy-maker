@@ -1,5 +1,10 @@
 <template>
-  <div ref="cropper"></div>
+  <div class="w-full h-full">
+    <div ref="cropper" style="height:500px"></div>
+    <div class="flex justify-center mt-10">
+      <el-button @click="getCropResult">确定</el-button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -12,33 +17,24 @@ export default {
   props: {
     url: String
   },
-  setup () {
+  setup (props, {
+    emit
+  }) {
     const cropper = ref()
     const cropperInstance = ref()
-    const get = () => {
-      console.log(cropperInstance.value.get())
+    const bindImage = (params) => {
+      cropperInstance.value.bind(params)
     }
-    const bind = ({
-      url,
-      points,
-      orientation,
-      zoom
-    }) => {
-      cropperInstance.value.bind(url, points, orientation, zoom)
-    }
-    const result = async ({
-      type,
-      size,
-      format,
-      quality,
-      circle
-    }) => {
-      return await cropperInstance.value.result({
-        type,
-        size,
-        format,
-        quality,
-        circle
+    const getCropResult = async () => {
+      const { points } = await cropperInstance.value.get()
+      console.log(points)
+      const width = points[2] - points[0]
+      const height = points[3] - points[1]
+      const result = await cropperInstance.value.result()
+      emit('choose', {
+        width,
+        height,
+        result
       })
     }
     onMounted(() => {
@@ -46,11 +42,10 @@ export default {
         enableResize: true,
         enableOrientation: true,
         enableExif: true,
-        viewport: {
-          width: 375,
-          height: 200,
-          type: 'square'
-        }
+        viewport: { width: 375, height: 375 }
+      })
+      bindImage({
+        url: props.url
       })
     })
     onBeforeUnmount(() => {
@@ -58,9 +53,7 @@ export default {
     })
     return {
       cropper,
-      get,
-      bind,
-      result
+      getCropResult
     }
   }
 }

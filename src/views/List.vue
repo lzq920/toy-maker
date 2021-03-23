@@ -3,7 +3,7 @@
     <el-scrollbar>
       <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
         <el-tooltip :content="userInfo.email">
-          <el-image style="width:45px;height:45px;" src="https://cdn.pixabay.com/photo/2017/07/10/21/12/beautiful-woman-2491577_150.jpg" class="rounded mr-auto shadow-sm"></el-image>
+          <el-image style="width:45px;height:45px;" src="https://cdn.pixabay.com/photo/2017/07/10/21/12/beautiful-woman-2491577_150.jpg" class="rounded-2xl border mr-auto shadow-sm"></el-image>
         </el-tooltip>
         <el-button type="primary" @click="toCreate">新增</el-button>
         <el-button type="danger" @click="logout">退出登录</el-button>
@@ -12,8 +12,8 @@
         <el-empty v-if="pageList.length===0" description="暂无数据"></el-empty>
         <div class="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 gap-4">
           <div v-for="item in pageList" :key="item._id"
-               class="bg-white rounded-md flex flex-col border-2 border-blue-700 p-2 overflow-hidden">
-            <img :src="item.pageConfig.cover" alt="cover" class="border-2">
+               class="bg-white rounded-md flex flex-col border border-blue-700 p-2 overflow-hidden">
+            <img :src="item.pageConfig.cover" alt="cover" class="border">
             <div class="flex flex-col mt-4">
               <div class="font-bold">{{ item.pageConfig.title || '未命名落地页' }}</div>
               <div class="flex justify-between items-center mt-2">

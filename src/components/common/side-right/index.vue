@@ -17,7 +17,7 @@
 <script>
 import config from '../../blocks/image/config.vue'
 import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { computed, provide, ref } from 'vue'
 
 export default {
   components: { config },
@@ -27,6 +27,12 @@ export default {
     const vdrList = computed(() => {
       return store.state.editor.activeItems
     })
+    const mode = ref('pc')
+    const dataSource = computed(() => {
+      return store.state.editor.dataSource
+    })
+    provide('mode', mode)
+    provide('dataSource', dataSource)
     return {
       vdrList
     }

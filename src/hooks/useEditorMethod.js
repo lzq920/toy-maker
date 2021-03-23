@@ -54,8 +54,7 @@ export default function useEditorMethod () {
     await store.dispatch('editor/setPageConfig', { cover: cover })
     if (pageId.value) {
       try {
-        await pageService.updatePageById({
-          _id: pageId.value,
+        await pageService.updatePageById(pageId.value, {
           pageConfig: toRaw(store.state.editor.pageConfig),
           allItems: toRaw(store.state.editor.allItems),
           canvasSetting: toRaw(store.state.editor.canvasSetting),

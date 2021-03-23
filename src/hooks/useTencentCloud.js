@@ -89,8 +89,8 @@ export default function useTencentCloud () {
      * @description 更新单个页面
      * @param page {Object} 页面数据
      */
-    updatePageById (page) {
-      return pageCollection.doc(page._id).set(page)
+    updatePageById (id, page) {
+      return pageCollection.doc(id).set(page)
     },
     /**
      * @description 添加页面
