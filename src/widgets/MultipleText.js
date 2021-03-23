@@ -18,8 +18,6 @@ export default class BlocksMultipleText extends Blocks {
           top: 0
         },
         styles: {
-          width: '100%',
-          height: '100%',
           color: 'rgba(0,0,0,1)',
           fontSize: 12
         },

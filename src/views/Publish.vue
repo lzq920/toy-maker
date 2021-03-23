@@ -1,5 +1,5 @@
 <template>
-  <div class="publish">
+  <div class="w-full h-full flex justify-center items-center">
     <el-timeline>
       <el-timeline-item
         v-for="(activity, index) in activities"
@@ -44,11 +44,5 @@ export default {
 </script>
 
 <style scoped>
-.publish {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-}
+
 </style>

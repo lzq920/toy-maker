@@ -7,13 +7,12 @@ export default {
   state: {
     activeItems: [], // 当前选中的组件
     pageConfig: {
-      id: '',
       title: '',
       description: '',
       keywords: '',
       cover: ''
     }, // 页面配置
-    dataSource: {}, // 数据源
+    dataSource: {}, // 全局数据源
     allItems: [], // 当前页面所有编辑组件
     historyStack: new History(), // 历史操作记录
     canvasSetting: {
@@ -44,7 +43,6 @@ export default {
         height: 667
       }
       state.pageConfig = {
-        id: '',
         title: '',
         description: '',
         keywords: '',

@@ -2,6 +2,9 @@
   <el-container class="w-screen h-screen">
     <el-scrollbar>
       <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
+        <el-tooltip :content="userInfo.email">
+          <el-image style="width:45px;height:45px;" src="https://cdn.pixabay.com/photo/2017/07/10/21/12/beautiful-woman-2491577_150.jpg" class="rounded mr-auto shadow-sm"></el-image>
+        </el-tooltip>
         <el-button type="primary" @click="toCreate">新增</el-button>
         <el-button type="danger" @click="logout">退出登录</el-button>
       </el-header>
@@ -37,7 +40,7 @@ import useTencentCloud from '@/hooks/useTencentCloud'
 export default {
   name: 'PageList',
   setup () {
-    const { pageService, signOut } = useTencentCloud()
+    const { pageService, signOut, userInfo } = useTencentCloud()
     const pageList = ref([])
     const router = useRouter()
     const loading = ref(false)
@@ -112,7 +115,8 @@ export default {
       toPreview,
       handleDelete,
       toCopy,
-      logout
+      logout,
+      userInfo
     }
   }
 }
