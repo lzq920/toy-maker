@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center items-center h-screen w-screen">
     <el-card class="w-96">
-      <h1>ToyMaker Signup</h1>
+      <h1>用户登录注册</h1>
       <el-form :model="user" ref="form" :rules="rules">
         <el-form-item label="Email" prop="email">
           <el-input type="text" v-model="user.email"></el-input>
