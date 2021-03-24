@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute left-0 bottom-0 bg-white p-3 z-10">
+  <div class="absolute left-0 w-40 bottom-0 bg-white p-3 z-10">
     <label for="canvassed1" class="flex-1"><input class="w-10" id="canvassed1" v-model.number.lazy="width" disabled/>px</label>
     <label for="canvassed2" class="flex-1 pl-2"><input class="w-10" id="canvassed2"
                                                        v-model.number.lazy="height"/>px</label>
