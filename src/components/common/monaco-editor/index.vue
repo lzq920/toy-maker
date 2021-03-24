@@ -1,10 +1,13 @@
 <template>
-  <div id="monaco-editor"></div>
+  <div id="monaco-editor" class="w-full h-full">
+  </div>
+  <div class="absolute bottom-0 left-0 text-sm text-red-600">{{ errorTip }}</div>
 </template>
 
 <script>
 import * as monaco from 'monaco-editor'
-import { onBeforeUnmount, onMounted } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { isPlainObject } from 'lodash'
 
 export default {
   name: 'monaco-editor',
@@ -16,6 +19,7 @@ export default {
   },
   setup (props, { emit }) {
     let editorInstance
+    const errorTip = ref('')
     onMounted(() => {
       editorInstance = monaco.editor.create(document.querySelector('#monaco-editor'), {
         value: '',
@@ -27,17 +31,30 @@ export default {
       })
       editorInstance.setValue(props.code)
       editorInstance.onDidChangeModelContent(() => {
-        emit('change', editorInstance.getValue())
+        try {
+          const result = JSON.parse(editorInstance.getValue())
+          if (!isPlainObject(result)) {
+            errorTip.value = '数据源不是Object对象'
+            return
+          } else {
+            errorTip.value = ''
+            emit('change', result)
+          }
+        } catch (e) {
+          errorTip.value = '格式不正确'
+        }
       })
     })
     onBeforeUnmount(() => {
       editorInstance.dispose()
     })
-    return {}
+    return {
+      errorTip
+    }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>
