@@ -24,8 +24,6 @@ export default {
       {
         innerText: '#{{defaultMultipleText}}',
         styles: {
-          width: '100%',
-          height: '100%',
           color: 'rgba(0,0,0,1)',
           fontSize: 20,
           backgroundColor: 'rgba(255,255,255,1)'
@@ -40,8 +38,6 @@ export default {
           height: 88
         },
         styles: {
-          width: '100%',
-          height: '100%',
           color: 'rgba(0,0,0,1)',
           fontSize: 20,
           backgroundColor: 'rgba(255,255,255,1)',
