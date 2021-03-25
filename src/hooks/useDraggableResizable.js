@@ -1,5 +1,6 @@
 import { useStore } from 'vuex'
 import { computed, nextTick, ref, watch } from 'vue'
+
 /**
  * @description 拖拽组件事件集合Hook
  * @param {Object} params 拖拽组件参数对象
@@ -11,9 +12,9 @@ export default function useDraggableResizable (params) {
   const activeItemIds = computed(() => {
     return store.getters['editor/activeItemIds']
   })
-  const ctrlKey = computed(() => {
-    return store.state.editor.globalsKeyEvent.ctrlKey
-  })
+  // const ctrlKey = computed(() => {
+  //   return store.state.editor.globalsKeyEvent.ctrlKey
+  // })
   watch(activeItemIds, (value) => {
     isActive.value = value.includes(params.id)
   })
@@ -22,11 +23,7 @@ export default function useDraggableResizable (params) {
    * @returns {Promise<void>}
    */
   const activated = async () => {
-    if (ctrlKey.value) {
-      await store.dispatch('editor/addActiveItem', params)
-    } else {
-      await store.dispatch('editor/replaceActiveItem', [params])
-    }
+    await store.dispatch('editor/replaceActiveItem', [params])
   }
   /**
    * @description 组件非活跃状态监听

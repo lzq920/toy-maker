@@ -11,7 +11,6 @@
 ### 预览地址
 
 [toy-maker](https://toy-maker.vercel.app/)
-![img_1.png](preview.png)
 ### 安装入门
 
 ```
@@ -30,12 +29,9 @@ npm run build //构建生产环境资源
 - [x] 组件自动吸附，实时参考线
 - [x] 撤销、重做 (Ctrl + Z / Ctrl + Y)
 - [x] 组件复制、粘贴 (Ctrl + C / Ctrl + V)
-- [x] 组件删除 (Ctrl + D)
+- [x] 组件删除 (Backspace / Delete)
 - [x] 组件层级上移下移(Alt + ↑ / Alt + ↓)
 - [x] 编辑画布大小
 - [x] 一键预览，一键导出HTML文件
 - [x] 接入第三方图库以及视频库
 - [x] 组件动画
-- [ ] 右键菜单，复制粘贴排序等
-- [ ] 图层锁定排序隐藏等
-- [ ] 其他

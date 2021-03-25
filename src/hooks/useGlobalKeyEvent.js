@@ -35,8 +35,8 @@ export default function useGlobalKeyEvent () {
         await store.dispatch('editor/redoHistory')
       }
     }
-    if (e.ctrlKey && e.code === 'KeyD') {
-      console.log('Ctrl+D', '删除')
+    if (e.code === 'Delete' || e.code === 'Backspace') {
+      console.log(e.code, '删除')
       e.preventDefault()
       if (store.state.editor.activeItems.length > 0) {
         await Promise.all(cloneDeep(store.state.editor.activeItems).map(item => {
