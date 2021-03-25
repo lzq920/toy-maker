@@ -7,7 +7,7 @@ export default function useTencentCloud () {
    * @type {cloudbase.app.App}
    */
   const app = cloudbase.init({
-    env: 'cloud-dev-1gokvxnv79e12706'
+    env: 'toy-maker-0gzrfa7132f7c204'
   })
   /**
    * @description 授权方法
