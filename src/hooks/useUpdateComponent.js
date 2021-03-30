@@ -4,6 +4,7 @@ import BlocksText from '@/widgets/Text'
 import BlocksVideo from '@/widgets/Video'
 import BlocksSingleText from '@/widgets/SingleText'
 import BlocksMultipleText from '@/widgets/MultipleText'
+import BlocksForm from '@/widgets/Form'
 
 /**
  * @description 更新组件数据Hook
@@ -30,6 +31,9 @@ export default function useUpdateComponent () {
         break
       case 'blocks-multiple-text':
         block = new BlocksMultipleText(params)
+        break
+      case 'blocks-form':
+        block = new BlocksForm(params)
         break
       default:
         console.error('没有找到需要更新的组件')

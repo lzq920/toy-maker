@@ -50,6 +50,11 @@ export default {
         tipText: '视频',
         icon: 'el-icon-video-camera-solid',
         component: 'blocks-video-config'
+      },
+      {
+        tipText: '表单',
+        icon: 'el-icon-s-data',
+        component: 'blocks-form-config'
       }
     ])
     return {
