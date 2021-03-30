@@ -17,11 +17,26 @@ export default {
     } = useComponentCommon(props.config)
     const onSubmit = (id) => {
       const form = document.querySelector(`#${id}`)
-      for (let index = 0; index < form.elements.length; index++) {
-        const element = form.elements[index]
-        if (element.checkValidity()) {
-          console.log('true')
+      if (!form.reportValidity()) {
+        for (const formElement of form.elements) {
+          formElement.setCustomValidity('')
+          if (formElement.validity.valueMissing) {
+            return formElement.setCustomValidity('该项不能为空')
+          }
+          if (formElement.validity.patternMismatch) {
+            return formElement.setCustomValidity('该项格式不正确')
+          }
         }
+      } else {
+        const formData = new FormData(form)
+        const formObject = Array.from(formData).reduce(
+          (acc, [key, value]) => ({
+            ...acc,
+            [key]: value
+          }),
+          {}
+        )
+        console.log('收集到表单信息', formObject)
       }
     }
     return {
@@ -40,6 +55,9 @@ export default {
               event.preventDefault()
               event.stopPropagation()
               this.onSubmit(this.config.id)
+            },
+            style: {
+              width: '100%'
             }
           }, '提交')
           break
@@ -52,7 +70,10 @@ export default {
             name: item.name,
             maxlength: item.maxlength,
             minlength: item.maxlength,
-            placeholder: item.placeholder
+            placeholder: item.placeholder,
+            style: {
+              width: '100%'
+            }
           })
           break
         case 'input-tel':
@@ -64,7 +85,10 @@ export default {
             name: item.name,
             maxlength: 11,
             pattern: '^1[3-9]\\d{9}',
-            placeholder: item.placeholder
+            placeholder: item.placeholder,
+            style: {
+              width: '100%'
+            }
           })
           break
         case 'input-number':
@@ -74,7 +98,10 @@ export default {
             disabled: item.disabled,
             readonly: item.readonly,
             name: item.name,
-            placeholder: item.placeholder
+            placeholder: item.placeholder,
+            style: {
+              width: '100%'
+            }
           })
           break
         case 'input-email':
@@ -84,8 +111,10 @@ export default {
             disabled: item.disabled,
             readonly: item.readonly,
             name: item.name,
-            pattern: '.+@foobar.com',
-            placeholder: item.placeholder
+            placeholder: item.placeholder,
+            style: {
+              width: '100%'
+            }
           })
           break
         case 'input-textarea':
@@ -96,7 +125,10 @@ export default {
             minlength: item.minlength,
             maxlength: item.maxlength,
             name: item.name,
-            placeholder: item.placeholder
+            placeholder: item.placeholder,
+            style: {
+              width: '100%'
+            }
           })
           break
       }
@@ -106,7 +138,12 @@ export default {
       'form',
       {
         id: this.config.id,
-        style: this.computedStyle
+        style: Object.assign(this.computedStyle, {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '20px'
+        })
       },
       children
     )
