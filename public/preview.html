@@ -11,11 +11,10 @@
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     <title>预览</title>
     <style>
-        html,
-        body {
-            padding: 0;
-            margin: 0;
+        * {
+            box-sizing: border-box;
         }
+
         #app {
             margin: 0 auto;
             position: relative;
@@ -58,9 +57,6 @@
     const id = queryObject.get('id')
     const cloud = cloudbase.init({
       env: 'toy-maker-0gzrfa7132f7c204'
-    })
-    const auth = cloud.auth({
-      persistence: 'local'
     })
     const db = cloud.database()
     const pageCollection = db.collection('toy-maker-pages')

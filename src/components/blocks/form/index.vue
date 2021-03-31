@@ -1,6 +1,12 @@
+<template>
+  <form :id="config.id" class="form-config">
+    <component :is="item.componentName" v-for="(item,index) in config.children" :key="index" :config="item"
+               @on-submit="onSubmit"></component>
+  </form>
+</template>
 <script>
-import { h } from 'vue'
 import useComponentCommon from '@/hooks/useComponentCommon'
+import { httpPost } from '@/utils'
 
 export default {
   name: 'blocks-form',
@@ -13,20 +19,13 @@ export default {
   setup (props) {
     const {
       computedStyle,
-      getExpression
+      getExpression,
+      mode
     } = useComponentCommon(props.config)
-    const onSubmit = (id) => {
-      const form = document.querySelector(`#${id}`)
+    const onSubmit = async () => {
+      const form = document.querySelector(`#${props.config.id}`)
       if (!form.reportValidity()) {
-        for (const formElement of form.elements) {
-          formElement.setCustomValidity('')
-          if (formElement.validity.valueMissing) {
-            return formElement.setCustomValidity('该项不能为空')
-          }
-          if (formElement.validity.patternMismatch) {
-            return formElement.setCustomValidity('该项格式不正确')
-          }
-        }
+        return false
       } else {
         const formData = new FormData(form)
         const formObject = Array.from(formData).reduce(
@@ -36,7 +35,16 @@ export default {
           }),
           {}
         )
-        console.log('收集到表单信息', formObject)
+        if (mode.value === 'pc') {
+          return console.log('收集到表单信息', formObject)
+        } else {
+          try {
+            const response = await httpPost('', formObject)
+            console.log(response)
+          } catch (e) {
+            console.log(e)
+          }
+        }
       }
     }
     return {
@@ -44,111 +52,15 @@ export default {
       computedStyle,
       onSubmit
     }
-  },
-  render () {
-    const children = this.config.configs.map((item) => {
-      let temp = ''
-      switch (item.fieldset) {
-        case 'input-submit':
-          temp = h('button', {
-            onClick: event => {
-              event.preventDefault()
-              event.stopPropagation()
-              this.onSubmit(this.config.id)
-            },
-            style: {
-              width: '100%'
-            }
-          }, '提交')
-          break
-        case 'input-text':
-          temp = h('input', {
-            type: 'text',
-            required: item.required,
-            disabled: item.disabled,
-            readonly: item.readonly,
-            name: item.name,
-            maxlength: item.maxlength,
-            minlength: item.maxlength,
-            placeholder: item.placeholder,
-            style: {
-              width: '100%'
-            }
-          })
-          break
-        case 'input-tel':
-          temp = h('input', {
-            type: 'tel',
-            required: item.required,
-            disabled: item.disabled,
-            readonly: item.readonly,
-            name: item.name,
-            maxlength: 11,
-            pattern: '^1[3-9]\\d{9}',
-            placeholder: item.placeholder,
-            style: {
-              width: '100%'
-            }
-          })
-          break
-        case 'input-number':
-          temp = h('input', {
-            type: 'number',
-            required: item.required,
-            disabled: item.disabled,
-            readonly: item.readonly,
-            name: item.name,
-            placeholder: item.placeholder,
-            style: {
-              width: '100%'
-            }
-          })
-          break
-        case 'input-email':
-          temp = h('input', {
-            type: 'email',
-            required: item.required,
-            disabled: item.disabled,
-            readonly: item.readonly,
-            name: item.name,
-            placeholder: item.placeholder,
-            style: {
-              width: '100%'
-            }
-          })
-          break
-        case 'input-textarea':
-          temp = h('textarea', {
-            required: item.required,
-            disabled: item.disabled,
-            readonly: item.readonly,
-            minlength: item.minlength,
-            maxlength: item.maxlength,
-            name: item.name,
-            placeholder: item.placeholder,
-            style: {
-              width: '100%'
-            }
-          })
-          break
-      }
-      return temp
-    })
-    return h(
-      'form',
-      {
-        id: this.config.id,
-        style: Object.assign(this.computedStyle, {
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '20px'
-        })
-      },
-      children
-    )
   }
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.form-config {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+</style>

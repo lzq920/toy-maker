@@ -23,7 +23,7 @@ export default class BlocksForm extends Blocks {
         },
         animations: [],
         events: [],
-        configs: []
+        children: []
       },
       config,
       function (objValue, srcValue) {

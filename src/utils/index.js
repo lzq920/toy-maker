@@ -102,6 +102,32 @@ export function httpGet (url) {
 }
 
 /**
+ * @description 原生Ajax封装POST请求
+ * @param url {String} 请求地址
+ * @param data {Object} 请求参数
+ * @returns {Promise<unknown>}
+ */
+export function httpPost (url, data) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest()
+    xhr.open('POST', url, true)
+    xhr.responseType = 'json'
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.onload = function () {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        resolve(xhr.response)
+      } else {
+        reject(xhr.statusText)
+      }
+    }
+    xhr.onerror = function () {
+      reject(xhr.statusText)
+    }
+    xhr.send(data)
+  })
+}
+
+/**
  * @description 动画预览播放
  * @param $el dom元素
  * @param animations 动画列表

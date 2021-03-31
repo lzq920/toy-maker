@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="en">
 
 <head>
@@ -11,11 +12,8 @@
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     <title>{{title}}</title>
     <style>
-        html,
-        body {
-            font-size: calc(100vw / 7.5);
-            padding: 0;
-            margin: 0;
+        * {
+            box-sizing: border-box;
         }
 
         #app {
@@ -37,16 +35,33 @@
             src="//lib.baomitu.com/vue/3.0.7/vue.global.js"></script>
     <script src="./generator.umd.min.js"></script>
     <script>
-        const app = Vue.createApp({
-            data() {
-                return {
-                    landingList: {{landingData|dump|safe}},
-                    dataSource: {{dataSource|dump|safe}}
-                }
-            },
-        });
-        app.use(generator);
-        app.mount("#app");
+      (function () {
+        function autoRootFontSize () {
+          const u = navigator.userAgent
+          let clientWidth = document.documentElement.clientWidth
+          if (!!!u.match(/AppleWebKit.*Mobile.*/)) {
+            clientWidth = 375
+            document
+              .querySelector('#app')
+              .style
+              .width = '' + clientWidth + 'px'
+          }
+          document.documentElement.style.fontSize = clientWidth / 7.5 + 'px'
+        }
+
+        window.addEventListener('resize', autoRootFontSize)
+        autoRootFontSize()
+      })()
+      const app = Vue.createApp({
+        data () {
+          return {
+            landingList: {{landingData|dump|safe}},
+            dataSource: {{dataSource|dump|safe}}
+          }
+        },
+      })
+      app.use(generator)
+      app.mount('#app')
     </script>
 </body>
 
