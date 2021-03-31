@@ -1,13 +1,25 @@
 <template>
   <div class="relative h-full">
-    <el-tabs :tab-position="tabPosition" class="h-full">
-      <el-tab-pane v-for="(item, index) in configList" :key="index">
+    <el-tabs v-model="activeTab" :tab-position="tabPosition" class="h-full">
+      <el-tab-pane name="list">
         <template #label>
-          <el-tooltip :content="item.tipText" placement="right">
-            <i class="font-bold" :class="item.icon"></i>
-          </el-tooltip>
+          组件列表
         </template>
-        <component :is="item.component"></component>
+        <el-collapse>
+          <el-collapse-item v-for="item in configList" :key="item.component"
+                            :name="item.component">
+            <template #title>
+              {{ item.tipText }}
+            </template>
+            <component :is="item.component"></component>
+          </el-collapse-item>
+        </el-collapse>
+      </el-tab-pane>
+      <el-tab-pane name="tree">
+        <template #label>
+          组件树
+        </template>
+        <tree-wrapper></tree-wrapper>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -20,46 +32,41 @@ export default {
   name: 'side-left',
   setup () {
     const tabPosition = ref('left')
+    const activeTab = ref('list')
     const configList = reactive([
       {
-        tipText: '文本',
-        icon: 'el-icon-document',
+        tipText: '文本组件',
         component: 'blocks-text-config'
       },
       {
-        tipText: '单行文本',
-        icon: 'el-icon-document',
+        tipText: '单行文本组件',
         component: 'blocks-single-text-config'
       },
       {
-        tipText: '多文本',
-        icon: 'el-icon-document',
+        tipText: '多行文本组件',
         component: 'blocks-multiple-text-config'
       },
       {
-        tipText: '图片',
-        icon: 'el-icon-picture-outline',
+        tipText: '图片组件',
         component: 'blocks-image-config'
       },
       {
-        tipText: '矩形框',
-        icon: 'el-icon-receiving',
+        tipText: '矩形框组件',
         component: 'blocks-rect-config'
       },
       {
-        tipText: '视频',
-        icon: 'el-icon-video-camera-solid',
+        tipText: '视频组件',
         component: 'blocks-video-config'
       },
       {
-        tipText: '表单',
-        icon: 'el-icon-s-data',
+        tipText: '表单组件',
         component: 'blocks-form-config'
       }
     ])
     return {
       tabPosition,
-      configList
+      configList,
+      activeTab
     }
   }
 }

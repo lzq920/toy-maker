@@ -16,7 +16,7 @@ import { ref } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
-  name: 'blocks-rect-control',
+  name: 'blocks-form-control',
   props: {
     config: {
       type: Object,

@@ -1,10 +1,9 @@
 <template>
-  <div class="absolute left-0 top-0 bottom-12 w-40 z-10 border border-blue-400">
-    <p class="text-center text-xl bg-white border-b border-blue-400 title">组件树</p>
-    <el-scrollbar class="list">
+  <div class="w-full list">
+    <el-scrollbar>
       <ul class="list-none cursor-pointer bg-white">
         <li v-for="item in tree" :key="item.id" class="p-2 text-sm"
-            :class="{'bg-blue-600':activeItemIds.includes(item.id),'text-white':activeItemIds.includes(item.id)}"
+            :class="{'bg-blue-400':activeItemIds.includes(item.id),'text-white':activeItemIds.includes(item.id)}"
             @click="handleClick(item)">
           {{ item.description }}
         </li>
@@ -41,11 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-  height: 30px;
-}
-
 .list {
-  height: calc(100% - 30px)
+  height: calc(100vh - 60px)
 }
 </style>

@@ -40,7 +40,6 @@
             </div>
           </el-scrollbar>
           <canvas-setting></canvas-setting>
-          <tree-wrapper></tree-wrapper>
         </div>
       </el-main>
       <el-aside width="300px" class="bg-white">
