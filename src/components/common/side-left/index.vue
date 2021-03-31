@@ -61,6 +61,10 @@ export default {
       {
         tipText: '表单组件',
         component: 'blocks-form-config'
+      },
+      {
+        tipText: '图表组件',
+        component: 'blocks-chart-config'
       }
     ])
     return {

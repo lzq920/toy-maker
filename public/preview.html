@@ -58,6 +58,9 @@
     const cloud = cloudbase.init({
       env: 'toy-maker-0gzrfa7132f7c204'
     })
+    const auth = cloud.auth({
+      persistence: 'local'
+    })
     const db = cloud.database()
     const pageCollection = db.collection('toy-maker-pages')
     pageCollection.doc(id).get().then(res => {
