@@ -1,4 +1,4 @@
-import { computed, inject, onMounted, reactive } from 'vue'
+import { computed, inject, onMounted, reactive, unref } from 'vue'
 import { runAnimation, transferStyleMode } from '@/utils'
 import { get } from 'lodash'
 
@@ -87,7 +87,7 @@ export default function useComponentCommon (config) {
   })
   return {
     handleClick,
-    computedStyle,
+    computedStyle: unref(computedStyle),
     getExpression,
     mode,
     dataSource
