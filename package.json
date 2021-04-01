@@ -12,7 +12,7 @@
     "@cloudbase/js-sdk": "^1.4.1",
     "@lzq920/vue3-draggable-resizable": "^1.7.0",
     "@octokit/rest": "^18.3.5",
-    "@tailwindcss/postcss7-compat": "^2.0.2",
+    "@tailwindcss/postcss7-compat": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "autoprefixer": "^9",
     "core-js": "^3.6.5",
     "croppie": "^2.6.5",
