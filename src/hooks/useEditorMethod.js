@@ -50,8 +50,12 @@ export default function useEditorMethod () {
   const savePageData = async () => {
     await store.dispatch('editor/clearActiveItem')
     saveLoading.value = true
-    const cover = await screenshot(document.querySelector('.editor-area'))
-    await store.dispatch('editor/setPageConfig', { cover: cover })
+    try {
+      const cover = await screenshot(document.querySelector('.editor-area'))
+      await store.dispatch('editor/setPageConfig', { cover: cover })
+    } catch (err) {
+      ElMessage.warning('封面保存异常')
+    }
     if (pageId.value) {
       try {
         await pageService.updatePageById(pageId.value, {

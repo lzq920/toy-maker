@@ -18,22 +18,14 @@ export default {
       getExpression,
       mode
     } = useComponentCommon(props.config)
-    return {
-      handleClick,
-      mode,
-      getExpression,
-      computedStyle
-    }
-  },
-  render () {
     return h('video', {
-      id: this.config.id,
-      poster: this.getExpression(this.config.poster),
-      style: this.computedStyle,
-      onClick: this.handleClick,
-      controls: this.mode === 'mobile'
+      id: props.config.id,
+      poster: getExpression(props.config.poster),
+      style: computedStyle,
+      onClick: handleClick,
+      controls: mode === 'mobile'
     }, [h('source', {
-      src: this.config.src
+      src: props.config.src
     })])
   }
 }

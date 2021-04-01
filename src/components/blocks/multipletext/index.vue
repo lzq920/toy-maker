@@ -17,27 +17,20 @@ export default {
       computedStyle,
       getExpression
     } = useComponentCommon(props.config)
-    return {
-      computedStyle,
-      handleClick,
-      getExpression
-    }
-  },
-  render () {
-    return h(
+    return () => h(
       'div',
       {
-        id: this.config.id,
-        style: Object.assign(this.computedStyle, {
+        id: props.config.id,
+        style: Object.assign(computedStyle, {
           display: '-webkit-box',
-          '-webkit-line-clamp': this.config.lineClamp,
+          '-webkit-line-clamp': props.config.lineClamp,
           '-webkit-box-orient': 'vertical',
           overflow: 'hidden',
           textOverflow: 'ellipsis'
         }),
-        onClick: this.handleClick
+        onClick: handleClick
       },
-      this.getExpression(this.config.innerText)
+      getExpression(props.config.innerText)
     )
   }
 }

@@ -1,6 +1,7 @@
 <script>
 import { h } from 'vue'
 import useComponentCommon from '@/hooks/useComponentCommon'
+
 export default {
   name: 'blocks-rect',
   props: {
@@ -10,22 +11,17 @@ export default {
     }
   },
   setup (props) {
-    const { handleClick, computedStyle, getExpression } = useComponentCommon(props.config)
-    return {
+    const {
       handleClick,
-      getExpression,
       computedStyle
-    }
-  },
-  render () {
-    return h(
+    } = useComponentCommon(props.config)
+    return () => h(
       'div',
       {
-        id: this.config.id,
-        style: this.computedStyle,
-        onClick: this.handleClick
-      },
-      ''
+        id: props.config.id,
+        style: computedStyle,
+        onClick: handleClick
+      }
     )
   }
 }

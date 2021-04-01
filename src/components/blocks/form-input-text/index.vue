@@ -12,25 +12,19 @@ export default {
   },
   setup (props) {
     const {
-      computedStyle,
-      getExpression
+      computedStyle
     } = useComponentCommon(props.config)
-    return {
-      computedStyle,
-      getExpression
-    }
-  },
-  render () {
-    return h('input', {
-      style: this.computedStyle,
+    return () => h('input', {
+      id: props.config.id,
+      style: computedStyle,
       type: 'text',
-      required: this.config.required,
-      disabled: this.config.disabled,
-      readonly: this.config.readonly,
-      name: this.config.name,
-      maxlength: this.config.maxlength,
-      minlength: this.config.minlength,
-      placeholder: this.config.placeholder
+      required: props.config.required,
+      disabled: props.config.disabled,
+      readonly: props.config.readonly,
+      name: props.config.name,
+      maxlength: props.config.maxlength,
+      minlength: props.config.minlength,
+      placeholder: props.config.placeholder
     })
   }
 }

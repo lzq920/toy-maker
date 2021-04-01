@@ -1,6 +1,6 @@
 <template>
   <form :id="config.id" class="form-config">
-    <component :is="item.componentName" v-for="(item,index) in config.children" :key="index" :config="item"
+    <component :is="item.componentName" v-for="item in config.children" :key="item.id" :config="item"
                @on-submit="onSubmit"></component>
   </form>
 </template>

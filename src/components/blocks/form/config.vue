@@ -15,6 +15,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import BlocksForm from '../../../widgets/Form'
+import { generatorUUID } from '@/utils'
 
 export default {
   name: 'blocks-form-config',
@@ -121,6 +122,11 @@ export default {
       }
     ])
     const handleClick = item => {
+      const temp = item.children.map(child => {
+        child.id = `blocks-${generatorUUID()}`
+        return child
+      })
+      item.children = temp
       store.dispatch('editor/addItem', new BlocksForm(item))
     }
     return {

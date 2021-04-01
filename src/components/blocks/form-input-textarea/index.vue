@@ -12,23 +12,17 @@ export default {
   },
   setup (props) {
     const {
-      computedStyle,
-      getExpression
+      computedStyle
     } = useComponentCommon(props.config)
-    return {
-      computedStyle,
-      getExpression
-    }
-  },
-  render () {
-    return h('textarea', {
-      style: this.computedStyle,
-      required: this.config.required,
-      disabled: this.config.disabled,
-      readonly: this.config.readonly,
-      name: this.config.name,
-      maxlength: this.config.maxlength,
-      placeholder: this.config.placeholder
+    return () => h('textarea', {
+      id: props.config.id,
+      style: computedStyle,
+      required: props.config.required,
+      disabled: props.config.disabled,
+      readonly: props.config.readonly,
+      name: props.config.name,
+      maxlength: props.config.maxlength,
+      placeholder: props.config.placeholder
     })
   }
 }

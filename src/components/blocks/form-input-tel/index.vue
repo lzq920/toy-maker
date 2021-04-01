@@ -12,24 +12,18 @@ export default {
   },
   setup (props) {
     const {
-      computedStyle,
-      getExpression
+      computedStyle
     } = useComponentCommon(props.config)
-    return {
-      computedStyle,
-      getExpression
-    }
-  },
-  render () {
-    return h('input', {
-      style: this.computedStyle,
+    return () => h('input', {
+      id: props.config.id,
+      style: computedStyle,
       type: 'tel',
-      required: this.config.required,
-      disabled: this.config.disabled,
-      readonly: this.config.readonly,
-      name: this.config.name,
+      required: props.config.required,
+      disabled: props.config.disabled,
+      readonly: props.config.readonly,
+      name: props.config.name,
       maxlength: 11,
-      placeholder: this.config.placeholder,
+      placeholder: props.config.placeholder,
       pattern: '^1[3-9]\\d{9}'
     })
   }

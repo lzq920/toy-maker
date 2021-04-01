@@ -12,21 +12,15 @@ export default {
   },
   setup (props, { emit }) {
     const {
-      computedStyle,
-      getExpression
+      computedStyle
     } = useComponentCommon(props.config)
-    return {
-      computedStyle,
-      getExpression
-    }
-  },
-  render () {
-    return h('button', {
-      style: this.computedStyle,
+    return () => h('button', {
+      style: computedStyle,
+      id: props.config.id,
       onClick: event => {
         event.preventDefault()
         event.stopPropagation()
-        this.$emit('on-submit')
+        emit('on-submit')
       }
     }, '提交')
   }

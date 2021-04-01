@@ -17,21 +17,14 @@ export default {
       computedStyle,
       getExpression
     } = useComponentCommon(props.config)
-    return {
-      computedStyle,
-      handleClick,
-      getExpression
-    }
-  },
-  render () {
-    return h(
+    return () => h(
       'div',
       {
-        id: this.config.id,
-        style: this.computedStyle,
-        onClick: this.handleClick
+        id: props.config.id,
+        style: computedStyle,
+        onClick: handleClick
       },
-      this.getExpression(this.config.innerText)
+      getExpression(props.config.innerText)
     )
   }
 }

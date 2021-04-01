@@ -17,6 +17,7 @@ export default {
       computedStyle
     } = useComponentCommon(props.config)
     const chartRef = ref('')
+    const rootRef = ref('')
     const options = computed(() => {
       return props.config.options
     })
@@ -29,7 +30,7 @@ export default {
       deep: true
     })
     onMounted(async () => {
-      chartRef.value = echarts.init(document.querySelector(`#${props.config.id}`))
+      chartRef.value = echarts.init(rootRef.value)
       await updateOptions()
       window.addEventListener('resize', updateOptions)
     })
@@ -38,13 +39,15 @@ export default {
     })
     return {
       computedStyle,
-      options
+      options,
+      rootRef
     }
   },
   render () {
     return h('div', {
       id: this.config.id,
-      style: this.computedStyle
+      style: this.computedStyle,
+      ref: 'rootRef'
     })
   }
 }
