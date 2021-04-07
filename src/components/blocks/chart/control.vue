@@ -9,11 +9,16 @@
     <el-tab-pane label="动画" name="animations">
       <!--      <animation-setting :config="config"></animation-setting>-->
     </el-tab-pane>
+    <el-tab-pane label="配置" name="options">
+      <div class="relative h-screen">
+        <monaco-editor :code="codeString" @change="onChange"></monaco-editor>
+      </div>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
@@ -30,8 +35,23 @@ export default {
     const addHistory = async () => {
       await store.dispatch('editor/addHistory')
     }
+    const options = computed(() => {
+      return props.config.options
+    })
+    const codeString = ref('')
+    watch(options, (val) => {
+      codeString.value = JSON.stringify(val, null, '  ')
+    }, {
+      deep: true,
+      immediate: true
+    })
+    const onChange = (val) => {
+      console.log(val)
+    }
     return {
       activeName,
+      codeString,
+      onChange,
       addHistory
     }
   }
