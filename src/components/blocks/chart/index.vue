@@ -1,7 +1,8 @@
 <script>
-import { computed, h, onBeforeUnmount, onMounted, ref, toRaw, watch } from 'vue'
+import { computed, h, onMounted, ref, toRaw, watch } from 'vue'
 import useComponentCommon from '@/hooks/useComponentCommon'
 import * as echarts from 'echarts'
+import { debounce } from 'lodash'
 
 export default {
   name: 'blocks-chart',
@@ -21,21 +22,27 @@ export default {
     const options = computed(() => {
       return props.config.options
     })
+    const rect = computed(() => {
+      return props.config.rect
+    })
     const updateOptions = async () => {
       chartRef.value.setOption(toRaw(options.value))
     }
-    watch(options, () => {
-      updateOptions()
+    watch(options, async () => {
+      await updateOptions()
     }, {
+      deep: true
+    })
+    watch(rect, debounce(() => {
+      chartRef.value.clear()
+      chartRef.value.resize()
+      updateOptions()
+    }, 500), {
       deep: true
     })
     onMounted(async () => {
       chartRef.value = echarts.init(rootRef.value)
       await updateOptions()
-      window.addEventListener('resize', updateOptions)
-    })
-    onBeforeUnmount(() => {
-      window.removeEventListener('resize', updateOptions)
     })
     return {
       computedStyle,
