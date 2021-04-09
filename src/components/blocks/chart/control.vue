@@ -10,9 +10,19 @@
       <!--      <animation-setting :config="config"></animation-setting>-->
     </el-tab-pane>
     <el-tab-pane label="配置" name="options">
-      <div class="relative h-screen">
+      <el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+        点我配置
+      </el-button>
+      <el-drawer
+        title="配置"
+        :with-header="false"
+        v-model="drawer"
+        direction="rtl"
+        destroy-on-close
+        :show-close="false"
+      >
         <monaco-editor :code="codeString" @change="onChange"></monaco-editor>
-      </div>
+      </el-drawer>
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -38,6 +48,7 @@ export default {
     const options = computed(() => {
       return props.config.options
     })
+    const drawer = ref(false)
     const codeString = ref('')
     watch(options, (val) => {
       codeString.value = JSON.stringify(val, null, '  ')
@@ -46,11 +57,12 @@ export default {
       immediate: true
     })
     const onChange = (val) => {
-      console.log(val)
+      store.dispatch('editor/updateItem', { id: props.config.id, path: 'options', value: val })
     }
     return {
       activeName,
       codeString,
+      drawer,
       onChange,
       addHistory
     }

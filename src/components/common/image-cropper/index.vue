@@ -17,6 +17,7 @@ export default {
   props: {
     url: String
   },
+  emits: ['choose'],
   setup (props, {
     emit
   }) {

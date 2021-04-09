@@ -17,6 +17,7 @@ export default {
       required: true
     }
   },
+  emits: ['change'],
   setup (props, { emit }) {
     let editorInstance
     const errorTip = ref('')

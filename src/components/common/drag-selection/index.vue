@@ -7,6 +7,7 @@
 <script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+
 export default {
   name: 'drag-selection',
   props: {
@@ -18,6 +19,7 @@ export default {
       }
     }
   },
+  emits: ['dragEnd'],
   setup (props, { emit }) {
     const store = useStore()
     const selection = ref(null)

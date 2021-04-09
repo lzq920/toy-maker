@@ -42,6 +42,7 @@ import { onMounted, reactive } from 'vue'
 
 export default {
   name: 'photo-lib',
+  emits: ['choose'],
   setup (props, { emit }) {
     const {
       params,
