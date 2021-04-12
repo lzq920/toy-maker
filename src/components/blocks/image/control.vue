@@ -1,6 +1,7 @@
 <template>
   <el-tabs v-model="activeName" class="pl-2 pr-2">
     <el-tab-pane label="属性" name="attrs">
+      <position-setting :config="config"></position-setting>
       <el-button type="primary" @click="dialog = true">选择图片</el-button>
       <el-button type="primary" @click="cropDialog = true" :disabled="!config.src">裁剪图片</el-button>
       <el-dialog :model-value="dialog" title="图库" center @close="dialog = false">
