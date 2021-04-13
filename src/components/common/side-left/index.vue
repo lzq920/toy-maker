@@ -5,15 +5,15 @@
         <template #label>
           组件列表
         </template>
-        <el-collapse>
-          <el-collapse-item v-for="item in configList" :key="item.component"
-                            :name="item.component">
-            <template #title>
-              {{ item.tipText }}
-            </template>
-            <component :is="item.component"></component>
-          </el-collapse-item>
-        </el-collapse>
+          <el-collapse accordion>
+            <el-collapse-item v-for="item in configList" :key="item.component"
+                              :name="item.component">
+              <template #title>
+                {{ item.tipText }}
+              </template>
+              <component :is="item.component"></component>
+            </el-collapse-item>
+          </el-collapse>
       </el-tab-pane>
       <el-tab-pane name="tree">
         <template #label>

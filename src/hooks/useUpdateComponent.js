@@ -8,43 +8,22 @@ import BlocksForm from '@/widgets/Form'
 import BlocksChart from '@/widgets/Chart'
 
 /**
- * @description 更新组件数据Hook
- * @returns {{mergeComponent: (function(*=): BlocksText|BlocksRect|BlocksImage|BlocksVideo|BlocksSingleText|BlocksMultipleText)}}
+ * @description 更新组件数据Hook，合并老数据
+ * @returns {{mergeComponent: (function(*=): *)}}
  */
 export default function useUpdateComponent () {
+  const enums = {
+    'blocks-text': (params) => new BlocksText(params),
+    'blocks-rect': (params) => new BlocksRect(params),
+    'blocks-image': (params) => new BlocksImage(params),
+    'blocks-video': (params) => new BlocksVideo(params),
+    'blocks-single-text': (params) => new BlocksSingleText(params),
+    'blocks-multiple-text': (params) => new BlocksMultipleText(params),
+    'blocks-form': (params) => new BlocksForm(params),
+    'blocks-chart': (params) => new BlocksChart(params)
+  }
   const mergeComponent = (params) => {
-    let block
-    switch (params.componentName) {
-      case 'blocks-text':
-        block = new BlocksText(params)
-        break
-      case 'blocks-rect':
-        block = new BlocksRect(params)
-        break
-      case 'blocks-image':
-        block = new BlocksImage(params)
-        break
-      case 'blocks-video':
-        block = new BlocksVideo(params)
-        break
-      case 'blocks-single-text':
-        block = new BlocksSingleText(params)
-        break
-      case 'blocks-multiple-text':
-        block = new BlocksMultipleText(params)
-        break
-      case 'blocks-form':
-        block = new BlocksForm(params)
-        break
-      case 'blocks-chart':
-        block = new BlocksChart(params)
-        break
-      default:
-        console.error('没有找到需要更新的组件')
-        block = params
-        break
-    }
-    return block
+    return enums[params.componentName](params)
   }
   return {
     mergeComponent

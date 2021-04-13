@@ -1,21 +1,21 @@
 <template>
 <div class="grid grid-cols-2 gap-1">
-  <el-input v-model="rect.left">
+  <el-input v-model="left" @change="(val)=>handleChange(val,'left')">
     <template #prefix>
       <span>X</span>
     </template>
   </el-input>
-  <el-input v-model="rect.top">
+  <el-input v-model="top" @change="(val)=>handleChange(val,'top')">
     <template #prefix>
       <span>Y</span>
     </template>
   </el-input>
-  <el-input v-model="rect.width">
+  <el-input v-model="width" @change="(val)=>handleChange(val,'width')">
     <template #prefix>
       <span>W</span>
     </template>
   </el-input>
-  <el-input v-model="rect.height">
+  <el-input v-model="height" @change="(val)=>handleChange(val,'height')">
     <template #prefix>
       <span>H</span>
     </template>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
@@ -37,20 +37,33 @@ export default {
   },
   setup (props) {
     const store = useStore()
-    const rect = computed({
-      get () {
-        return props.config.rect
-      },
-      set (value) {
-        store.dispatch('editor/updateItem', {
-          id: props.config.id,
-          path: 'rect',
-          value: Number(value)
-        })
-      }
+    const width = ref(0)
+    const height = ref(0)
+    const left = ref(0)
+    const top = ref(0)
+    const rect = computed(() => props.config.rect)
+    const handleChange = async (value, position) => {
+      await store.dispatch('editor/updateItem', {
+        id: props.config.id,
+        path: `rect.${position}`,
+        value: Number(value)
+      })
+    }
+    watch(rect, (val) => {
+      width.value = val.width
+      height.value = val.height
+      top.value = val.top
+      left.value = val.left
+    }, {
+      deep: true,
+      immediate: true
     })
     return {
-      rect
+      width,
+      height,
+      left,
+      top,
+      handleChange
     }
   }
 }
