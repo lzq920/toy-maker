@@ -123,7 +123,7 @@ export function httpPost (url, data) {
     xhr.onerror = function () {
       reject(xhr.statusText)
     }
-    xhr.send(data)
+    xhr.send(JSON.stringify(data))
   })
 }
 

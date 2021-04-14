@@ -37,6 +37,8 @@ export default {
         )
         if (mode.value === 'pc') {
           return console.log('收集到表单信息', formObject)
+        } else if (location.href.includes('preview.html')) {
+          return console.log('收集到表单信息', formObject)
         } else {
           try {
             const response = await httpPost('', formObject)

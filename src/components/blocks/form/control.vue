@@ -23,6 +23,9 @@
           <el-button @click="addItem">添加</el-button>
         </li>
       </ul>
+      <div class="mt-4">
+        <el-button type="primary" @click="checkFormRule">检测表单是否合法</el-button>
+      </div>
       <el-drawer v-model="configDrawer" :close-on-press-escape="false" :show-close="false" :title="`(${activeItems.description})配置`" direction="rtl" :size="300" destroy-on-close>
         <component :is="`${activeItems.componentName}-config`" :config="activeItems"></component>
         <div class="flex justify-center">
@@ -39,6 +42,8 @@ import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import formItemsEnum from '@/enum/formItem'
 import { generatorUUID } from '@/utils'
+import { ElMessage } from 'element-plus'
+import { uniq } from 'lodash'
 
 export default {
   name: 'blocks-form-control',
@@ -96,6 +101,18 @@ export default {
       })
       selectIndex.value = ''
     }
+    const checkFormRule = () => {
+      const names = []
+      for (const formElement of formItems.value) {
+        if (!formElement.name && formElement.componentName !== 'form-input-submit') {
+          names.push(formElement.name)
+          ElMessage.error(`${formElement.description} 字段名称为空`)
+        }
+      }
+      if (uniq(names).length !== names.length) {
+        ElMessage.error('表单字段名称存在重复')
+      }
+    }
     return {
       activeName,
       formItems,
@@ -106,7 +123,8 @@ export default {
       handleDelete,
       handleConfig,
       handleChange,
-      addItem
+      addItem,
+      checkFormRule
     }
   }
 }
