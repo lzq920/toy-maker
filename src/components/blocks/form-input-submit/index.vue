@@ -22,7 +22,7 @@ export default {
         event.stopPropagation()
         emit('on-submit')
       }
-    }, '提交')
+    }, props.config.innerText)
   }
 }
 </script>

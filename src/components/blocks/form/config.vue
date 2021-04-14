@@ -110,6 +110,7 @@ export default {
           {
             componentName: 'form-input-submit',
             description: '提交按钮组件',
+            innerText: '提交',
             styles: {
               width: '100%',
               height: 50,

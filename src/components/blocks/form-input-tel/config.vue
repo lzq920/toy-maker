@@ -1,5 +1,5 @@
 <template>
-  <el-form class="p-4" :model="settings" label-width="120px">
+  <el-form class="p-4" :model="settings" label-width="80px">
     <el-form-item label="字段名称">
       <el-input v-model="settings.name"></el-input>
     </el-form-item>

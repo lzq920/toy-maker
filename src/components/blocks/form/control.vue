@@ -23,8 +23,12 @@
           <el-button @click="addItem">添加</el-button>
         </li>
       </ul>
-      <el-drawer v-model="configDrawer" :before-close="handleClose" :title="`(${activeItems.description})配置`" direction="rtl" :size="300" destroy-on-close>
+      <el-drawer v-model="configDrawer" :close-on-press-escape="false" :show-close="false" :title="`(${activeItems.description})配置`" direction="rtl" :size="300" destroy-on-close>
         <component :is="`${activeItems.componentName}-config`" :config="activeItems"></component>
+        <div class="flex justify-center">
+          <el-button @click="configDrawer = false">取消</el-button>
+          <el-button type="primary" @click="handleChange">确定</el-button>
+        </div>
       </el-drawer>
     </el-tab-pane>
   </el-tabs>
@@ -64,8 +68,21 @@ export default {
       activeItems.value = Object.assign({}, item)
       configDrawer.value = true
     }
-    const handleClose = (done) => {
-      done()
+    const handleChange = async () => {
+      const items = formItems.value.map(item => {
+        if (item.id === activeItems.value.id) {
+          return activeItems.value
+        } else {
+          return item
+        }
+      })
+      configDrawer.value = false
+      await store.dispatch('editor/updateItem', {
+        id: props.config.id,
+        path: 'children',
+        value: items
+      })
+      activeItems.value = {}
     }
     const addItem = async () => {
       const selectedItem = formItemsOptions.value[selectIndex.value]
@@ -88,7 +105,7 @@ export default {
       selectIndex,
       handleDelete,
       handleConfig,
-      handleClose,
+      handleChange,
       addItem
     }
   }

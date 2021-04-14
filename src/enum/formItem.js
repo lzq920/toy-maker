@@ -71,7 +71,7 @@ export default [{
     name: 'number',
     placeholder: '请输入数字',
     max: 99,
-    min: 18,
+    min: 0,
     styles: {
       width: '100%',
       height: 50,
@@ -109,6 +109,7 @@ export default [{
   config: {
     componentName: 'form-input-submit',
     description: '提交按钮组件',
+    innerText: '提交',
     styles: {
       width: '100%',
       height: 50,
