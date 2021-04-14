@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
   name: 'publish-log',
   props: {
@@ -20,7 +22,7 @@ export default {
   },
   setup () {
     const formDate = (val) => {
-      return new Date(val).toLocaleDateString()
+      return dayjs(val).format('YYYY-MM-DD HH:mm:ss')
     }
     return {
       formDate
