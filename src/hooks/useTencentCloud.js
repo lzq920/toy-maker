@@ -117,6 +117,16 @@ export default function useTencentCloud () {
      */
     getPublishList () {
       return publishCollection.get()
+    },
+    /**
+     * @description 获取指定落地页的发布记录
+     * @param id 落地页id
+     * @returns {Promise<cloudbase.database.GetRes>}
+     */
+    getPublishListByPage (id) {
+      return publishCollection.where({
+        pageId: id
+      }).get()
     }
   })
   return {

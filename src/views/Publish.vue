@@ -1,13 +1,6 @@
 <template>
   <div class="w-full h-full flex justify-center items-center">
-    <el-timeline>
-      <el-timeline-item
-        v-for="(activity, index) in activities"
-        :key="index"
-        :timestamp="formDate(activity.createTime)">
-        {{ activity.url }}
-      </el-timeline-item>
-    </el-timeline>
+    <publish-log :activities="activities"></publish-log>
   </div>
 </template>
 
@@ -29,15 +22,11 @@ export default {
         ElMessage.error('出错啦')
       }
     }
-    const formDate = (val) => {
-      return new Date(val).toLocaleDateString()
-    }
     onMounted(() => {
       getPublishList()
     })
     return {
-      activities,
-      formDate
+      activities
     }
   }
 }

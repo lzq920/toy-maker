@@ -25,6 +25,13 @@
         </div>
       </el-main>
     </el-scrollbar>
+    <el-drawer
+      title="发布记录"
+      v-model="publishLogDrawer"
+      direction="rtl"
+      destroy-on-close>
+      <publish-log :activities="activities"></publish-log>
+    </el-drawer>
   </el-container>
 </template>
 
@@ -38,10 +45,11 @@ import useTencentCloud from '@/hooks/useTencentCloud'
 export default {
   name: 'PageList',
   setup () {
-    const { pageService, signOut, userInfo } = useTencentCloud()
+    const { pageService, signOut, userInfo, publishService } = useTencentCloud()
     const pageList = ref([])
     const router = useRouter()
     const loading = ref(false)
+    const publishLogDrawer = ref(false)
     const getPageList = async () => {
       try {
         loading.value = true
@@ -63,8 +71,8 @@ export default {
         name: 'Create'
       })
     }
-    const toPreview = (id) => {
-      window.open(`${location.origin}/preview.html?id=${id}`)
+    const toPreview = async (id) => {
+      await getPublishLog(id)
     }
     const toCopy = async (item) => {
       try {
@@ -102,12 +110,24 @@ export default {
         name: 'Signup'
       })
     }
+    const activities = ref([])
+    const getPublishLog = async (id) => {
+      try {
+        const { data } = await publishService.getPublishListByPage(id)
+        activities.value = data
+        publishLogDrawer.value = true
+      } catch (e) {
+        ElMessage.error('出错啦')
+      }
+    }
     onMounted(async () => {
       await getPageList()
     })
     return {
       pageList,
       loading,
+      publishLogDrawer,
+      activities,
       toEdit,
       toCreate,
       toPreview,
