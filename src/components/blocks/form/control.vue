@@ -3,18 +3,38 @@
     <el-tab-pane label="属性" name="attrs">
       <position-setting :config="config"></position-setting>
     </el-tab-pane>
-    <el-tab-pane label="事件" name="events">
-      <!--      <event-setting :config="config"></event-setting>-->
+<!--    <el-tab-pane label="事件" name="events">
     </el-tab-pane>
     <el-tab-pane label="动画" name="animations">
-      <!--      <animation-setting :config="config"></animation-setting>-->
+    </el-tab-pane>-->
+    <el-tab-pane label="配置" name="config">
+      <ul class="list-none cursor-pointer border">
+        <li v-for="(item,index) in formItems" class="p-2 border-b" :key="index">
+          <span>{{`${item.description}(${item.name||""})`}}</span>
+          <span class="absolute right-2">
+            <i class="el-icon-delete mr-2" v-if="item.componentName!=='form-input-submit'" @click="handleDelete(item)"></i>
+            <i class="el-icon-setting" @click="handleConfig(item)"></i>
+          </span>
+        </li>
+        <li class="p-2 flex justify-between items-center">
+          <el-select v-model="selectIndex" placeholder="请选择">
+            <el-option v-for="(item,index) in formItemsOptions" :key="index" :value="index" :label="item.title"></el-option>
+          </el-select>
+          <el-button @click="addItem">添加</el-button>
+        </li>
+      </ul>
+      <el-drawer v-model="configDrawer" :before-close="handleClose" :title="`(${activeItems.description})配置`" direction="rtl" :size="300" destroy-on-close>
+        <component :is="`${activeItems.componentName}-config`" :config="activeItems"></component>
+      </el-drawer>
     </el-tab-pane>
   </el-tabs>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
+import formItemsEnum from '@/enum/formItem'
+import { generatorUUID } from '@/utils'
 
 export default {
   name: 'blocks-form-control',
@@ -24,15 +44,52 @@ export default {
       required: true
     }
   },
-  setup () {
+  setup (props) {
+    const formItemsOptions = computed(() => formItemsEnum.filter(item => item.config.componentName !== 'form-input-submit'))
     const store = useStore()
     const activeName = ref('attrs')
-    const addHistory = () => {
-      store.dispatch('editor/addHistory')
+    const formItems = computed(() => props.config.children)
+    const activeItems = ref({})
+    const configDrawer = ref(false)
+    const selectIndex = ref('')
+    const handleDelete = async (active) => {
+      const items = formItems.value.filter(item => item.id !== active.id)
+      await store.dispatch('editor/updateItem', {
+        id: props.config.id,
+        path: 'children',
+        value: items
+      })
+    }
+    const handleConfig = (item) => {
+      activeItems.value = Object.assign({}, item)
+      configDrawer.value = true
+    }
+    const handleClose = (done) => {
+      done()
+    }
+    const addItem = async () => {
+      const selectedItem = formItemsOptions.value[selectIndex.value]
+      selectedItem.config.id = generatorUUID()
+      const items = [...formItems.value]
+      items.splice(items.length - 1, 0, selectedItem.config)
+      await store.dispatch('editor/updateItem', {
+        id: props.config.id,
+        path: 'children',
+        value: items
+      })
+      selectIndex.value = ''
     }
     return {
       activeName,
-      addHistory
+      formItems,
+      activeItems,
+      configDrawer,
+      formItemsOptions,
+      selectIndex,
+      handleDelete,
+      handleConfig,
+      handleClose,
+      addItem
     }
   }
 }

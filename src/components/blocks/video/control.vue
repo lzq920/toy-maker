@@ -30,9 +30,6 @@ export default {
   setup (props) {
     const store = useStore()
     const activeName = ref('attrs')
-    const addHistory = async () => {
-      await store.dispatch('editor/addHistory')
-    }
     const dialog = ref(false)
     const chooseVideo = async (val) => {
       dialog.value = false
@@ -49,7 +46,6 @@ export default {
     }
     return {
       activeName,
-      addHistory,
       dialog,
       chooseVideo
     }

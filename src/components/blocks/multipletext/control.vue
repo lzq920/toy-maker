@@ -14,7 +14,6 @@
 
 <script>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
 
 export default {
   name: 'blocks-multiple-text-control',
@@ -25,14 +24,9 @@ export default {
     }
   },
   setup () {
-    const store = useStore()
     const activeName = ref('attrs')
-    const addHistory = () => {
-      store.dispatch('editor/addHistory')
-    }
     return {
-      activeName,
-      addHistory
+      activeName
     }
   }
 }

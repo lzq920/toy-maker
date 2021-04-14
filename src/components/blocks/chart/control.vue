@@ -42,9 +42,6 @@ export default {
   setup (props) {
     const store = useStore()
     const activeName = ref('attrs')
-    const addHistory = async () => {
-      await store.dispatch('editor/addHistory')
-    }
     const options = computed(() => {
       return props.config.options
     })
@@ -63,8 +60,7 @@ export default {
       activeName,
       codeString,
       drawer,
-      onChange,
-      addHistory
+      onChange
     }
   }
 }

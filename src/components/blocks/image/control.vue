@@ -39,9 +39,6 @@ export default {
     const {
       getExpression
     } = useComponentCommon(props.config)
-    const addHistory = async () => {
-      await store.dispatch('editor/addHistory')
-    }
     const dialog = ref(false)
     const cropDialog = ref(false)
     const chooseImage = async (val) => {
@@ -62,7 +59,6 @@ export default {
     }
     return {
       activeName,
-      addHistory,
       dialog,
       chooseImage,
       cropDialog,
