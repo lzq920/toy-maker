@@ -28,7 +28,6 @@ export default {
     }
     const getCropResult = async () => {
       const { points } = await cropperInstance.value.get()
-      console.log(points)
       const width = points[2] - points[0]
       const height = points[3] - points[1]
       const result = await cropperInstance.value.result()

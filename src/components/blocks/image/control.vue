@@ -49,12 +49,12 @@ export default {
         value: val
       })
     }
-    const chooseCropResult = async ({ width, height, url }) => {
+    const chooseCropResult = async ({ width, height, result }) => {
       cropDialog.value = false
       await store.dispatch('editor/updateItem', {
         id: props.config.id,
         path: 'src',
-        value: url
+        value: result
       })
     }
     return {
