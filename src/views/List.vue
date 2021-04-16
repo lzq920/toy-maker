@@ -12,15 +12,15 @@
           <div v-for="item in pageList" :key="item._id"
                class="bg-white rounded-md flex flex-col border border-blue-700 p-2 overflow-hidden">
             <img :src="item.pageConfig.cover" alt="cover" class="border">
-            <div class="flex flex-col mt-4">
-              <div class="font-bold">{{ item.pageConfig.title || '未命名落地页' }}</div>
-              <div class="flex justify-between items-center mt-2">
-                <el-button size="mini" type="primary" @click="toEdit(item._id)" icon="el-icon-edit"></el-button>
-                <el-button size="mini" type="info" @click="toPreview(item._id)" icon="el-icon-view"></el-button>
-                <el-button size="mini" type="warning" @click="toCopy(item)" icon="el-icon-document-copy"></el-button>
-                <el-button size="mini" type="danger" @click="handleDelete(item._id)" icon="el-icon-delete"></el-button>
+              <div class="flex flex-col mt-4">
+                <div class="font-bold">{{ item.pageConfig.title || '未命名落地页' }}</div>
+                <div class="flex justify-between items-center mt-2">
+                  <el-button size="mini" type="primary" @click="toEdit(item._id)" icon="el-icon-edit"></el-button>
+                  <el-button size="mini" type="info" @click="toPreview(item._id)" icon="el-icon-view"></el-button>
+                  <el-button size="mini" type="warning" @click="toCopy(item)" icon="el-icon-document-copy"></el-button>
+                  <el-button size="mini" type="danger" @click="handleDelete(item._id)" icon="el-icon-delete"></el-button>
+                </div>
               </div>
-            </div>
           </div>
         </div>
       </el-main>

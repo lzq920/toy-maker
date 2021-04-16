@@ -27,7 +27,7 @@
         <el-button type="primary" @click="checkFormRule">检测表单是否合法</el-button>
       </div>
       <el-drawer v-model="configDrawer" :close-on-press-escape="false" :show-close="false" :title="`(${activeItems.description})配置`" direction="rtl" :size="300" destroy-on-close>
-        <component :is="`${activeItems.componentName}-config`" :config="activeItems"></component>
+        <component :is="`${activeItems.componentName}-control`" :config="activeItems"></component>
         <div class="flex justify-center">
           <el-button @click="configDrawer = false">取消</el-button>
           <el-button type="primary" @click="handleChange">确定</el-button>

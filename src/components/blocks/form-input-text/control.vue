@@ -15,11 +15,8 @@
     <el-form-item label="默认提示">
       <el-input v-model="settings.placeholder"></el-input>
     </el-form-item>
-    <el-form-item label="最大值">
-      <el-input v-model="settings.max"></el-input>
-    </el-form-item>
-    <el-form-item label="最小值">
-      <el-input v-model="settings.min"></el-input>
+    <el-form-item label="最大长度">
+      <el-input v-model="settings.maxlength"></el-input>
     </el-form-item>
   </el-form>
 </template>
@@ -28,7 +25,7 @@
 import { computed } from 'vue'
 
 export default {
-  name: 'form-input-number-config',
+  name: 'form-input-text-control',
   props: {
     config: {
       type: Object,

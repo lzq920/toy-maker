@@ -51,7 +51,12 @@ export default function useEditorMethod () {
     await store.dispatch('editor/clearActiveItem')
     saveLoading.value = true
     try {
-      const cover = await screenshot(document.querySelector('.editor-area'))
+      let cover = ''
+      if (store.state.editor.allItems.length > 0) {
+        cover = await screenshot(document.querySelector('.editor-area'))
+      } else {
+        cover = '//via.placeholder.com/375x667/FFFFFF/000000/?text=toy+maker'
+      }
       await store.dispatch('editor/setPageConfig', { cover: cover })
     } catch (err) {
       ElMessage.warning('封面保存异常')

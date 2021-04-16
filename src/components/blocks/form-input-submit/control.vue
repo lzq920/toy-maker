@@ -10,7 +10,7 @@
 import { computed } from 'vue'
 
 export default {
-  name: 'form-input-submit-config',
+  name: 'form-input-submit-control',
   props: {
     config: {
       type: Object,

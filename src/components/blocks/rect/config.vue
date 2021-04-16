@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-wrap gap-2">
     <el-button
       type="primary"
       v-for="(item, index) in configList"
@@ -15,6 +15,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import BlocksRect from '../../../widgets/Rect'
+
 export default {
   name: 'blocks-rect-config',
   setup () {

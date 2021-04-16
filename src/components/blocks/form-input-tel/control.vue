@@ -15,9 +15,6 @@
     <el-form-item label="默认提示">
       <el-input v-model="settings.placeholder"></el-input>
     </el-form-item>
-    <el-form-item label="最大长度">
-      <el-input v-model="settings.maxlength"></el-input>
-    </el-form-item>
   </el-form>
 </template>
 
@@ -25,7 +22,7 @@
 import { computed } from 'vue'
 
 export default {
-  name: 'form-input-text-config',
+  name: 'form-input-tel-control',
   props: {
     config: {
       type: Object,

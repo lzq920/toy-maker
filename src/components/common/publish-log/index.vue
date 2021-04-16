@@ -3,8 +3,9 @@
     <el-timeline-item
       v-for="(activity, index) in activities"
       :key="index"
+      type="success"
       :timestamp="formDate(activity.createTime)">
-      {{ activity.url }}
+      <el-link :href="activity.url">{{activity.url}}</el-link>
     </el-timeline-item>
   </el-timeline>
 </template>

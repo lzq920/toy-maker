@@ -25,7 +25,7 @@
 import { computed } from 'vue'
 
 export default {
-  name: 'form-input-textarea-config',
+  name: 'form-input-textarea-control',
   props: {
     config: {
       type: Object,

@@ -22,7 +22,7 @@
 import { computed } from 'vue'
 
 export default {
-  name: 'form-input-tel-config',
+  name: 'form-input-email-control',
   props: {
     config: {
       type: Object,

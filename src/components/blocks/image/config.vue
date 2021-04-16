@@ -1,12 +1,11 @@
 <template>
-  <div>
+  <div class="flex flex-wrap gap-2">
     <el-button
       type="primary"
       v-for="(item, index) in configList"
       :key="index"
       @click="handleClick(item)"
-      >图片</el-button
-    >
+      >图片</el-button>
   </div>
 </template>
 
@@ -14,6 +13,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import BlocksImage from '../../../widgets/Image'
+
 export default {
   name: 'blocks-image-config',
   setup () {

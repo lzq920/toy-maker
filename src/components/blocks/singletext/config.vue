@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex flex-wrap gap-2">
     <el-button
       v-for="(item, index) in configList"
       :key="index"
