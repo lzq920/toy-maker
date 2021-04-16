@@ -23,6 +23,17 @@
           <el-button @click="addItem">添加</el-button>
         </li>
       </ul>
+      <div class="mt-4 mb-4">
+        <el-alert
+          v-for="(item,index) in errors"
+          :key="index"
+          :title="item"
+          type="error"
+          size="mini"
+          class="mt-2"
+        >
+        </el-alert>
+      </div>
       <div class="mt-4">
         <el-button type="primary" @click="checkFormRule">检测表单是否合法</el-button>
       </div>
@@ -42,7 +53,6 @@ import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import formItemsEnum from '@/enum/formItem'
 import { generatorUUID } from '@/utils'
-import { ElMessage } from 'element-plus'
 import { uniq } from 'lodash'
 
 export default {
@@ -61,6 +71,7 @@ export default {
     const activeItems = ref({})
     const configDrawer = ref(false)
     const selectIndex = ref('')
+    const errors = ref([])
     const handleDelete = async (active) => {
       const items = formItems.value.filter(item => item.id !== active.id)
       await store.dispatch('editor/updateItem', {
@@ -103,14 +114,20 @@ export default {
     }
     const checkFormRule = () => {
       const names = []
+      errors.value = []
       for (const formElement of formItems.value) {
-        if (!formElement.name && formElement.componentName !== 'form-input-submit') {
+        if (formElement.componentName !== 'form-input-submit') {
           names.push(formElement.name)
-          ElMessage.error(`${formElement.description} 字段名称为空`)
+          if (!formElement.name.trim()) {
+            errors.value.push(`${formElement.description} 字段名称为空`)
+          }
         }
       }
+      if (names.length === 0) {
+        errors.value.push('表单内没有输入组件')
+      }
       if (uniq(names).length !== names.length) {
-        ElMessage.error('表单字段名称存在重复')
+        errors.value.push('表单字段名称存在重复')
       }
     }
     return {
@@ -124,7 +141,8 @@ export default {
       handleConfig,
       handleChange,
       addItem,
-      checkFormRule
+      checkFormRule,
+      errors
     }
   }
 }
