@@ -6,7 +6,7 @@
         <el-button type="primary" @click="toCreate">新增</el-button>
         <el-button type="danger" @click="logout">退出登录</el-button>
       </el-header>
-      <el-main class="bg-white w-screen">
+      <el-main class="bg-white w-screen" v-loading="loading" element-loading-text="落地页列表加载中">
         <el-empty v-if="pageList.length===0" description="暂无数据"></el-empty>
         <div class="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 gap-4">
           <div v-for="item in pageList" :key="item._id"
@@ -15,10 +15,18 @@
               <div class="flex flex-col mt-4">
                 <div class="font-bold">{{ item.pageConfig.title || '未命名落地页' }}</div>
                 <div class="flex justify-between items-center mt-2">
-                  <el-button size="mini" type="primary" @click="toEdit(item._id)" icon="el-icon-edit"></el-button>
-                  <el-button size="mini" type="info" @click="toPreview(item._id)" icon="el-icon-view"></el-button>
-                  <el-button size="mini" type="warning" @click="toCopy(item)" icon="el-icon-document-copy"></el-button>
-                  <el-button size="mini" type="danger" @click="handleDelete(item._id)" icon="el-icon-delete"></el-button>
+                  <el-tooltip content="编辑" placement="top">
+                    <el-button size="mini" type="primary" @click="toEdit(item._id)" icon="el-icon-edit"></el-button>
+                  </el-tooltip>
+                  <el-tooltip content="发布记录" placement="top">
+                    <el-button size="mini" type="info" @click="toPreview(item._id)" icon="el-icon-view"></el-button>
+                  </el-tooltip>
+                  <el-tooltip content="创建副本" placement="top">
+                    <el-button size="mini" type="warning" @click="toCopy(item)" icon="el-icon-document-copy"></el-button>
+                  </el-tooltip>
+                  <el-tooltip content="删除" placement="top">
+                    <el-button size="mini" type="danger" @click="handleDelete(item._id)" icon="el-icon-delete"></el-button>
+                  </el-tooltip>
                 </div>
               </div>
           </div>
