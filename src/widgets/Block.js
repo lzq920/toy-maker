@@ -9,7 +9,7 @@ export default class Blocks {
   constructor (config) {
     config = mergeWith(
       {
-        id: `blocks-${generatorUUID()}`
+        id: generatorUUID()
       },
       config,
       function (objValue, srcValue) {

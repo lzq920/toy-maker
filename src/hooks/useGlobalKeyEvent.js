@@ -58,7 +58,7 @@ export default function useGlobalKeyEvent () {
       e.preventDefault()
       if (store.state.editor.copyData.length > 0) {
         await Promise.all(store.state.editor.copyData.map(item => {
-          const target = Object.assign({}, item, { id: `blocks-${generatorUUID()}` })
+          const target = Object.assign({}, item, { id: generatorUUID() })
           return store.dispatch('editor/addItem', mergeComponent(target))
         }))
       } else {

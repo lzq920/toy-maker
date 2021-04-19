@@ -102,7 +102,7 @@ export default {
     }
     const addItem = async () => {
       const selectedItem = formItemsOptions.value[selectIndex.value]
-      selectedItem.config.id = `blocks-${generatorUUID()}`
+      selectedItem.config.id = generatorUUID()
       const items = [...formItems.value]
       items.splice(items.length - 1, 0, selectedItem.config)
       await store.dispatch('editor/updateItem', {

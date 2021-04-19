@@ -56,10 +56,10 @@ export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
 }
 
 /**
- * @description 生成UUID
+ * @description 生成组件UUID
  */
 export function generatorUUID () {
-  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+  return 'blocks-' + ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
     (
       c ^
       (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))

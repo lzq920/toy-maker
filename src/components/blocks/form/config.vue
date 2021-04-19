@@ -124,7 +124,7 @@ export default {
     ])
     const handleClick = item => {
       const temp = item.children.map(child => {
-        child.id = `blocks-${generatorUUID()}`
+        child.id = generatorUUID()
         return child
       })
       item.children = temp
