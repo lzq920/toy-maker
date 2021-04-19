@@ -38,9 +38,9 @@ export default {
           {}
         )
         if (mode.value === 'pc') {
-          return logger.primary('收集到表单信息', formObject)
+          return logger.primary(JSON.stringify(formObject))
         } else if (location.href.includes('preview.html')) {
-          return logger.primary('收集到表单信息', formObject)
+          return logger.primary(JSON.stringify(formObject))
         } else {
           try {
             const response = await httpPost('', formObject)
