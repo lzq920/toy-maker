@@ -13,15 +13,16 @@ import useTencentCloud from '@/hooks/useTencentCloud'
  */
 export default function usePublishRemote () {
   const store = useStore()
-  let accessToken = localStorage.getItem('accessToken')
-  let githubName = localStorage.getItem('githubName')
-  let githubRepo = localStorage.getItem('githubRepo')
+  const { storage } = useStore()
+  let accessToken = storage.getItem('accessToken')
+  let githubName = storage.getItem('githubName')
+  let githubRepo = storage.getItem('githubRepo')
   const { publishService } = useTencentCloud()
   const publishLoading = ref(false)
   const publish = async (pageId) => {
-    accessToken = localStorage.getItem('accessToken')
-    githubName = localStorage.getItem('githubName')
-    githubRepo = localStorage.getItem('githubRepo')
+    accessToken = storage.getItem('accessToken')
+    githubName = storage.getItem('githubName')
+    githubRepo = storage.getItem('githubRepo')
     if (!pageId) return ElMessage.error('发布前请先保存页面')
     if (!accessToken || !githubName || !githubRepo) return ElMessage.error('请完善发布配置信息')
     const tempPath = `page-${new Date().getTime()}`

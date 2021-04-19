@@ -19,19 +19,21 @@
 
 <script>
 import { reactive, watch } from 'vue'
+import useStorage from '@/hooks/useStorage'
 
 export default {
   name: 'publish-setting',
   setup () {
+    const { storage } = useStorage()
     const githubConfig = reactive({
-      githubName: localStorage.getItem('githubName'),
-      githubRepo: localStorage.getItem('githubRepo'),
-      accessToken: localStorage.getItem('accessToken')
+      githubName: storage.getItem('githubName'),
+      githubRepo: storage.getItem('githubRepo'),
+      accessToken: storage.getItem('accessToken')
     })
     watch(githubConfig, (val) => {
-      localStorage.setItem('accessToken', val.accessToken)
-      localStorage.setItem('githubName', val.githubName)
-      localStorage.setItem('githubRepo', val.githubRepo)
+      storage.setItem('accessToken', val.accessToken)
+      storage.setItem('githubName', val.githubName)
+      storage.setItem('githubRepo', val.githubRepo)
     })
     return {
       githubConfig
