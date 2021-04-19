@@ -6,6 +6,8 @@
  * @param {String} unit 单位 pc=>px mobile=>rem
  * @returns 转换后的样式
  */
+import useConsole from '@/hooks/useConsole'
+
 export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
   const styleObj = {
     ...component.styles
@@ -159,6 +161,7 @@ export async function runAnimation ($el, animations = []) {
  * @returns {Promise<unknown>}
  */
 export function loadFile (url, responseType = 'blob') {
+  const { logger } = useConsole()
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest()
     xhr.open('GET', `${url}?v=${new Date().getTime()}`)
@@ -171,7 +174,7 @@ export function loadFile (url, responseType = 'blob') {
       reject(new Error('请求出错'))
     }
     xhr.onprogress = (event) => {
-      console.log(`Received ${event.loaded} of ${event.total}`)
+      logger.primary(`Received ${event.loaded} of ${event.total}`)
     }
     xhr.responseType = responseType
     xhr.send()

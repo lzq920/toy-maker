@@ -5,12 +5,14 @@ import { useStore } from 'vuex'
 import { generatorUUID } from '@/utils'
 import useEditorMethod from '@/hooks/useEditorMethod'
 import { useRoute } from 'vue-router'
+import useConsole from '@/hooks/useConsole'
 
 export default function useGlobalKeyEvent () {
   const { mergeComponent } = useUpdateComponent()
   const { savePageData } = useEditorMethod()
   const store = useStore()
   const route = useRoute()
+  const { logger } = useConsole()
   /**
    * @description 监听 Ctrl 按下
    * @param e 事件对象
@@ -22,37 +24,37 @@ export default function useGlobalKeyEvent () {
       return
     }
     if (e.ctrlKey && e.code === 'KeyZ') {
-      console.log('Ctrl+Z', '撤销')
+      logger.primary('Ctrl+Z')
       e.preventDefault()
       if (store.getters['editor/canUndo']) {
         await store.dispatch('editor/undoHistory')
       }
     }
     if (e.ctrlKey && e.code === 'KeyY') {
-      console.log('Ctrl+Y', '重做')
+      logger.primary('Ctrl+Y')
       e.preventDefault()
       if (store.getters['editor/canRedo']) {
         await store.dispatch('editor/redoHistory')
       }
     }
     if (e.code === 'Delete' || e.code === 'Backspace') {
-      console.log(e.code, '删除')
+      logger.primary(e.code)
       e.preventDefault()
       if (store.state.editor.activeItems.length > 0) {
         await Promise.all(cloneDeep(store.state.editor.activeItems).map(item => {
           return store.dispatch('editor/removeItem', item)
         }))
       } else {
-        console.log('没有活跃的组件')
+        logger.warning('没有活跃的组件')
       }
     }
     if (e.ctrlKey && e.code === 'KeyC') {
-      console.log('Ctrl+C', '复制')
+      logger.primary('Ctrl+C')
       e.preventDefault()
       await store.dispatch('editor/copyActiveItems')
     }
     if (e.ctrlKey && e.code === 'KeyV') {
-      console.log('Ctrl+V', '粘贴')
+      logger.primary('Ctrl+V')
       e.preventDefault()
       if (store.state.editor.copyData.length > 0) {
         await Promise.all(store.state.editor.copyData.map(item => {
@@ -60,16 +62,16 @@ export default function useGlobalKeyEvent () {
           return store.dispatch('editor/addItem', mergeComponent(target))
         }))
       } else {
-        console.log('没有要粘贴的组件')
+        logger.warning('没有要粘贴的组件')
       }
     }
     if (e.ctrlKey && e.code === 'KeyS') {
-      console.log('Ctrl+S', '保存')
+      logger.primary('Ctrl+S')
       e.preventDefault()
       await savePageData()
     }
     if (e.ctrlKey && e.code === 'KeyP') {
-      console.log('Ctrl+P', '预览')
+      logger.primary('Ctrl+P')
       e.preventDefault()
       const pageId = route.params.id
       if (pageId) {
@@ -77,22 +79,22 @@ export default function useGlobalKeyEvent () {
       }
     }
     if (e.altKey && e.code === 'ArrowDown' && !e.shiftKey) {
-      console.log('Alt+ArrowDown', '下移')
+      logger.primary('Alt+ArrowDown')
       e.preventDefault()
       await store.dispatch('editor/moveNext')
     }
     if (e.altKey && e.code === 'ArrowUp' && !e.shiftKey) {
-      console.log('Alt+ArrowUp', '上移')
+      logger.primary('Alt+ArrowUp')
       e.preventDefault()
       await store.dispatch('editor/movePrev')
     }
     if (e.altKey && e.code === 'ArrowDown' && e.shiftKey) {
-      console.log('Shift+Alt+ArrowDown', '置底')
+      logger.primary('Shift+Alt+ArrowDown')
       e.preventDefault()
       await store.dispatch('editor/moveLast')
     }
     if (e.altKey && e.code === 'ArrowUp' && e.shiftKey) {
-      console.log('Shift+Alt+ArrowUp', '置顶')
+      logger.primary('Shift+Alt+ArrowUp')
       e.preventDefault()
       await store.dispatch('editor/moveFirst')
     }

@@ -1,11 +1,13 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import useUpdateComponent from '@/hooks/useUpdateComponent'
+import useConsole from '@/hooks/useConsole'
 
 const PSD = require('psd.js')
 
 export default function usePsdParse () {
   const store = useStore()
+  const { logger } = useConsole()
   const { mergeComponent } = useUpdateComponent()
   const blobData = ref('')
   const uploadFile = async (event) => {
@@ -18,7 +20,7 @@ export default function usePsdParse () {
   const parsePsd = async () => {
     const psd = await PSD.fromURL(blobData.value)
     const descendantsList = psd.tree().descendants()
-    console.log(descendantsList)
+    logger.info(descendantsList)
     descendantsList.reverse()
     const psdSourceList = []
     for (let i = 0; i < descendantsList.length; i++) {
@@ -44,7 +46,6 @@ export default function usePsdParse () {
           src: img.src
         })
       } catch (e) {
-        console.log(e)
       }
     }
     if (psdSourceList.length) {

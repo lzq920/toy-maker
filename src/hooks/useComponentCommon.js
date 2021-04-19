@@ -59,14 +59,13 @@ export default function useComponentCommon (config) {
    * @returns {Promise<void>}
    */
   const handleClick = async () => {
-    if (mode.value === 'pc') {
-      return
-    }
-    const eventList = config.events
-    if (Array.isArray(eventList) && eventList.length > 0) {
-      for (let i = 0; i < eventList.length; i++) {
-        const element = eventList[i]
-        await eventUtils[element.key](element.params)
+    if (mode.value !== 'pc') {
+      const eventList = config.events
+      if (Array.isArray(eventList) && eventList.length > 0) {
+        for (let i = 0; i < eventList.length; i++) {
+          const element = eventList[i]
+          await eventUtils[element.key](element.params)
+        }
       }
     }
   }

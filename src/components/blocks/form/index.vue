@@ -7,6 +7,7 @@
 <script>
 import useComponentCommon from '@/hooks/useComponentCommon'
 import { httpPost } from '@/utils'
+import useConsole from '@/hooks/useConsole'
 
 export default {
   name: 'blocks-form',
@@ -22,6 +23,7 @@ export default {
       getExpression,
       mode
     } = useComponentCommon(props.config)
+    const { logger } = useConsole()
     const onSubmit = async () => {
       const form = document.querySelector(`#${props.config.id}`)
       if (!form.reportValidity()) {
@@ -36,15 +38,19 @@ export default {
           {}
         )
         if (mode.value === 'pc') {
-          return console.log('收集到表单信息', formObject)
+          return logger.primary('收集到表单信息', formObject)
         } else if (location.href.includes('preview.html')) {
-          return console.log('收集到表单信息', formObject)
+          return logger.primary('收集到表单信息', formObject)
         } else {
           try {
             const response = await httpPost('', formObject)
-            console.log(response)
+            if (response.data.success) {
+              alert('提交成功')
+            } else {
+              alert('提交失败')
+            }
           } catch (e) {
-            console.log(e)
+            alert(e.message)
           }
         }
       }
