@@ -7,6 +7,7 @@
  * @returns 转换后的样式
  */
 import useConsole from '@/hooks/useConsole'
+import confetti from 'canvas-confetti'
 
 export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
   const styleObj = {
@@ -178,5 +179,31 @@ export function loadFile (url, responseType = 'blob') {
     }
     xhr.responseType = responseType
     xhr.send()
+  })
+}
+
+/**
+ * @description 生成烟花
+ */
+export function fire () {
+  const myCanvas = document.createElement('canvas')
+  myCanvas.style.position = 'fixed'
+  myCanvas.style.left = '0px'
+  myCanvas.style.top = '0px'
+  myCanvas.style.width = '100vw'
+  myCanvas.style.height = '100vh'
+  document.body.appendChild(myCanvas)
+  const myConfetti = confetti.create(myCanvas, { resize: true })
+  const randomInRange = (min, max) => {
+    return Math.random() * (max - min) + min
+  }
+  myConfetti({
+    angle: randomInRange(55, 125),
+    spread: randomInRange(50, 70),
+    particleCount: randomInRange(100, 300),
+    origin: { y: 0.8 }
+  }).then(() => {
+    myConfetti.reset()
+    document.body.removeChild(myCanvas)
   })
 }

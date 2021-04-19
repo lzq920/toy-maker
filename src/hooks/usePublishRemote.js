@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/rest'
 import { useStore } from 'vuex'
 import nunjucks from 'nunjucks'
-import { loadFile } from '@/utils'
+import { fire, loadFile } from '@/utils'
 import { Base64 } from 'js-base64'
 import { ElMessage, ElNotification } from 'element-plus'
 import { ref } from 'vue'
@@ -72,6 +72,7 @@ export default function usePublishRemote () {
       dangerouslyUseHTMLString: true,
       message: `<a href="https://${githubName}.github.io/${githubRepo}/${tempPath}/" target="_blank">查看</a>`
     })
+    fire()
   }
   /**
    * @description 上传队列
