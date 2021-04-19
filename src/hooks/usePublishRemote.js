@@ -6,6 +6,7 @@ import { Base64 } from 'js-base64'
 import { ElMessage, ElNotification } from 'element-plus'
 import { ref } from 'vue'
 import useTencentCloud from '@/hooks/useTencentCloud'
+import useStorage from '@/hooks/useStorage'
 
 /**
  * @description 远程发布Hook
@@ -13,7 +14,7 @@ import useTencentCloud from '@/hooks/useTencentCloud'
  */
 export default function usePublishRemote () {
   const store = useStore()
-  const { storage } = useStore()
+  const { storage } = useStorage()
   let accessToken = storage.getItem('accessToken')
   let githubName = storage.getItem('githubName')
   let githubRepo = storage.getItem('githubRepo')
