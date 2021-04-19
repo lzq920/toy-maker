@@ -43,8 +43,9 @@ export default {
           return logger.primary(JSON.stringify(formObject))
         } else {
           try {
-            const response = await httpPost('', formObject)
-            if (response.data.success) {
+            const response = await httpPost('https://toy-maker-0gzrfa7132f7c204-1254002251.ap-shanghai.app.tcloudbase.com/submit', formObject)
+            if (response) {
+              console.log(response)
               alert('提交成功')
             } else {
               alert('提交失败')
