@@ -30,13 +30,7 @@ export default {
         return false
       } else {
         const formData = new FormData(form)
-        const formObject = Array.from(formData).reduce(
-          (acc, [key, value]) => ({
-            ...acc,
-            [key]: value
-          }),
-          {}
-        )
+        const formObject = Object.fromEntries(formData)
         if (mode.value === 'pc') {
           return logger.primary(JSON.stringify(formObject))
         } else if (location.href.includes('preview.html')) {
@@ -44,8 +38,7 @@ export default {
         } else {
           try {
             const response = await httpPost('https://toy-maker-0gzrfa7132f7c204-1254002251.ap-shanghai.app.tcloudbase.com/submit', formObject)
-            if (response) {
-              console.log(response)
+            if (response && response.id) {
               alert('提交成功')
             } else {
               alert('提交失败')
