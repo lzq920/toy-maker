@@ -7,6 +7,7 @@ import { ElMessage, ElNotification } from 'element-plus'
 import { ref } from 'vue'
 import useTencentCloud from '@/hooks/useTencentCloud'
 import useStorage from '@/hooks/useStorage'
+import { useRoute } from 'vue-router'
 
 /**
  * @description 远程发布Hook
@@ -14,6 +15,7 @@ import useStorage from '@/hooks/useStorage'
  */
 export default function usePublishRemote () {
   const store = useStore()
+  const route = useRoute()
   const { storage } = useStorage()
   let accessToken = storage.getItem('accessToken')
   let githubName = storage.getItem('githubName')
@@ -28,6 +30,7 @@ export default function usePublishRemote () {
     if (!accessToken || !githubName || !githubRepo) return ElMessage.error('请完善发布配置信息')
     const tempPath = `page-${new Date().getTime()}`
     const pageConfig = {
+      pageId: route.params.id,
       title: store.state.editor.pageConfig.title,
       description: store.state.editor.pageConfig.description,
       keywords: store.state.editor.pageConfig.keywords,

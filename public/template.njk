@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<!--suppress ALL -->
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,13 +7,11 @@
     <meta name="description" content="{{description}}">
     <meta name="keywords" content="{{keywords}}">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     <title>{{title}}</title>
     <style>
         * {
             box-sizing: border-box;
         }
-
         #app {
             position: relative;
             width: 100%;
@@ -35,6 +31,7 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.11/vue.global.prod.js"></script>
     <script src="./generator.umd.min.js"></script>
     <script>
+      window._pageId = {{pageId}};
       (function () {
         function autoRootFontSize () {
           const u = navigator.userAgent
@@ -48,7 +45,6 @@
           }
           document.documentElement.style.fontSize = clientWidth / 7.5 + 'px'
         }
-
         window.addEventListener('resize', autoRootFontSize)
         autoRootFontSize()
       })()

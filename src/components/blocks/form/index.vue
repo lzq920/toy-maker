@@ -30,6 +30,7 @@ export default {
         return false
       } else {
         const formData = new FormData(form)
+        formData.append('pageId', window._pageId)
         const formObject = Object.fromEntries(formData)
         if (mode.value === 'pc') {
           return logger.primary(JSON.stringify(formObject))
