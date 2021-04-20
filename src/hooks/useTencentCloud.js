@@ -129,6 +129,22 @@ export default function useTencentCloud () {
       }).get()
     }
   })
+  /**
+   * @description 表单数据Service
+   * @type {UnwrapNestedRefs<{}>}
+   */
+  const formService = reactive({
+    /**
+     * @description 获取表单采集数据
+     * @returns {Promise<cloudbase.functions.ICallFunctionResponse>}
+     */
+    getFormList () {
+      return app.callFunction({
+        name: 'getFormList',
+        data: {}
+      })
+    }
+  })
   return {
     signIn,
     signUp,
@@ -136,6 +152,7 @@ export default function useTencentCloud () {
     loginState,
     userInfo,
     pageService,
-    publishService
+    publishService,
+    formService
   }
 }

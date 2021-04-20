@@ -46,6 +46,13 @@ const routes = [
       hasAuth: true
     },
     component: () => import(/* webpackChunkName:"publish" */'../views/Publish.vue')
+  }, {
+    path: '/form',
+    name: 'Form',
+    meta: {
+      hasAuth: true
+    },
+    component: () => import(/* webpackChunkName:"form" */'../views/Form.vue')
   }
 ]
 
