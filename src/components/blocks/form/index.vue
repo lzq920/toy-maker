@@ -8,6 +8,7 @@
 import useComponentCommon from '@/hooks/useComponentCommon'
 import { httpPost } from '@/utils'
 import useConsole from '@/hooks/useConsole'
+import { isArray, isString } from 'lodash'
 
 export default {
   name: 'blocks-form',
@@ -31,7 +32,20 @@ export default {
       } else {
         const formData = new FormData(form)
         formData.append('pageId', window._pageId)
-        const formObject = Object.fromEntries(formData)
+        const formMap = new Map()
+        for (const [key, value] of formData) {
+          if (formMap.has(key)) {
+            const oldValue = formMap.get(key)
+            if (isArray(oldValue)) {
+              formMap.set(key, [...oldValue, value])
+            } else if (isString(oldValue)) {
+              formMap.set(key, [oldValue, value])
+            }
+          } else {
+            formMap.set(key, value)
+          }
+        }
+        const formObject = Object.fromEntries(formMap)
         if (mode.value === 'pc') {
           return logger.primary(JSON.stringify(formObject))
         } else if (location.href.includes('preview.html')) {
