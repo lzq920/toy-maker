@@ -105,6 +105,34 @@ export default [{
   }
 },
 {
+  title: '下拉框组件',
+  config: {
+    componentName: 'form-input-select',
+    description: '下拉框组件',
+    required: true,
+    disabled: false,
+    readonly: false,
+    multiple: false,
+    name: 'select',
+    options: [{
+      label: '选项1',
+      value: 1
+    }, {
+      label: '选项2',
+      value: 2
+    }],
+    placeholder: '请选择',
+    styles: {
+      width: '100%',
+      height: 50,
+      paddingLeft: 10,
+      paddingRight: 10,
+      fontSize: 20,
+      border: '1px solid #ccc'
+    }
+  }
+},
+{
   title: '提交按钮组件',
   config: {
     componentName: 'form-input-submit',

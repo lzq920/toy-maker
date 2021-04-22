@@ -37,7 +37,7 @@
       <div class="mt-4">
         <el-button type="primary" @click="checkFormRule">检测表单是否合法</el-button>
       </div>
-      <el-drawer v-model="configDrawer" :close-on-press-escape="false" :show-close="false" :title="`(${activeItems.description})配置`" direction="rtl" :size="300" destroy-on-close>
+      <el-drawer v-model="configDrawer" :close-on-press-escape="false" :show-close="false" :title="`(${activeItems.description})配置`" direction="rtl" :size="400" destroy-on-close>
         <component :is="`${activeItems.componentName}-control`" :config="activeItems"></component>
         <div class="flex justify-center">
           <el-button @click="configDrawer = false">取消</el-button>
@@ -101,6 +101,9 @@ export default {
       activeItems.value = {}
     }
     const addItem = async () => {
+      if (selectIndex.value === '') {
+        return false
+      }
       const selectedItem = formItemsOptions.value[selectIndex.value]
       selectedItem.config.id = generatorUUID()
       const items = [...formItems.value]
