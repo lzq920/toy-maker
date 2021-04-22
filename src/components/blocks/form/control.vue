@@ -120,7 +120,7 @@ export default {
           names.push(formElement.name)
           if (!formElement.name.trim()) {
             errors.value.push(`${formElement.description} 字段名称为空`)
-          } else if (!/^[a-z][A-Z]\w*$/.test(formElement.name)) {
+          } else if (!/^[a-zA-Z]\w*$/.test(formElement.name)) {
             errors.value.push(`${formElement.description} 字段不符合规范(仅支持字母开头包含数字下划线字符)`)
           }
         }
