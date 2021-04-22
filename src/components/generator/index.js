@@ -1,5 +1,6 @@
 import landing from './landing.vue'
 import 'normalize.css'
+import './restform.css'
 
 const context = require.context('../blocks', true, /index\.vue$/)
 const install = function (app) {

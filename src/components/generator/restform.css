@@ -1,0 +1,6 @@
+input[type="text"], input[type="email"], input[type="number"], input[type="reset"], input[type="button"], input[type="submit"],
+input[type="checkbox"], input[type="radio"], input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"],
+input[type="file"], input[type="month"], type[type="password"], input[type="range"], input[type="search"], input[type="url"], input[type="week"],
+button, textarea, select {
+    -webkit-appearance: none
+}

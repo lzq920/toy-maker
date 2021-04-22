@@ -21,7 +21,6 @@ export default {
       disabled: props.config.disabled,
       readonly: props.config.readonly,
       name: props.config.name,
-      placeholder: props.config.placeholder,
       multiple: props.config.multiple,
       size: 1
     }, props.config.options.map(item => {

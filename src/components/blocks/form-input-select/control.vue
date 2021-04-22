@@ -15,9 +15,6 @@
     <el-form-item label="是否多选">
       <el-switch v-model="settings.multiple"></el-switch>
     </el-form-item>
-    <el-form-item label="默认提示">
-      <el-input v-model="settings.placeholder"></el-input>
-    </el-form-item>
     <el-form-item label="选项配置">
       <el-table :data="settings.options" style="width: 100%">
         <el-table-column prop="label" label="键"></el-table-column>

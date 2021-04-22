@@ -121,7 +121,6 @@ export default [{
       label: '选项2',
       value: 2
     }],
-    placeholder: '请选择',
     styles: {
       width: '100%',
       height: 50,
