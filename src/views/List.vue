@@ -2,7 +2,8 @@
   <el-container class="w-screen h-screen">
     <el-scrollbar>
       <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
-        <el-image style="height:45px;width:146px;" :src="require('../assets/logo.png')" class="rounded-2xl border mr-auto shadow-sm"></el-image>
+        <el-image style="height:45px;width:146px;" :src="require('../assets/logo.png')"
+                  class="rounded-2xl border mr-auto shadow-sm"></el-image>
         <el-button type="primary" @click="toCreate">新增</el-button>
         <el-button type="danger" @click="logout">退出登录</el-button>
       </el-header>
@@ -12,23 +13,24 @@
           <div v-for="item in pageList" :key="item._id"
                class="bg-white rounded-md flex flex-col border border-blue-700 p-2 overflow-hidden">
             <img :src="item.pageConfig.cover" alt="cover" class="border">
-              <div class="flex flex-col mt-4">
-                <div class="font-bold">{{ item.pageConfig.title || '未命名落地页' }}</div>
-                <div class="flex justify-between items-center mt-2">
-                  <el-tooltip content="编辑" placement="top">
-                    <el-button size="mini" type="primary" @click="toEdit(item._id)" icon="el-icon-edit"></el-button>
-                  </el-tooltip>
-                  <el-tooltip content="发布记录" placement="top">
-                    <el-button size="mini" type="info" @click="toPreview(item._id)" icon="el-icon-view"></el-button>
-                  </el-tooltip>
-                  <el-tooltip content="创建副本" placement="top">
-                    <el-button size="mini" type="warning" @click="toCopy(item)" icon="el-icon-document-copy"></el-button>
-                  </el-tooltip>
-                  <el-tooltip content="删除" placement="top">
-                    <el-button size="mini" type="danger" @click="handleDelete(item._id)" icon="el-icon-delete"></el-button>
-                  </el-tooltip>
-                </div>
+            <div class="flex flex-col mt-4">
+              <div class="font-bold">{{ item.pageConfig.title || '未命名落地页' }}</div>
+              <div class="flex justify-between items-center mt-2">
+                <el-tooltip content="编辑" placement="top">
+                  <el-button size="mini" type="primary" @click="toEdit(item._id)" icon="el-icon-edit"></el-button>
+                </el-tooltip>
+                <el-tooltip content="发布记录" placement="top">
+                  <el-button size="mini" type="info" @click="toPreview(item._id)" icon="el-icon-view"></el-button>
+                </el-tooltip>
+                <el-tooltip content="创建副本" placement="top">
+                  <el-button size="mini" type="warning" @click="toCopy(item)" icon="el-icon-document-copy"></el-button>
+                </el-tooltip>
+                <el-tooltip content="删除" placement="top">
+                  <el-button size="mini" type="danger" @click="handleDelete(item._id)"
+                             icon="el-icon-delete"></el-button>
+                </el-tooltip>
               </div>
+            </div>
           </div>
         </div>
       </el-main>
@@ -38,7 +40,9 @@
       v-model="publishLogDrawer"
       direction="rtl"
       destroy-on-close>
-      <publish-log :activities="activities"></publish-log>
+      <div style="height: calc(100vh - 82px);overflow: auto">
+        <publish-log :activities="activities"></publish-log>
+      </div>
     </el-drawer>
   </el-container>
 </template>
@@ -53,7 +57,12 @@ import useTencentCloud from '@/hooks/useTencentCloud'
 export default {
   name: 'PageList',
   setup () {
-    const { pageService, signOut, userInfo, publishService } = useTencentCloud()
+    const {
+      pageService,
+      signOut,
+      userInfo,
+      publishService
+    } = useTencentCloud()
     const pageList = ref([])
     const router = useRouter()
     const loading = ref(false)

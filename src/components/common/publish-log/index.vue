@@ -1,13 +1,15 @@
 <template>
-  <el-timeline class="p-10">
-    <el-timeline-item
-      v-for="(activity, index) in activities"
-      :key="index"
-      type="success"
-      :timestamp="formDate(activity.createTime)">
-      <el-link :href="activity.url">{{activity.url}}</el-link>
-    </el-timeline-item>
-  </el-timeline>
+    <el-scrollbar>
+      <el-timeline class="p-10">
+        <el-timeline-item
+          v-for="(activity, index) in activities"
+          :key="index"
+          type="success"
+          :timestamp="formDate(activity.createTime)">
+          <el-link :href="activity.url">{{ activity.url }}</el-link>
+        </el-timeline-item>
+      </el-timeline>
+    </el-scrollbar>
 </template>
 
 <script>
@@ -32,6 +34,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>
