@@ -1,6 +1,5 @@
 <template>
-  <el-container v-loading="pageLoading" class="w-screen h-screen overflow-hidden"
-                element-loading-spinner="el-icon-loading" element-loading-text="组件数据加载中">
+  <el-container v-loading.fullscreen.lock="pageLoading" element-loading-spinner="el-icon-loading" element-loading-text="组件数据加载中"  class="w-screen h-screen overflow-hidden">
     <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
       <el-image style="height:45px;width:146px;" :src="require('../assets/logo.png')" class="rounded-2xl border mr-auto shadow-sm"></el-image>
       <el-button @click="openDialog(true)">页面配置</el-button>

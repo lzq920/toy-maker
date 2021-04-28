@@ -10,8 +10,8 @@
           <el-input type="password" v-model="user.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="login">登录</el-button>
-          <el-button @click="register">注册</el-button>
+          <el-button type="primary" @click="login" :loading="loginLoading">登录</el-button>
+          <el-button @click="register" :loading="signLoading">注册</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -35,19 +35,24 @@ export default {
       email: '',
       password: ''
     })
+    const signLoading = ref(false)
+    const loginLoading = ref(false)
     const form = ref()
     const router = useRouter()
     const login = () => {
       form.value.validate(async (valid) => {
         if (valid) {
           try {
+            loginLoading.value = true
             const response = await signIn(user.email, user.password)
             if (response.user) {
+              loginLoading.value = false
               await router.replace({
                 name: 'Index'
               })
             }
           } catch (error) {
+            loginLoading.value = false
             ElMessage.error(JSON.parse(error.message).msg)
           }
         }
@@ -57,11 +62,14 @@ export default {
       form.value.validate(async (valid) => {
         if (valid) {
           try {
+            signLoading.value = true
             const response = await signUp(user.email, user.password)
             if (response) {
+              signLoading.value = false
               ElMessage.success(`注册邮件已发送到${user.email},请注意查收`)
             }
           } catch (error) {
+            signLoading.value = false
             ElMessage.error(JSON.parse(error.message).msg)
           }
         }
@@ -88,7 +96,9 @@ export default {
       login,
       register,
       rules,
-      form
+      form,
+      loginLoading,
+      signLoading
     }
   }
 }

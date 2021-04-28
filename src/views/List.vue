@@ -7,7 +7,8 @@
         <el-button type="primary" @click="toCreate">新增</el-button>
         <el-button type="danger" @click="logout">退出登录</el-button>
       </el-header>
-      <el-main class="bg-white w-screen" v-loading="loading" element-loading-text="落地页列表加载中">
+      <el-main class="bg-white w-screen" v-loading.lock="loading" element-loading-spinner="el-icon-loading"
+               element-loading-text="落地页列表加载中">
         <el-empty v-if="pageList.length===0" description="暂无数据"></el-empty>
         <div class="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-2 gap-4">
           <div v-for="item in pageList" :key="item._id"
@@ -75,6 +76,7 @@ export default {
         loading.value = false
       } catch (error) {
         loading.value = false
+        ElMessage.error('出错啦')
       }
     }
     const toEdit = (id) => {

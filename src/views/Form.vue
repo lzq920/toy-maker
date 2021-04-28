@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-full" v-loading="loading" element-loading-text="表单数据加载中">
-    <el-page-header @back="backHome" content="表单数据" class="mb-4" title="返回">
+  <div class="w-full h-full" v-loading.lock="loading" element-loading-spinner="el-icon-loading" element-loading-text="表单数据加载中">
+    <el-page-header @back="backHome" content="表单数据" class="mb-4 mt-4" title="返回">
     </el-page-header>
     <el-table :data="formList" border>
       <el-table-column type="expand" label="#">
