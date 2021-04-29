@@ -14,7 +14,7 @@ export default {
     }, // 页面配置
     dataSource: {}, // 全局数据源
     allItems: [], // 当前页面所有编辑组件
-    historyStack: new History(), // 历史操作记录
+    historyStack: new History(100), // 历史操作记录
     canvasSetting: {
       width: 375,
       height: 667
