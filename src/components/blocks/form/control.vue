@@ -1,24 +1,29 @@
 <template>
   <el-tabs v-model="activeName" class="pl-2 pr-2">
     <el-tab-pane label="属性" name="attrs">
-      <position-setting :config="config"></position-setting>
+      <el-collapse>
+        <el-collapse-item title="位置" name="position">
+          <position-setting :config="config"></position-setting>
+        </el-collapse-item>
+        <el-collapse-item title="盒子模型" name="box-model">
+          <box-model-setting :config="config"></box-model-setting>
+        </el-collapse-item>
+      </el-collapse>
     </el-tab-pane>
-<!--    <el-tab-pane label="事件" name="events">
-    </el-tab-pane>
-    <el-tab-pane label="动画" name="animations">
-    </el-tab-pane>-->
     <el-tab-pane label="配置" name="config">
       <ul class="list-none cursor-pointer border">
         <li v-for="(item,index) in formItems" class="p-2 border-b" :key="index">
-          <span>{{`${item.description}(${item.name||""})`}}</span>
+          <span>{{ `${item.description}(${item.name || ''})` }}</span>
           <span class="absolute right-2">
-            <i class="el-icon-delete mr-2" v-if="item.componentName!=='form-input-submit'" @click="handleDelete(item)"></i>
+            <i class="el-icon-delete mr-2" v-if="item.componentName!=='form-input-submit'"
+               @click="handleDelete(item)"></i>
             <i class="el-icon-setting" @click="handleConfig(item)"></i>
           </span>
         </li>
         <li class="p-2 flex justify-between items-center">
           <el-select v-model="selectIndex" placeholder="请选择">
-            <el-option v-for="(item,index) in formItemsOptions" :key="index" :value="index" :label="item.title"></el-option>
+            <el-option v-for="(item,index) in formItemsOptions" :key="index" :value="index"
+                       :label="item.title"></el-option>
           </el-select>
           <el-button @click="addItem">添加</el-button>
         </li>
@@ -37,7 +42,8 @@
       <div class="mt-4">
         <el-button type="primary" @click="checkFormRule">检测表单是否合法</el-button>
       </div>
-      <el-drawer v-model="configDrawer" :close-on-press-escape="false" :show-close="false" :title="`(${activeItems.description})配置`" direction="rtl" :size="400" destroy-on-close>
+      <el-drawer v-model="configDrawer" :close-on-press-escape="false" :show-close="false"
+                 :title="`(${activeItems.description})配置`" direction="rtl" :size="400" destroy-on-close>
         <component :is="`${activeItems.componentName}-control`" :config="activeItems"></component>
         <div class="flex justify-center">
           <el-button @click="configDrawer = false">取消</el-button>

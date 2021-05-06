@@ -41,6 +41,10 @@ export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
     'borderBottomRightRadius',
     'borderRadius',
     'letterSpacing',
+    'borderLeftWidth',
+    'borderRightWidth',
+    'borderTopWidth',
+    'borderBottomWidth',
     'lineHeight'
   ]
   const style = {}

@@ -1,10 +1,20 @@
 <template>
   <el-tabs v-model="activeName" class="pl-2 pr-2">
     <el-tab-pane label="属性" name="attrs">
-      <el-button type="primary" @click="dialog = true">选择视频</el-button>
-      <el-dialog :model-value="dialog" center title="视频" @close="dialog = false">
-        <video-lib v-if="dialog" @choose="chooseVideo"></video-lib>
-      </el-dialog>
+      <el-collapse>
+        <el-collapse-item title="位置" name="position">
+          <position-setting :config="config"></position-setting>
+        </el-collapse-item>
+        <el-collapse-item title="盒子模型" name="box-model">
+          <box-model-setting :config="config"></box-model-setting>
+        </el-collapse-item>
+        <el-collapse-item title="链接配置" name="src">
+          <el-button type="primary" @click="dialog = true">选择视频</el-button>
+          <el-dialog :model-value="dialog" center title="视频" @close="dialog = false">
+            <video-lib v-if="dialog" @choose="chooseVideo"></video-lib>
+          </el-dialog>
+        </el-collapse-item>
+      </el-collapse>
     </el-tab-pane>
     <el-tab-pane label="事件" name="events">
       <event-setting :config="config"></event-setting>
