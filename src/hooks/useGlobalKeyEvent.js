@@ -75,7 +75,7 @@ export default function useGlobalKeyEvent () {
       e.preventDefault()
       const pageId = route.params.id
       if (pageId) {
-        window.open(`${location.origin}/preview.html?id=${pageId}`)
+        window.open(`${location.origin}/preview.html`)
       }
     }
     if (e.altKey && e.code === 'ArrowDown' && !e.shiftKey) {

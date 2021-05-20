@@ -29,11 +29,10 @@
 
 <body>
 <div id="app">
-    <landing :data="landingList" :source="dataSource"></landing>
+    <landing :data="landingList" :source="dataSource" :key="key"></landing>
 </div>
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.11/vue.global.js"></script>
 <script src="/generator/generator.umd.min.js"></script>
-<script src="//imgcache.qq.com/qcloud/cloudbase-js-sdk/1.4.1/cloudbase.full.js"></script>
 <script>
   (function () {
     function autoRootFontSize () {
@@ -53,31 +52,31 @@
     autoRootFontSize()
   })()
   window.onload = function () {
-
-    const queryObject = new URLSearchParams(location.search)
-    const id = queryObject.get('id')
-    const cloud = cloudbase.init({
-      env: 'toy-maker-0gzrfa7132f7c204'
-    })
-    const auth = cloud.auth({
-      persistence: 'local'
-    })
-    const db = cloud.database()
-    const pageCollection = db.collection('toy-maker-pages')
-    pageCollection.doc(id).get().then(res => {
-      const { data } = res
-      const app = Vue.createApp({
-        data () {
-          return {
-            landingList: data[0].allItems,
-            dataSource: data[0].dataSource
-          }
+    const app = Vue.createApp({
+      data () {
+        return {
+          landingList: [],
+          dataSource: {},
+          key: 0
         }
-      })
-      app.use(generator)
-      app.mount('#app')
+      }
     })
-
+    app.use(generator)
+    const vm = app.mount('#app')
+    function updateApp () {
+      if (localStorage.getItem('previewPage')) {
+        const data = JSON.parse(localStorage.getItem('previewPage'))
+        vm.landingList = data.allItems
+        vm.dataSource = data.dataSource
+        vm.key++
+      }
+    }
+    updateApp()
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'previewPage') {
+        updateApp()
+      }
+    })
   }
 
 </script>

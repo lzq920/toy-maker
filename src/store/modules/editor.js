@@ -97,6 +97,11 @@ export default {
     },
     addHistory (state) {
       state.historyStack.record(state.allItems)
+      const obj = {
+        allItems: state.allItems,
+        dataSource: state.dataSource
+      }
+      window.localStorage.setItem('previewPage', JSON.stringify(obj))
     },
     undoHistory (state) {
       state.activeItems = []
