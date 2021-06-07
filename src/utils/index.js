@@ -47,12 +47,17 @@ export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
     'borderBottomWidth',
     'lineHeight'
   ]
+  const noUnitStr = ['opacity', 'fontWeight']
   const style = {}
   for (const key in styleObj) {
     if (needUnitStr.includes(key)) {
-      style[key] = styleObj[key].toString().includes('%')
-        ? styleObj[key]
-        : (styleObj[key] * zoom) / scale + unit
+      if (typeof styleObj[key] === 'string' && styleObj[key].includes('%')) {
+        style[key] = styleObj[key]
+      } else {
+        style[key] = parseFloat(Number(styleObj[key]) * zoom / scale) + unit
+      }
+    } else if (noUnitStr.includes(key)) {
+      style[key] = parseFloat(styleObj[key])
     } else {
       style[key] = styleObj[key]
     }
