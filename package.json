@@ -13,6 +13,7 @@
     "@lzq920/vue3-draggable-resizable": "^1.7.0",
     "@octokit/rest": "^18.3.5",
     "@tailwindcss/postcss7-compat": "npm:@tailwindcss/postcss7-compat@^2.0.2",
+    "@vueuse/core": "^5.0.1",
     "autoprefixer": "^9",
     "canvas-confetti": "^1.4.0",
     "core-js": "^3.6.5",
