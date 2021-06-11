@@ -22,6 +22,7 @@ export default {
     let editorInstance
     const errorTip = ref('')
     onMounted(() => {
+      console.log('editorInstance')
       editorInstance = monaco.editor.create(document.querySelector('#monaco-editor'), {
         value: '',
         language: 'json',

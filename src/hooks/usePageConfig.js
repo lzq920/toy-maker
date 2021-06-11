@@ -3,7 +3,6 @@ import { useStore } from 'vuex'
 
 export default function usePageConfig () {
   const store = useStore()
-  const dialog = ref(false)
   const pageConfig = reactive({
     title: '',
     description: '',
@@ -33,18 +32,13 @@ export default function usePageConfig () {
   })
   const setPageConfig = async () => {
     await store.dispatch('editor/setPageConfig', toRaw(pageConfig))
-    openDialog(false)
   }
   const changeDataSource = async (val) => {
     await store.dispatch('editor/setDataSource', val)
   }
-  const openDialog = (value) => {
-    dialog.value = value
-  }
+
   return {
     pageConfig,
-    openDialog,
-    dialog,
     setPageConfig,
     dataSource,
     changeDataSource
