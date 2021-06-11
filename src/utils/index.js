@@ -54,7 +54,7 @@ export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
       if (typeof styleObj[key] === 'string' && styleObj[key].includes('%')) {
         style[key] = styleObj[key]
       } else {
-        style[key] = parseFloat(Number(styleObj[key]) * zoom / scale) + unit
+        style[key] = parseFloat(Number((styleObj[key]) * zoom / scale).toFixed(2)) + unit
       }
     } else if (noUnitStr.includes(key)) {
       style[key] = parseFloat(styleObj[key])

@@ -16,6 +16,7 @@
 
 <script>
 import { computed, provide, reactive, ref } from 'vue'
+import { transferStyleMode } from '@/utils'
 
 export default {
   name: 'landing',
@@ -40,19 +41,12 @@ export default {
         position: 'absolute'
       }
       for (const iterator in item) {
-        style[iterator] = `${(item[iterator] * 2) / 100}rem`
+        style[iterator] = `${parseFloat((item[iterator] * 2 / 100).toFixed(2))}rem`
       }
       return style
     }
-    const isNumber = val => typeof val === 'number'
     const computedComponentStyle = item => {
-      const style = {}
-      for (const iterator in item.styles) {
-        style[iterator] = isNumber(item.styles[iterator])
-          ? `${(item.styles[iterator] * 2) / 100}rem`
-          : `${item.styles[iterator]}`
-      }
-      return style
+      return transferStyleMode(item, mode.value)
     }
     return {
       list,
