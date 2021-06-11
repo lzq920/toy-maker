@@ -18,7 +18,7 @@ export default {
       getExpression,
       mode
     } = useComponentCommon(props.config)
-    return h('video', {
+    return () => h('video', {
       id: props.config.id,
       poster: getExpression(props.config.poster),
       style: computedStyle,
