@@ -42,20 +42,7 @@
                 </div>
               </el-tab-pane>
               <el-tab-pane name="page-config-area" label="页面配置">
-                <el-form v-model="pageConfig" label-width="80px">
-                  <el-form-item label="标题">
-                    <el-input v-model="pageConfig.title" placeholder="请输入页面标题" maxlength="20"
-                              show-word-limit></el-input>
-                  </el-form-item>
-                  <el-form-item label="描述">
-                    <el-input v-model="pageConfig.description" placeholder="请输入页面描述" maxlength="50"
-                              show-word-limit></el-input>
-                  </el-form-item>
-                  <el-form-item label="关键词">
-                    <el-input v-model="pageConfig.keywords" placeholder="请输入页面关键词" maxlength="50"
-                              show-word-limit></el-input>
-                  </el-form-item>
-                </el-form>
+                <page-config :config="pageConfig" @change="setPageConfig"></page-config>
               </el-tab-pane>
               <el-tab-pane name="data-source-area" label="数据源配置">
                 <div class="w-full" style="height:600px" v-if="tabActive==='data-source-area'">
@@ -65,7 +52,6 @@
               <el-tab-pane name="publish-config-area" label="发布配置">
                 <publish-setting></publish-setting>
               </el-tab-pane>
-
             </el-tabs>
           </el-scrollbar>
           <canvas-setting></canvas-setting>
@@ -91,9 +77,11 @@ import usePsdParse from '@/hooks/usePsdParse'
 import usePageConfig from '@/hooks/usePageConfig'
 import usePublishRemote from '@/hooks/usePublishRemote'
 import { useRoute } from 'vue-router'
+import PageConfig from '@/components/common/page-config'
 
 export default {
   name: 'PageCreate',
+  components: { PageConfig },
   setup () {
     const store = useStore()
     const route = useRoute()

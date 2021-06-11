@@ -30,8 +30,8 @@ export default function usePageConfig () {
   }, {
     deep: true
   })
-  const setPageConfig = async () => {
-    await store.dispatch('editor/setPageConfig', toRaw(pageConfig))
+  const setPageConfig = async (val) => {
+    await store.dispatch('editor/setPageConfig', toRaw(val))
   }
   const changeDataSource = async (val) => {
     await store.dispatch('editor/setDataSource', val)
