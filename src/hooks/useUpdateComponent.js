@@ -7,6 +7,7 @@ import BlocksMultipleText from '@/widgets/MultipleText'
 import BlocksForm from '@/widgets/Form'
 import BlocksChart from '@/widgets/Chart'
 import BlocksAudio from '@/widgets/Audio'
+import BlocksLottie from '@/widgets/Lottie'
 
 /**
  * @description 更新组件数据Hook，合并老数据
@@ -22,7 +23,8 @@ export default function useUpdateComponent () {
     'blocks-multiple-text': (params) => new BlocksMultipleText(params),
     'blocks-form': (params) => new BlocksForm(params),
     'blocks-chart': (params) => new BlocksChart(params),
-    'blocks-audio': (params) => new BlocksAudio(params)
+    'blocks-audio': (params) => new BlocksAudio(params),
+    'blocks-lottie': (params) => new BlocksLottie(params)
   }
   const mergeComponent = (params) => {
     return enums[params.componentName](params)

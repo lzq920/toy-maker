@@ -69,6 +69,10 @@ export default {
       {
         tipText: '图表组件',
         component: 'blocks-chart-config'
+      },
+      {
+        tipText: '动画组件',
+        component: 'blocks-lottie-config'
       }
     ])
     return {
