@@ -1,5 +1,5 @@
 <script>
-import { h, onBeforeUnmount, onMounted, ref } from 'vue'
+import { h, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import useComponentCommon from '@/hooks/useComponentCommon'
 import lottie from 'lottie-web'
 
@@ -17,12 +17,21 @@ export default {
       computedStyle
     } = useComponentCommon(props.config)
     const lottieAnimation = ref()
-    onMounted(() => {
+    const initLottieAnimation = () => {
       const config = {
         container: document.querySelector(`#${props.config.id}`),
         ...props.config.lottieConfig
       }
       lottieAnimation.value = lottie.loadAnimation(config)
+    }
+    watch(props.config.lottieConfig, (newVal, oldVal) => {
+      lottieAnimation.value.destroy()
+      initLottieAnimation()
+    }, {
+      deep: true
+    })
+    onMounted(() => {
+      initLottieAnimation()
     })
     onBeforeUnmount(() => {
       lottieAnimation.value.destroy()
