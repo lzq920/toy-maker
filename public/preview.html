@@ -31,7 +31,7 @@
 <div id="app">
     <landing :data="landingList" :source="dataSource" :key="key"></landing>
 </div>
-<script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.11/vue.global.js"></script>
+<script src="//unpkg.com/vue@next"></script>
 <script src="/generator/generator.umd.min.js"></script>
 <script>
   (function () {
@@ -61,7 +61,7 @@
         }
       }
     })
-    app.use(generator)
+    app.use(window.generator)
     const vm = app.mount('#app')
     function updateApp () {
       if (localStorage.getItem('previewPage')) {
