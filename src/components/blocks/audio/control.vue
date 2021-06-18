@@ -8,7 +8,8 @@
         <el-collapse-item title="盒子模型" name="box-model">
           <box-model-setting :config="config"></box-model-setting>
         </el-collapse-item>
-        <el-collapse-item title="链接配置" name="src">
+        <el-collapse-item title="链接配置" name="source">
+          <el-input @change="chooseAudio"></el-input>
         </el-collapse-item>
       </el-collapse>
     </el-tab-pane>
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
@@ -36,6 +37,14 @@ export default {
   setup (props) {
     const store = useStore()
     const activeName = ref('attrs')
+    const sourceUrl = computed({
+      get: () => {
+        return props.config.src
+      },
+      set: () => {
+
+      }
+    })
     const chooseAudio = async (val) => {
       await store.dispatch('editor/updateItem', {
         id: props.config.id,
@@ -45,7 +54,8 @@ export default {
     }
     return {
       activeName,
-      chooseAudio
+      chooseAudio,
+      sourceUrl
     }
   }
 }
