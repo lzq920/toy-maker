@@ -24,8 +24,10 @@ export default {
       }
       lottieAnimation.value = lottie.loadAnimation(config)
     }
-    watch(props.config.lottieConfig, (newVal, oldVal) => {
-      lottieAnimation.value.destroy()
+    watch(props.config.lottieConfig, () => {
+      if (lottieAnimation.value) {
+        lottieAnimation.value.destroy()
+      }
       initLottieAnimation()
     }, {
       deep: true
