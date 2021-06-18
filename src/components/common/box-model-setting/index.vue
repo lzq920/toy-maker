@@ -23,12 +23,18 @@
           <template #prefix>
             <span>{{ enumsString['Top'] }}</span>
           </template>
+          <template #suffix>
+            <span>px</span>
+          </template>
         </el-input>
         <el-input
           v-if="checkedArrow.includes('Right')"
           v-model="checkedValue[1]" @change="handleChange">
           <template #prefix>
             <span>{{ enumsString['Right'] }}</span>
+          </template>
+          <template #suffix>
+            <span>px</span>
           </template>
         </el-input>
         <el-input
@@ -37,12 +43,18 @@
           <template #prefix>
             <span>{{ enumsString['Bottom'] }}</span>
           </template>
+          <template #suffix>
+            <span>px</span>
+          </template>
         </el-input>
         <el-input
           v-if="checkedArrow.includes('Left')"
           v-model="checkedValue[3]" @change="handleChange">
           <template #prefix>
             <span>{{ enumsString['Left'] }}</span>
+          </template>
+          <template #suffix>
+            <span>px</span>
           </template>
         </el-input>
       </div>
