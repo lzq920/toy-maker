@@ -6,8 +6,7 @@
     "serve": "vue-cli-service serve --port 1111",
     "build": "npm run generator&&vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "generator": "vue-cli-service build --formats umd-min --target lib --name generator src/components/generator/index.js --dest public/generator",
-    "generator:watch": "vue-cli-service build --watch --formats umd-min --target lib --name generator src/components/generator/index.js --dest public/generator"
+    "generator": "vue-cli-service build --formats umd-min --target lib --name generator src/components/generator/index.js --dest public/generator"
   },
   "dependencies": {
     "@cloudbase/js-sdk": "^1.4.1",
