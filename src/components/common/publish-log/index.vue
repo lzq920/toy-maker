@@ -6,7 +6,7 @@
           :key="index"
           type="success"
           :timestamp="formDate(activity.createTime)">
-          <el-link :href="activity.url">{{ activity.url }}</el-link>
+          <el-link :href="activity.url" target="_blank">{{ activity.url }}</el-link>
         </el-timeline-item>
       </el-timeline>
     </el-scrollbar>
