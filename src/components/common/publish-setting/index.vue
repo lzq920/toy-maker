@@ -8,7 +8,7 @@
         <el-input v-model="githubConfig.githubRepo" placeholder="请输入Github仓库名称"></el-input>
       </el-form-item>
       <el-form-item label="Github授权Token">
-        <el-input v-model="githubConfig.accessToken" placeholder="请输入Github授权Token"></el-input>
+        <el-input v-model="githubConfig.accessToken" placeholder="请输入Github授权Token" type="password"></el-input>
       </el-form-item>
       <el-form-item>
         <i class="el-icon-info"></i>发布配置仅保存在本地LocalStorage
