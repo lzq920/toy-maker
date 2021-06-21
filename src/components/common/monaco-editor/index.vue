@@ -21,8 +21,15 @@ export default {
   setup (props, { emit }) {
     let editorInstance
     const errorTip = ref('')
+    const isValidJSON = str => {
+      try {
+        JSON.parse(str)
+        return true
+      } catch (e) {
+        return false
+      }
+    }
     onMounted(() => {
-      console.log('editorInstance')
       editorInstance = monaco.editor.create(document.querySelector('#monaco-editor'), {
         value: '',
         language: 'json',
@@ -33,16 +40,15 @@ export default {
       })
       editorInstance.setValue(props.code)
       editorInstance.onDidChangeModelContent(() => {
-        try {
+        if (isValidJSON(editorInstance.getValue())) {
           const result = JSON.parse(editorInstance.getValue())
           if (!isPlainObject(result)) {
             errorTip.value = '数据源不是Object对象'
-            return
           } else {
             errorTip.value = ''
             emit('change', result)
           }
-        } catch (e) {
+        } else {
           errorTip.value = '格式不正确'
         }
       })
