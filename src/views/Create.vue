@@ -13,6 +13,11 @@
       <el-button :disabled="canRedo" @click="handleRedo">重做</el-button>
       <el-button :loading="saveLoading" type="success" @click="savePageData">保存</el-button>
       <el-button type="primary" @click="handleExportZip">下载</el-button>
+      <el-button type="primary" @click="exportFile">导出JSON</el-button>
+      <el-button type="primary" @click="handleImportFile">
+        <input ref="jsonRef" type="file" class="hidden" @change="importFile" accept="application/json">
+        导入JSON
+      </el-button>
       <el-button :loading="publishLoading" type="primary" @click="publish($route.params.id)">
         {{ publishLoading ? '发布中' : '发布' }}
       </el-button>
@@ -78,6 +83,8 @@ import usePageConfig from '@/hooks/usePageConfig'
 import usePublishRemote from '@/hooks/usePublishRemote'
 import { useRoute } from 'vue-router'
 import PageConfig from '@/components/common/page-config'
+import useImportJSON from '@/hooks/useImportJSON'
+import useExportJSON from '@/hooks/useExportJSON'
 
 export default {
   name: 'PageCreate',
@@ -90,6 +97,8 @@ export default {
     })
     const { downloadZip } = useExportZip()
     const { uploadFile } = usePsdParse()
+    const { importFile } = useImportJSON()
+    const { exportFile } = useExportJSON()
     const {
       getPageData,
       savePageData,
@@ -135,9 +144,13 @@ export default {
     const initPageConfig = async () => {
       await store.dispatch('editor/initPageConfig')
     }
-    const psd = ref('psd')
+    const psd = ref()
     const handleUpload = () => {
       psd.value.click()
+    }
+    const jsonRef = ref()
+    const handleImportFile = () => {
+      jsonRef.value.click()
     }
     const tabActive = ref('editor-area')
     const clearCanvas = async () => {
@@ -169,6 +182,7 @@ export default {
       pageLoading,
       uploadFile,
       psd,
+      jsonRef,
       handleUpload,
       clearCanvas,
       pageConfig,
@@ -177,7 +191,10 @@ export default {
       dataSource,
       changeDataSource,
       publish,
-      publishLoading
+      publishLoading,
+      exportFile,
+      importFile,
+      handleImportFile
     }
   }
 }
