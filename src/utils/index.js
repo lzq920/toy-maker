@@ -67,9 +67,11 @@ export function transferStyle (component, scale = 1, zoom = 1, unit = 'px') {
 
 /**
  * @description 生成组件UUID
+ * @param {String} prefix 前缀
+ * @returns {string}
  */
-export function generatorUUID () {
-  return 'blocks-' + ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+export function generatorUUID (prefix = 'blocks-') {
+  return prefix + ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
     (
       c ^
       (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
@@ -215,4 +217,39 @@ export function fire () {
     myConfetti.reset()
     document.body.removeChild(myCanvas)
   })
+}
+
+/**
+ * @description 复制文本到粘贴板
+ * @param str {String} 字符串
+ */
+export function copyToClipboard (str) {
+  const el = document.createElement('textarea')
+  el.value = str
+  el.setAttribute('readonly', '')
+  el.style.position = 'absolute'
+  el.style.left = '-9999px'
+  document.body.appendChild(el)
+  const selected =
+    document.getSelection().rangeCount > 0
+      ? document.getSelection().getRangeAt(0)
+      : false
+  el.select()
+  document.execCommand('copy')
+  document.body.removeChild(el)
+  if (selected) {
+    document.getSelection().removeAllRanges()
+    document.getSelection().addRange(selected)
+  }
+}
+
+/**
+ * @description 滚动到顶部
+ */
+export function scrollToTop () {
+  const c = document.documentElement.scrollTop || document.body.scrollTop
+  if (c > 0) {
+    window.requestAnimationFrame(scrollToTop)
+    window.scrollTo(0, c - c / 8)
+  }
 }

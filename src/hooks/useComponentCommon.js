@@ -1,5 +1,5 @@
 import { computed, inject, onMounted, reactive, unref } from 'vue'
-import { runAnimation, transferStyleMode } from '@/utils'
+import { runAnimation, transferStyleMode, copyToClipboard, scrollToTop } from '@/utils'
 import { get } from 'lodash'
 
 /**
@@ -28,6 +28,23 @@ export default function useComponentCommon (config) {
           // eslint-disable-next-line prefer-promise-reject-errors
           reject('未定义参数')
         }
+      })
+    },
+    copyToClipboard (str) {
+      return new Promise((resolve, reject) => {
+        if (str) {
+          copyToClipboard(str)
+          resolve()
+        } else {
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject('未定义参数')
+        }
+      })
+    },
+    backToTop () {
+      return new Promise((resolve, reject) => {
+        scrollToTop()
+        resolve()
       })
     }
   })

@@ -6,7 +6,8 @@
       </el-button>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item v-for="item in eventOptions" :key="item.key" :command="item">{{ item.name }}
+          <el-dropdown-item v-for="item in eventOptions" :key="item.key" :command="item">
+            {{ item.name }}
           </el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -16,7 +17,7 @@
         <el-table-column prop="name" label="事件名称"></el-table-column>
         <el-table-column prop="params" label="事件参数">
           <template #default="scope">
-            <el-input v-model="scope.row.params"></el-input>
+            <el-input v-model="scope.row.params" :disabled="!scope.row.required"></el-input>
           </template>
         </el-table-column>
         <el-table-column prop="" label="操作">
