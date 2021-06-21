@@ -58,7 +58,7 @@ export default function usePublishRemote () {
     for (let index = 0; index < fileList.length; index++) {
       const element = fileList[index]
       try {
-        await uploadQueue(element.path, element.content)
+        await uploadQueue(element.path, element.content, tempPath)
       } catch (e) {
         publishLoading.value = false
         ElMessage.error(e.message)
@@ -81,10 +81,11 @@ export default function usePublishRemote () {
    * @description 上传队列
    * @param path {String} 上传路径
    * @param content {String} base64内容
+   * @param tempPath {String} 上传地址
    * @returns {Promise<void>}
    */
   const uploadQueue = async (
-    path, content
+    path, content, tempPath
   ) => {
     const octokit = new Octokit({
       auth: accessToken
@@ -93,7 +94,7 @@ export default function usePublishRemote () {
       owner: githubName,
       repo: githubRepo,
       path: path,
-      message: `update ${path}`,
+      message: `publish ${tempPath}`,
       content: content
     })
   }
