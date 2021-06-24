@@ -20,16 +20,18 @@
             transform: translate(0, 0);
         }
     </style>
-    <link rel="stylesheet" href="./generator.css">
-    <link rel="stylesheet" href="./animate.css">
+    {% for item in styleList %}
+        <link rel="stylesheet" href="{{item}}">
+     {% endfor %}
 </head>
 
 <body>
     <div id="app">
         <landing :data="landingList" :source="dataSource"></landing>
     </div>
-    <script src="//unpkg.com/vue@next"></script>
-    <script src="./generator.umd.min.js"></script>
+    {% for item in javascriptList %}
+        <script src="{{item}}"></script>
+    {% endfor %}
     <script>
       window._pageId = "{{pageId}}";
       (function () {

@@ -29,13 +29,16 @@ export default function usePublishRemote () {
     if (!pageId) return ElMessage.error('发布前请先保存页面')
     if (!accessToken || !githubName || !githubRepo) return ElMessage.error('请完善发布配置信息')
     const tempPath = `page-${new Date().getTime()}`
+    const githubCDN = `https://cdn.jsdelivr.net/gh/${githubName}/${githubRepo}/${tempPath}/`
     const pageConfig = {
       pageId: route.params.id,
       title: store.state.editor.pageConfig.title,
       description: store.state.editor.pageConfig.description,
       keywords: store.state.editor.pageConfig.keywords,
       landingData: store.state.editor.allItems,
-      dataSource: store.state.editor.dataSource
+      dataSource: store.state.editor.dataSource,
+      javascriptList: ['//unpkg.com/vue@next', `${githubCDN}generator.umd.min.js`],
+      styleList: [`${githubCDN}generator.css`, `${githubCDN}animate.css`]
     }
     publishLoading.value = true
     const indexPage = await nunjucks.render('template.njk', pageConfig)

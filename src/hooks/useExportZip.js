@@ -20,7 +20,9 @@ export default function useExportZip () {
       description: store.state.editor.pageConfig.description,
       keywords: store.state.editor.pageConfig.keywords,
       landingData: store.state.editor.allItems,
-      dataSource: store.state.editor.dataSource
+      dataSource: store.state.editor.dataSource,
+      javascriptList: ['//unpkg.com/vue@next', './generator.umd.min.js'],
+      styleList: ['./generator.css', './animate.css']
     }
     try {
       const renderPage = await nunjucks.render('template.njk', pageConfig)
