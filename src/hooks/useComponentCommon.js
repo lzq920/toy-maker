@@ -1,21 +1,23 @@
 import { computed, inject, onMounted, reactive, unref } from 'vue'
 import { runAnimation, transferStyleMode, copyToClipboard, scrollToTop } from '@/utils'
 import { get } from 'lodash'
+import { useShare } from '@vueuse/core'
 
 /**
  * @description 定义组件公共事件处理Hooks
  * @param config 组件配置
  */
 export default function useComponentCommon (config) {
+  const {
+    share,
+    isSupported
+  } = useShare()
   const eventUtils = reactive({
     redirect (str) {
       return new Promise((resolve, reject) => {
         if (str) {
-          location.href = str
+          window.open(str)
           resolve()
-        } else {
-          // eslint-disable-next-line prefer-promise-reject-errors
-          reject('未定义参数')
         }
       })
     },
@@ -24,9 +26,6 @@ export default function useComponentCommon (config) {
         if (str) {
           alert(str)
           resolve()
-        } else {
-          // eslint-disable-next-line prefer-promise-reject-errors
-          reject('未定义参数')
         }
       })
     },
@@ -35,15 +34,27 @@ export default function useComponentCommon (config) {
         if (str) {
           copyToClipboard(str)
           resolve()
-        } else {
-          // eslint-disable-next-line prefer-promise-reject-errors
-          reject('未定义参数')
         }
       })
     },
     backToTop () {
       return new Promise((resolve, reject) => {
         scrollToTop()
+        resolve()
+      })
+    },
+    systemShare (str) {
+      return new Promise((resolve, reject) => {
+        if (isSupported) {
+          share({
+            title: document.title,
+            text: str,
+            url: location.href
+          }).then(() => {
+          }).catch((e) => {
+
+          })
+        }
         resolve()
       })
     }

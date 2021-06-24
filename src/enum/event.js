@@ -22,5 +22,11 @@ export default [
     name: '回到顶部',
     params: '',
     required: false
+  },
+  {
+    key: 'systemShare',
+    name: '系统分享',
+    params: '',
+    required: true
   }
 ]
