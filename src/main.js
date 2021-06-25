@@ -12,6 +12,7 @@ import Vue3DraggableResizable from '@lzq920/vue3-draggable-resizable'
 import '@lzq920/vue3-draggable-resizable/dist/Vue3DraggableResizable.css'
 
 import './assets/tailwind.css'
+import 'animate.css'
 const app = createApp(App)
 app.use(store)
 app.use(router)

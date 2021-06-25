@@ -1,323 +1,470 @@
-export default [{
-  label: '进入',
-  children: [
-    {
-      label: '渐显',
-      value: 'fadeIn'
-    },
-    {
-      label: '向右进入',
-      value: 'fadeInLeft'
-    },
-    {
-      label: '向左进入',
-      value: 'fadeInRight'
-    },
-    {
-      label: '向上进入',
-      value: 'fadeInUp'
-    },
-    {
-      label: '向下进入',
-      value: 'fadeInDown'
-    },
-    {
-      label: '向右长距进入',
-      value: 'fadeInLeftBig'
-    },
-    {
-      label: '向左长距进入',
-      value: 'fadeInRightBig'
-    },
-    {
-      label: '向上长距进入',
-      value: 'fadeInUpBig'
-    },
-    {
-      label: '向下长距进入',
-      value: 'fadeInDownBig'
-    },
-    {
-      label: '旋转进入',
-      value: 'rotateIn'
-    },
-    {
-      label: '左顺时针旋转',
-      value: 'rotateInDownLeft'
-    },
-    {
-      label: '右逆时针旋转',
-      value: 'rotateInDownRight'
-    },
-    {
-      label: '左逆时针旋转',
-      value: 'rotateInUpLeft'
-    },
-    {
-      label: '右逆时针旋转',
-      value: 'rotateInUpRight'
-    },
-    {
-      label: '弹入',
-      value: 'bounceIn'
-    },
-    {
-      label: '向右弹入',
-      value: 'bounceInLeft'
-    },
-    {
-      label: '向左弹入',
-      value: 'bounceInRight'
-    },
-    {
-      label: '向上弹入',
-      value: 'bounceInUp'
-    },
-    {
-      label: '向下弹入',
-      value: 'bounceInDown'
-    },
-    {
-      label: '光速从右进入',
-      value: 'lightSpeedInRight'
-    },
-    {
-      label: '光速从左进入',
-      value: 'lightSpeedInLeft'
-    },
-    {
-      label: '光速从右退出',
-      value: 'lightSpeedOutRight'
-    },
-    {
-      label: '光速从左退出',
-      value: 'lightSpeedOutLeft'
-    },
-    {
-      label: 'Y轴旋转',
-      value: 'flip'
-    },
-    {
-      label: '中心X轴旋转',
-      value: 'flipInX'
-    },
-    {
-      label: '中心Y轴旋转',
-      value: 'flipInY'
-    },
-    {
-      label: '左长半径旋转',
-      value: 'rollIn'
-    },
-    {
-      label: '由小变大进入',
-      value: 'zoomIn'
-    },
-    {
-      label: '左变大进入',
-      value: 'zoomInLeft'
-    },
-    {
-      label: '右变大进入',
-      value: 'zoomInRight'
-    },
-    {
-      label: '向上变大进入',
-      value: 'zoomInUp'
-    },
-    {
-      label: '向下变大进入',
-      value: 'zoomInDown'
-    },
-    {
-      label: '向右滑动展开',
-      value: 'slideInLeft'
-    },
-    {
-      label: '向左滑动展开',
-      value: 'slideInRight'
-    },
-    {
-      label: '向上滑动展开',
-      value: 'slideInUp'
-    },
-    {
-      label: '向下滑动展开',
-      value: 'slideInDown'
-    }
-  ]
-},
-{
-  label: '强调',
-  children: [
-    {
-      label: '弹跳',
-      value: 'bounce'
-    },
-    {
-      label: '闪烁',
-      value: 'flash'
-    },
-    {
-      label: '放大缩小',
-      value: 'pulse'
-    },
-    {
-      label: '放大缩小弹簧',
-      value: 'rubberBand'
-    },
-    {
-      label: '左右晃动',
-      value: 'headShake'
-    },
-    {
-      label: '左右扇形摇摆',
-      value: 'swing'
-    },
-    {
-      label: '放大晃动缩小',
-      value: 'tada'
-    },
-    {
-      label: '扇形摇摆',
-      value: 'wobble'
-    },
-    {
-      label: '左右上下晃动',
-      value: 'jello'
-    },
-    {
-      label: 'Y轴旋转',
-      value: 'flip'
-    }
-  ]
-},
-{
-  label: '退出',
-  children: [
-    {
-      label: '渐隐',
-      value: 'fadeOut'
-    },
-    {
-      label: '向左退出',
-      value: 'fadeOutLeft'
-    },
-    {
-      label: '向右退出',
-      value: 'fadeOutRight'
-    },
-    {
-      label: '向上退出',
-      value: 'fadeOutUp'
-    },
-    {
-      label: '向下退出',
-      value: 'fadeOutDown'
-    },
-    {
-      label: '向左长距退出',
-      value: 'fadeOutLeftBig'
-    },
-    {
-      label: '向右长距退出',
-      value: 'fadeOutRightBig'
-    },
-    {
-      label: '向上长距退出',
-      value: 'fadeOutUpBig'
-    },
-    {
-      label: '向下长距退出',
-      value: 'fadeOutDownBig'
-    },
-    {
-      label: '旋转退出',
-      value: 'rotateOut'
-    },
-    {
-      label: '左顺时针旋转',
-      value: 'rotateOutDownLeft'
-    },
-    {
-      label: '右逆时针旋转',
-      value: 'rotateOutDownRight'
-    },
-    {
-      label: '左逆时针旋转',
-      value: 'rotateOutUpLeft'
-    },
-    {
-      label: '右逆时针旋转',
-      value: 'rotateOutUpRight'
-    },
-    {
-      label: '弹出',
-      value: 'bounceOut'
-    },
-    {
-      label: '向左弹出',
-      value: 'bounceOutLeft'
-    },
-    {
-      label: '向右弹出',
-      value: 'bounceOutRight'
-    },
-    {
-      label: '向上弹出',
-      value: 'bounceOutUp'
-    },
-    {
-      label: '向下弹出',
-      value: 'bounceOutDown'
-    },
-    {
-      label: '中心X轴旋转',
-      value: 'flipOutX'
-    },
-    {
-      label: '中心Y轴旋转',
-      value: 'flipOutY'
-    },
-    {
-      label: '左长半径旋转',
-      value: 'rollOut'
-    },
-    {
-      label: '由小变大退出',
-      value: 'zoomOut'
-    },
-    {
-      label: '左变大退出',
-      value: 'zoomOutLeft'
-    },
-    {
-      label: '右变大退出',
-      value: 'zoomOutRight'
-    },
-    {
-      label: '向上变大退出',
-      value: 'zoomOutUp'
-    },
-    {
-      label: '向下变大退出',
-      value: 'zoomOutDown'
-    },
-    {
-      label: '向左滑动收起',
-      value: 'slideOutLeft'
-    },
-    {
-      label: '向右滑动收起',
-      value: 'slideOutRight'
-    },
-    {
-      label: '向上滑动收起',
-      value: 'slideOutUp'
-    },
-    {
-      label: '向下滑动收起',
-      value: 'slideOutDown'
-    }
-  ]
-}]
+export default [
+  {
+    label: 'Attention seekers',
+    children: [
+      {
+        label: 'bounce',
+        value: 'bounce'
+      },
+      {
+        label: 'flash',
+        value: 'flash'
+      },
+      {
+        label: 'pulse',
+        value: 'pulse'
+      },
+      {
+        label: 'rubberBand',
+        value: 'rubberBand'
+      },
+      {
+        label: 'shakeX',
+        value: 'shakeX'
+      },
+      {
+        label: 'shakeY',
+        value: 'shakeY'
+      },
+      {
+        label: 'headShake',
+        value: 'headShake'
+      },
+      {
+        label: 'swing',
+        value: 'swing'
+      },
+      {
+        label: 'tada',
+        value: 'tada'
+      },
+      {
+        label: 'wobble',
+        value: 'wobble'
+      },
+      {
+        label: 'jello',
+        value: 'jello'
+      },
+      {
+        label: 'heartBeat',
+        value: 'heartBeat'
+      }
+    ]
+  },
+  {
+    label: 'Back entrances',
+    children: [
+      {
+        label: 'backInDown',
+        value: 'backInDown'
+      },
+      {
+        label: 'backInLeft',
+        value: 'backInLeft'
+      },
+      {
+        label: 'backInRight',
+        value: 'backInRight'
+      },
+      {
+        label: 'backInUp',
+        value: 'backInUp'
+      }
+    ]
+  },
+  {
+    label: 'Back exits',
+    children: [
+      {
+        label: 'backOutDown',
+        value: 'backOutDown'
+      },
+      {
+        label: 'backOutLeft',
+        value: 'backOutLeft'
+      },
+      {
+        label: 'backOutRight',
+        value: 'backOutRight'
+      },
+      {
+        label: 'backOutUp',
+        value: 'backOutUp'
+      }
+    ]
+  },
+  {
+    label: 'Bouncing entrances',
+    children: [
+      {
+        label: 'bounceIn',
+        value: 'bounceIn'
+      },
+      {
+        label: 'bounceInDown',
+        value: 'bounceInDown'
+      },
+      {
+        label: 'bounceInLeft',
+        value: 'bounceInLeft'
+      },
+      {
+        label: 'bounceInRight',
+        value: 'bounceInRight'
+      },
+      {
+        label: 'bounceInUp',
+        value: 'bounceInUp'
+      }
+    ]
+  },
+  {
+    label: 'Bouncing exits',
+    children: [
+      {
+        label: 'bounceOut',
+        value: 'bounceOut'
+      },
+      {
+        label: 'bounceOutDown',
+        value: 'bounceOutDown'
+      },
+      {
+        label: 'bounceOutLeft',
+        value: 'bounceOutLeft'
+      },
+      {
+        label: 'bounceOutRight',
+        value: 'bounceOutRight'
+      },
+      {
+        label: 'bounceOutUp',
+        value: 'bounceOutUp'
+      }
+    ]
+  },
+  {
+    label: 'Fading entrances',
+    children: [
+      {
+        label: 'fadeIn',
+        value: 'fadeIn'
+      },
+      {
+        label: 'fadeInDown',
+        value: 'fadeInDown'
+      },
+      {
+        label: 'fadeInDownBig',
+        value: 'fadeInDownBig'
+      },
+      {
+        label: 'fadeInLeft',
+        value: 'fadeInLeft'
+      },
+      {
+        label: 'fadeInLeftBig',
+        value: 'fadeInLeftBig'
+      },
+      {
+        label: 'fadeInRight',
+        value: 'fadeInRight'
+      },
+      {
+        label: 'fadeInRightBig',
+        value: 'fadeInRightBig'
+      },
+      {
+        label: 'fadeInUp',
+        value: 'fadeInUp'
+      },
+      {
+        label: 'fadeInUpBig',
+        value: 'fadeInUpBig'
+      },
+      {
+        label: 'fadeInTopLeft',
+        value: 'fadeInTopLeft'
+      },
+      {
+        label: 'fadeInTopRight',
+        value: 'fadeInTopRight'
+      },
+      {
+        label: 'fadeInBottomLeft',
+        value: 'fadeInBottomLeft'
+      },
+      {
+        label: 'fadeInBottomRight',
+        value: 'fadeInBottomRight'
+      }
+    ]
+  },
+  {
+    label: 'Fading exits',
+    children: [
+      {
+        label: 'fadeOut',
+        value: 'fadeOut'
+      },
+      {
+        label: 'fadeOutDown',
+        value: 'fadeOutDown'
+      },
+      {
+        label: 'fadeOutDownBig',
+        value: 'fadeOutDownBig'
+      },
+      {
+        label: 'fadeOutLeft',
+        value: 'fadeOutLeft'
+      },
+      {
+        label: 'fadeOutLeftBig',
+        value: 'fadeOutLeftBig'
+      },
+      {
+        label: 'fadeOutRight',
+        value: 'fadeOutRight'
+      },
+      {
+        label: 'fadeOutRightBig',
+        value: 'fadeOutRightBig'
+      },
+      {
+        label: 'fadeOutUp',
+        value: 'fadeOutUp'
+      },
+      {
+        label: 'fadeOutUpBig',
+        value: 'fadeOutUpBig'
+      },
+      {
+        label: 'fadeOutTopLeft',
+        value: 'fadeOutTopLeft'
+      },
+      {
+        label: 'fadeOutTopRight',
+        value: 'fadeOutTopRight'
+      },
+      {
+        label: 'fadeOutBottomRight',
+        value: 'fadeOutBottomRight'
+      },
+      {
+        label: 'fadeOutBottomLeft',
+        value: 'fadeOutBottomLeft'
+      }
+    ]
+  },
+  {
+    label: 'Flippers',
+    children: [
+      {
+        label: 'flip',
+        value: 'flip'
+      },
+      {
+        label: 'flipInX',
+        value: 'flipInX'
+      },
+      {
+        label: 'flipInY',
+        value: 'flipInY'
+      },
+      {
+        label: 'flipOutX',
+        value: 'flipOutX'
+      },
+      {
+        label: 'flipOutY',
+        value: 'flipOutY'
+      }
+    ]
+  },
+  {
+    label: 'Lightspeed',
+    children: [
+      {
+        label: 'lightSpeedInRight',
+        value: 'lightSpeedInRight'
+      },
+      {
+        label: 'lightSpeedInLeft',
+        value: 'lightSpeedInLeft'
+      },
+      {
+        label: 'lightSpeedOutRight',
+        value: 'lightSpeedOutRight'
+      },
+      {
+        label: 'lightSpeedOutLeft',
+        value: 'lightSpeedOutLeft'
+      }
+    ]
+  },
+  {
+    label: 'Rotating entrances',
+    children: [
+      {
+        label: 'rotateIn',
+        value: 'rotateIn'
+      },
+      {
+        label: 'rotateInDownLeft',
+        value: 'rotateInDownLeft'
+      },
+      {
+        label: 'rotateInDownRight',
+        value: 'rotateInDownRight'
+      },
+      {
+        label: 'rotateInUpLeft',
+        value: 'rotateInUpLeft'
+      },
+      {
+        label: 'rotateInUpRight',
+        value: 'rotateInUpRight'
+      }
+    ]
+  },
+  {
+    label: 'Rotating exits',
+    children: [
+      {
+        label: 'rotateOut',
+        value: 'rotateOut'
+      },
+      {
+        label: 'rotateOutDownLeft',
+        value: 'rotateOutDownLeft'
+      },
+      {
+        label: 'rotateOutDownRight',
+        value: 'rotateOutDownRight'
+      },
+      {
+        label: 'rotateOutUpLeft',
+        value: 'rotateOutUpLeft'
+      },
+      {
+        label: 'rotateOutUpRight',
+        value: 'rotateOutUpRight'
+      }
+    ]
+  },
+  {
+    label: 'Specials',
+    children: [
+      {
+        label: 'hinge',
+        value: 'hinge'
+      },
+      {
+        label: 'jackInTheBox',
+        value: 'jackInTheBox'
+      },
+      {
+        label: 'rollIn',
+        value: 'rollIn'
+      },
+      {
+        label: 'rollOut',
+        value: 'rollOut'
+      }
+    ]
+  },
+  {
+    label: 'Zooming entrances',
+    children: [
+      {
+        label: 'zoomIn',
+        value: 'zoomIn'
+      },
+      {
+        label: 'zoomInDown',
+        value: 'zoomInDown'
+      },
+      {
+        label: 'zoomInLeft',
+        value: 'zoomInLeft'
+      },
+      {
+        label: 'zoomInRight',
+        value: 'zoomInRight'
+      },
+      {
+        label: 'zoomInUp',
+        value: 'zoomInUp'
+      }
+    ]
+  },
+  {
+    label: 'Zooming exits',
+    children: [
+      {
+        label: 'zoomOut',
+        value: 'zoomOut'
+      },
+      {
+        label: 'zoomOutDown',
+        value: 'zoomOutDown'
+      },
+      {
+        label: 'zoomOutLeft',
+        value: 'zoomOutLeft'
+      },
+      {
+        label: 'zoomOutRight',
+        value: 'zoomOutRight'
+      },
+      {
+        label: 'zoomOutUp',
+        value: 'zoomOutUp'
+      }
+    ]
+  },
+  {
+    label: 'Sliding entrances',
+    children: [
+      {
+        label: 'slideInDown',
+        value: 'slideInDown'
+      },
+      {
+        label: 'slideInLeft',
+        value: 'slideInLeft'
+      },
+      {
+        label: 'slideInRight',
+        value: 'slideInRight'
+      },
+      {
+        label: 'slideInUp',
+        value: 'slideInUp'
+      }
+    ]
+  },
+  {
+    label: 'Sliding exits',
+    children: [
+      {
+        label: 'slideOutDown',
+        value: 'slideOutDown'
+      },
+      {
+        label: 'slideOutLeft',
+        value: 'slideOutLeft'
+      },
+      {
+        label: 'slideOutRight',
+        value: 'slideOutRight'
+      },
+      {
+        label: 'slideOutUp',
+        value: 'slideOutUp'
+      }
+    ]
+  }
+]

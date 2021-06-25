@@ -22,7 +22,7 @@ export default function useExportZip () {
       landingData: store.state.editor.allItems,
       dataSource: store.state.editor.dataSource,
       javascriptList: ['//unpkg.com/vue@next', './generator.umd.min.js'],
-      styleList: ['./generator.css', './animate.css']
+      styleList: ['./generator.css']
     }
     try {
       const renderPage = await nunjucks.render('template.njk', pageConfig)

@@ -147,13 +147,13 @@ export function httpPost (url, data) {
  * @param animations 动画列表
  * @returns {Promise<void>}
  */
-export async function runAnimation ($el, animations = []) {
+export async function runAnimation ($el, animations = [], prefix = 'animate__') {
   const play = (animation) => new Promise(resolve => {
-    $el.classList.add(animation, 'animated')
+    $el.classList.add(animation, 'animate__animated')
     const removeAnimation = () => {
       $el.removeEventListener('animationend', removeAnimation)
       $el.removeEventListener('animationcancel', removeAnimation)
-      $el.classList.remove(animation, 'animated')
+      $el.classList.remove(animation, 'animate__animated')
       resolve()
     }
 
@@ -162,7 +162,7 @@ export async function runAnimation ($el, animations = []) {
   })
 
   for (let i = 0, len = animations.length; i < len; i++) {
-    await play(animations[i])
+    await play(`${prefix}${animations[i]}`)
   }
 }
 

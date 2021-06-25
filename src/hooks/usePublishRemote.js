@@ -38,7 +38,7 @@ export default function usePublishRemote () {
       landingData: store.state.editor.allItems,
       dataSource: store.state.editor.dataSource,
       javascriptList: ['//unpkg.com/vue@next', `${githubCDN}generator.umd.min.js`],
-      styleList: [`${githubCDN}generator.css`, `${githubCDN}animate.css`]
+      styleList: [`${githubCDN}generator.css`]
     }
     publishLoading.value = true
     const indexPage = await nunjucks.render('template.njk', pageConfig)
