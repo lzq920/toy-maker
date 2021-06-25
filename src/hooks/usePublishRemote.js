@@ -69,7 +69,6 @@ export default function usePublishRemote () {
       title: pageConfig.title,
       description: pageConfig.description,
       keywords: pageConfig.keywords,
-      filePath: tempPath,
       url: `https://${githubName}.github.io/${githubRepo}/${tempPath}/`
     })
     publishLoading.value = false
