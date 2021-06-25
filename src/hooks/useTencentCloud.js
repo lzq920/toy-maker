@@ -108,6 +108,7 @@ export default function useTencentCloud () {
   const publishService = reactive({
     /**
      * @description 添加发布记录
+     * @param log {Object} 发布记录对象
      */
     addPublish (log) {
       return publishCollection.add(log)
@@ -120,12 +121,30 @@ export default function useTencentCloud () {
     },
     /**
      * @description 获取指定落地页的发布记录
-     * @param id 落地页id
+     * @param id {String} 落地页id
      * @returns {Promise<cloudbase.database.GetRes>}
      */
     getPublishListByPage (id) {
       return publishCollection.where({
         pageId: id
+      }).get()
+    },
+    /**
+     * @description 删除指定发布记录
+     * @param id {String} 发布记录id
+     * @returns {Promise<any>}
+     */
+    removePublish (id) {
+      return publishCollection.doc(id).remove()
+    },
+    /**
+     * @description 通过发布地址来获取发布Id
+     * @param url {String} 发布地址
+     * @returns {Promise<cloudbase.database.GetRes>}
+     */
+    getPublishIdByUrl (url) {
+      return publishCollection.where({
+        url: url
       }).get()
     }
   })
