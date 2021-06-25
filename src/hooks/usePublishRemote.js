@@ -66,6 +66,10 @@ export default function usePublishRemote () {
     await publishService.addPublish({
       pageId: pageId,
       createTime: new Date().getTime(),
+      title: pageConfig.title,
+      description: pageConfig.description,
+      keywords: pageConfig.keywords,
+      filePath: tempPath,
       url: `https://${githubName}.github.io/${githubRepo}/${tempPath}/`
     })
     publishLoading.value = false
