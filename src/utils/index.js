@@ -145,6 +145,7 @@ export function httpPost (url, data) {
  * @description 动画预览播放
  * @param $el dom元素
  * @param animations 动画列表
+ * @param prefix 动画前缀
  * @returns {Promise<void>}
  */
 export async function runAnimation ($el, animations = [], prefix = 'animate__') {
@@ -154,7 +155,7 @@ export async function runAnimation ($el, animations = [], prefix = 'animate__') 
       $el.removeEventListener('animationend', removeAnimation)
       $el.removeEventListener('animationcancel', removeAnimation)
       $el.classList.remove(animation, 'animate__animated')
-      resolve()
+      resolve('animation finished')
     }
 
     $el.addEventListener('animationend', removeAnimation)
