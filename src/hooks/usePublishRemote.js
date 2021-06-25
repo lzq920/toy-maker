@@ -44,7 +44,6 @@ export default function usePublishRemote () {
     const indexPage = await nunjucks.render('template.njk', pageConfig)
     const generatorJavascript = await loadFile('generator/generator.umd.min.js', 'text')
     const generatorCss = await loadFile('generator/generator.css', 'text')
-    const animateCss = await loadFile('style/animate.css', 'text')
     const fileList = [{
       path: `${tempPath}/index.html`,
       content: Base64.encode(indexPage)
@@ -54,9 +53,6 @@ export default function usePublishRemote () {
     }, {
       path: `${tempPath}/generator.css`,
       content: Base64.encode(generatorCss)
-    }, {
-      path: `${tempPath}/animate.css`,
-      content: Base64.encode(animateCss)
     }]
     for (let index = 0; index < fileList.length; index++) {
       const element = fileList[index]
