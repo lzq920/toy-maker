@@ -114,7 +114,7 @@ export default function useComponentCommon (config) {
    * @returns {Promise<void>}
    */
   const playAnimations = async () => {
-    if (mode !== 'pc') {
+    if (mode.value !== 'pc') {
       await runAnimation(document.querySelector(`#${config.id}`), config.animations)
     }
   }

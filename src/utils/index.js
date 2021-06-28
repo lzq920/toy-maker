@@ -278,7 +278,8 @@ export function Toast (message, duration = 3000) {
     width: '100vw',
     background: 'black',
     color: 'white',
-    padding: '20px'
+    padding: '20px',
+    textAlign: 'center'
   })
   toastElement.classList.add('animate__animated', 'animate__slideInDown')
   document.body.appendChild(toastElement)
