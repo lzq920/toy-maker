@@ -1,5 +1,5 @@
 <script>
-import { h } from 'vue'
+import { h, ref } from 'vue'
 import useComponentCommon from '@/hooks/useComponentCommon'
 
 export default {
@@ -12,9 +12,21 @@ export default {
   },
   inject: ['mode'],
   setup (props) {
+    const audioRef = ref('')
     const {
-      computedStyle
+      computedStyle,
+      mode
     } = useComponentCommon(props.config)
+    const handleClick = () => {
+      if (mode.value === 'pc') {
+        return audioRef.value.pause()
+      }
+      if (audioRef.value.paused) {
+        audioRef.value.play()
+      } else {
+        audioRef.value.pause()
+      }
+    }
     return () => h('div', {
       id: props.config.id,
       style: computedStyle,
@@ -26,12 +38,15 @@ export default {
         <path
           d="M768 436.906667v53.76a21.333333 21.333333 0 0 1-21.333333 21.333333h-42.666667a21.333333 21.333333 0 0 1-21.333333-21.333333v-11.52a115.626667 115.626667 0 0 0-64-100.693334c-7.68-4.266667-14.506667-9.386667-21.333334-14.08v384A161.28 161.28 0 0 1 426.666667 896a161.28 161.28 0 0 1-170.666667-149.333333 161.28 161.28 0 0 1 170.666667-149.333334 183.04 183.04 0 0 1 85.333333 20.906667V149.333333a21.333333 21.333333 0 0 1 21.333333-21.333333h42.666667a21.333333 21.333333 0 0 1 21.333333 21.333333v7.253334a113.92 113.92 0 0 0 61.013334 103.253333A197.12 197.12 0 0 1 768 436.906667z"
           p-id="2585"></path>
-      </svg>),
+      </svg>, {
+        onClick: handleClick
+      }),
       h('audio', {
         controls: false,
         autoplay: true,
         loop: true,
-        src: props.config.src
+        src: props.config.src,
+        ref: audioRef
       }, [h('source', {
         src: props.config.src
       })])

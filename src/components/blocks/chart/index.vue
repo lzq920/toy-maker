@@ -44,17 +44,10 @@ export default {
       chartRef.value = echarts.init(rootRef.value)
       await updateOptions()
     })
-    return {
-      computedStyle,
-      options,
-      rootRef
-    }
-  },
-  render () {
-    return h('div', {
-      id: this.config.id,
-      style: this.computedStyle,
-      ref: 'rootRef'
+    return () => h('div', {
+      id: props.config.id,
+      style: computedStyle,
+      ref: rootRef
     })
   }
 }
