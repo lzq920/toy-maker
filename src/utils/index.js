@@ -254,3 +254,42 @@ export function scrollToTop () {
     window.scrollTo(0, c - c / 8)
   }
 }
+
+export function Toast (message, duration = 3000) {
+  let toastInstance = null
+  const toastElement = document.createElement('div')
+
+  function removeElement () {
+    document.body.removeChild(toastElement)
+  }
+
+  function setStyle (styles) {
+    for (const stylesKey in styles) {
+      toastElement.style[stylesKey] = styles[stylesKey]
+    }
+  }
+
+  toastElement.innerText = message
+  setStyle({
+    fontSize: '20px',
+    position: 'fixed',
+    left: 0,
+    top: 0,
+    width: '100vw',
+    background: 'black',
+    color: 'white',
+    padding: '20px'
+  })
+  toastElement.classList.add('animate__animated', 'animate__slideInDown')
+  document.body.appendChild(toastElement)
+
+  if (toastInstance) {
+    clearTimeout(toastInstance.timer)
+    toastInstance.remove()
+  }
+  toastInstance = {
+    remove: removeElement,
+    timer: setTimeout(removeElement, duration)
+  }
+  return toastInstance
+}

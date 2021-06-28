@@ -2,6 +2,7 @@ import { computed, inject, onMounted, reactive, unref } from 'vue'
 import { runAnimation, transferStyleMode, copyToClipboard, scrollToTop } from '@/utils'
 import { get } from 'lodash'
 import { useShare } from '@vueuse/core'
+import useConsole from '@/hooks/useConsole'
 
 /**
  * @description 定义组件公共事件处理Hooks
@@ -12,12 +13,15 @@ export default function useComponentCommon (config) {
     share,
     isSupported
   } = useShare()
+  const { logger } = useConsole()
   const eventUtils = reactive({
     redirect (str) {
       return new Promise((resolve, reject) => {
         if (str) {
           window.open(str)
           resolve()
+        } else {
+          reject(new Error('跳转地址不能为空'))
         }
       })
     },
@@ -26,6 +30,8 @@ export default function useComponentCommon (config) {
         if (str) {
           alert(str)
           resolve()
+        } else {
+          reject(new Error('弹窗内容不能为空'))
         }
       })
     },
@@ -34,6 +40,8 @@ export default function useComponentCommon (config) {
         if (str) {
           copyToClipboard(str)
           resolve()
+        } else {
+          reject(new Error('复制文本不能为空'))
         }
       })
     },
@@ -45,17 +53,21 @@ export default function useComponentCommon (config) {
     },
     systemShare (str) {
       return new Promise((resolve, reject) => {
-        if (isSupported) {
-          share({
-            title: document.title,
-            text: str,
-            url: location.href
-          }).then(() => {
-          }).catch((e) => {
+        if (str) {
+          if (isSupported) {
+            share({
+              title: document.title,
+              text: str,
+              url: location.href
+            }).then(() => {
+            }).catch((e) => {
 
-          })
+            })
+          }
+          resolve()
+        } else {
+          reject(new Error('分享内容不能为空'))
         }
-        resolve()
       })
     }
   })
@@ -92,7 +104,7 @@ export default function useComponentCommon (config) {
       if (Array.isArray(eventList) && eventList.length > 0) {
         for (let i = 0; i < eventList.length; i++) {
           const element = eventList[i]
-          await eventUtils[element.key](element.params)
+          await eventUtils[element.key](element.params).then((res) => logger.primary(res)).catch(e => logger.error(e))
         }
       }
     }

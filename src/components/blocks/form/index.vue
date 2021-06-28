@@ -6,7 +6,7 @@
 </template>
 <script>
 import useComponentCommon from '@/hooks/useComponentCommon'
-import { httpPost } from '@/utils'
+import { httpPost, Toast } from '@/utils'
 import useConsole from '@/hooks/useConsole'
 import { isArray, isString } from 'lodash'
 
@@ -54,12 +54,12 @@ export default {
           try {
             const response = await httpPost('https://toy-maker-0gzrfa7132f7c204-1254002251.ap-shanghai.app.tcloudbase.com/submit', formObject)
             if (response && response.id) {
-              alert('提交成功')
+              Toast('提交成功')
             } else {
-              alert('提交失败')
+              Toast('提交失败')
             }
           } catch (e) {
-            alert(e.message)
+            Toast(e.message)
           }
         }
       }
