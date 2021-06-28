@@ -8,6 +8,9 @@
         <el-collapse-item title="盒子模型" name="box-model">
           <box-model-setting :config="config"></box-model-setting>
         </el-collapse-item>
+        <el-collapse-item title="样式设置" name="style-setting">
+          <style-setting :config="config"></style-setting>
+        </el-collapse-item>
       </el-collapse>
     </el-tab-pane>
     <el-tab-pane label="事件" name="events">
