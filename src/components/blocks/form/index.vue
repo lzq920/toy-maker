@@ -1,5 +1,5 @@
 <template>
-  <form :id="config.id" class="form-config">
+  <form :id="config.id" class="form-config" :style="computedStyle">
     <component :is="item.componentName" v-for="item in config.children" :key="item.id" :config="item"
                @on-submit="onSubmit"></component>
   </form>
