@@ -20,8 +20,7 @@ export default {
       id: props.config.id,
       src: getExpression(props.config.src),
       style: computedStyle,
-      onClick: handleClick,
-      alt: 'image'
+      onClick: handleClick
     })
   }
 }

@@ -4,7 +4,9 @@
       <el-header class="bg-gray-90 flex justify-end items-center shadow-sm z-10">
         <el-image style="height:45px;width:146px;" :src="require('../assets/logo.png')"
                   class="rounded-2xl border mr-auto shadow-sm"></el-image>
-        <el-button type="primary" @click="toCreate">新增</el-button>
+        <el-button type="primary" @click="toCreate">新增落地页</el-button>
+        <el-button type="primary" @click="toForm">表单搜集管理</el-button>
+        <el-button type="primary" @click="toPublish">发布文件管理</el-button>
         <el-button type="danger" @click="logout">退出登录</el-button>
       </el-header>
       <el-main class="bg-white w-screen" v-loading.lock="loading" element-loading-spinner="el-icon-loading"
@@ -90,6 +92,16 @@ export default {
         name: 'Create'
       })
     }
+    const toForm = () => {
+      router.push({
+        name: 'Form'
+      })
+    }
+    const toPublish = () => {
+      router.push({
+        name: 'Publish'
+      })
+    }
     const toPreview = async (id) => {
       await getPublishLog(id)
     }
@@ -153,6 +165,8 @@ export default {
       handleDelete,
       toCopy,
       logout,
+      toForm,
+      toPublish,
       userInfo
     }
   }

@@ -1,5 +1,6 @@
 import { reactive, ref } from 'vue'
 import { httpGet } from '@/utils'
+import { ElMessage } from 'element-plus'
 
 /**
  * @default 图片库Hooks
@@ -45,7 +46,7 @@ export default function usePhotoLib () {
       }
       loading.value = false
     } catch (error) {
-      console.error(error)
+      ElMessage.error(error)
     }
   }
   return {

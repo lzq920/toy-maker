@@ -39,6 +39,7 @@
 <script>
 import usePhotoLib from '@/hooks/usePhotoLib'
 import { onMounted, reactive } from 'vue'
+import { remoteImageToBase64 } from '@/utils'
 
 export default {
   name: 'photo-lib',
@@ -83,8 +84,9 @@ export default {
       params.page = val
       await getPhotos()
     }
-    const handleClick = (item) => {
-      emit('choose', item.largeImageURL)
+    const handleClick = async (item) => {
+      const base64 = await remoteImageToBase64(item.largeImageURL)
+      emit('choose', base64)
     }
     onMounted(async () => {
       await getPhotos()

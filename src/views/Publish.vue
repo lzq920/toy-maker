@@ -24,6 +24,7 @@
         <el-table-column label="操作">
           <template #default="scope">
             <el-button type="danger" @click="handleClick(scope.row)">删除</el-button>
+            <el-button type="primary" @click="handleRedirect(scope.row)">访问</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -66,7 +67,7 @@ export default {
     }
     const getFileList = async () => {
       loading.value = true
-      if (accessToken || githubName || githubRepo) {
+      if (!accessToken || !githubName || !githubRepo) {
         loading.value = false
         return ElMessage.error('请在落地页编辑页面完成发布配置信息')
       }
@@ -79,7 +80,7 @@ export default {
       loading.value = false
     }
     const getGithubPage = async () => {
-      if (accessToken || githubName || githubRepo) {
+      if (!accessToken || !githubName || !githubRepo) {
         loading.value = false
         return ElMessage.error('请在落地页编辑页面完成发布配置信息')
       }
@@ -107,6 +108,9 @@ export default {
       ElMessage.success('删除成功')
       await getFileList()
     }
+    const handleRedirect = (row) => {
+      window.open(githubPage.value.html_url + row.path)
+    }
     onMounted(() => {
       getGithubPage()
       getFileList()
@@ -117,7 +121,8 @@ export default {
       activeIndex,
       loading,
       formatDate,
-      handleClick
+      handleClick,
+      handleRedirect
     }
   }
 }

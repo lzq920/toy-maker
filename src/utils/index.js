@@ -293,3 +293,18 @@ export function Toast (message, duration = 3000) {
   }
   return toastInstance
 }
+
+export function remoteImageToBase64 (url) {
+  return new Promise((resolve, reject) => {
+    loadFile(url).then(res => {
+      const fileReader = new FileReader()
+      fileReader.onload = function () {
+        resolve(fileReader.result)
+      }
+      fileReader.onerror = function () {
+        reject(new Error('读取文件出错'))
+      }
+      fileReader.readAsDataURL(res)
+    })
+  })
+}
