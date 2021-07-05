@@ -21,7 +21,7 @@ export default {
     return () => h('video', {
       id: props.config.id,
       poster: getExpression(props.config.poster),
-      style: computedStyle,
+      style: computedStyle(props.config),
       onClick: handleClick,
       controls: mode === 'mobile'
     }, [h('source', {

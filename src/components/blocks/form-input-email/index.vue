@@ -17,7 +17,7 @@ export default {
     return () => h('input', {
       id: props.config.id,
       type: 'email',
-      style: computedStyle,
+      style: computedStyle(props.config),
       required: props.config.required,
       disabled: props.config.disabled,
       readonly: props.config.readonly,

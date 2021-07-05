@@ -16,7 +16,7 @@ export default {
     } = useComponentCommon(props.config)
     return () => h('input', {
       id: props.config.id,
-      style: computedStyle,
+      style: computedStyle(props.config),
       type: 'tel',
       required: props.config.required,
       disabled: props.config.disabled,

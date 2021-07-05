@@ -29,7 +29,7 @@ export default {
     }
     return () => h('div', {
       id: props.config.id,
-      style: computedStyle,
+      style: computedStyle(props.config),
       className: 'svg-icon'
     }, [
       h(<svg t="1623398066969" className="svg-icon" viewBox="0 0 1024 1024"

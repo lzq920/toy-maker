@@ -15,7 +15,7 @@ export default {
       computedStyle
     } = useComponentCommon(props.config)
     return () => h('button', {
-      style: computedStyle,
+      style: computedStyle(props.config),
       id: props.config.id,
       onClick: event => {
         event.preventDefault()

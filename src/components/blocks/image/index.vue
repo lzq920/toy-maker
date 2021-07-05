@@ -19,7 +19,7 @@ export default {
     return () => h('img', {
       id: props.config.id,
       src: getExpression(props.config.src),
-      style: computedStyle,
+      style: computedStyle(props.config),
       onClick: handleClick
     })
   }

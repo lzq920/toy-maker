@@ -42,7 +42,7 @@ export default {
       'div',
       {
         id: props.config.id,
-        style: computedStyle,
+        style: computedStyle(props.config),
         onClick: handleClick
       }
     )

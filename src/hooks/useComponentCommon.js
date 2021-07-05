@@ -1,4 +1,4 @@
-import { computed, inject, onMounted, reactive, unref } from 'vue'
+import { inject, onMounted, reactive } from 'vue'
 import { runAnimation, transferStyleMode, copyToClipboard, scrollToTop } from '@/utils'
 import { get } from 'lodash'
 import { useShare } from '@vueuse/core'
@@ -118,15 +118,15 @@ export default function useComponentCommon (config) {
       await runAnimation(document.querySelector(`#${config.id}`), config.animations)
     }
   }
-  const computedStyle = computed(() => {
-    return transferStyleMode(config, mode.value)
-  })
+  const computedStyle = (component) => {
+    return transferStyleMode(component, mode.value)
+  }
   onMounted(async () => {
     await playAnimations()
   })
   return {
     handleClick,
-    computedStyle: unref(computedStyle),
+    computedStyle,
     getExpression,
     mode,
     dataSource

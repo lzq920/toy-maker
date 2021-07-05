@@ -46,7 +46,7 @@ export default {
     })
     return () => h('div', {
       id: props.config.id,
-      style: computedStyle,
+      style: computedStyle(props.config),
       ref: rootRef
     })
   }
