@@ -1,5 +1,4 @@
 <template>
-  <div>
     <el-form :data="styles" label-width="80px">
       <el-form-item label="字号" v-if="hasKey('fontSize')">
         <el-input v-model.number="styles.fontSize" @change="onChange"></el-input>
@@ -11,7 +10,6 @@
         <el-color-picker v-model.number="styles.color" @change="onChange"></el-color-picker>
       </el-form-item>
     </el-form>
-  </div>
 </template>
 
 <script>
