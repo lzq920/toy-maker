@@ -111,7 +111,7 @@ export default {
       handleRedo,
       handleUndo
     } = useUndoRedo()
-    const { globalsKeyDown } = useGlobalKeyEvent()
+    const { ctrlKey } = useGlobalKeyEvent()
     const {
       pageConfig,
       setPageConfig,
@@ -176,7 +176,7 @@ export default {
       handleUndo,
       handleRedo,
       canvasStyle,
-      globalsKeyDown,
+      ctrlKey,
       savePageData,
       saveLoading,
       pageLoading,

@@ -49,6 +49,9 @@ export default function useEditorMethod () {
   }
   const savePageData = async () => {
     await store.dispatch('editor/clearActiveItem')
+    if (saveLoading.value) {
+      return
+    }
     saveLoading.value = true
     try {
       let cover = ''
