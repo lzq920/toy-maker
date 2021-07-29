@@ -51,6 +51,10 @@ export default {
         component: 'blocks-image-config'
       },
       {
+        tipText: '二维码组件',
+        component: 'blocks-qrcode-config'
+      },
+      {
         tipText: '矩形框组件',
         component: 'blocks-rect-config'
       },
