@@ -18,7 +18,7 @@ export default {
       mode
     } = useComponentCommon(props.config)
     const handleClick = () => {
-      if (mode.value === 'pc') {
+      if (mode === 'pc') {
         return audioRef.value.pause()
       }
       if (audioRef.value.paused) {

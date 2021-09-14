@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { computed, provide, reactive, ref } from 'vue'
+import { computed, provide, reactive } from 'vue'
 import { transferStyleMode } from '@/utils'
 
 export default {
@@ -31,10 +31,12 @@ export default {
     }
   },
   setup (props) {
-    const mode = ref('mobile')
-    const dataSource = computed(() => props.source)
-    provide('mode', mode)
-    provide('dataSource', dataSource)
+    const provider = reactive({
+      mode: 'mobile',
+      dataSource: computed(() => props.source)
+    })
+    provide('mode', provider.mode)
+    provide('dataSource', provider.dataSource)
     const list = reactive(props.data)
     const computedRectStyle = item => {
       const style = {
@@ -46,7 +48,7 @@ export default {
       return style
     }
     const computedComponentStyle = item => {
-      return transferStyleMode(item, mode.value)
+      return transferStyleMode(item, provider.mode)
     }
     return {
       list,

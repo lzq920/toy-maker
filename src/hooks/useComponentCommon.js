@@ -1,5 +1,10 @@
 import { inject, onMounted, reactive } from 'vue'
-import { runAnimation, transferStyleMode, copyToClipboard, scrollToTop } from '@/utils'
+import {
+  runAnimation,
+  transferStyleMode,
+  copyToClipboard,
+  scrollToTop
+} from '@/utils'
 import { get } from 'lodash'
 import { useShare } from '@vueuse/core'
 import useConsole from '@/hooks/useConsole'
@@ -9,10 +14,7 @@ import useConsole from '@/hooks/useConsole'
  * @param config 组件配置
  */
 export default function useComponentCommon (config) {
-  const {
-    share,
-    isSupported
-  } = useShare()
+  const { share, isSupported } = useShare()
   const { logger } = useConsole()
   const eventUtils = reactive({
     redirect (str) {
@@ -59,10 +61,9 @@ export default function useComponentCommon (config) {
               title: document.title,
               text: str,
               url: location.href
-            }).then(() => {
-            }).catch((e) => {
-
             })
+              .then(() => {})
+              .catch(e => {})
           }
           resolve()
         } else {
@@ -78,7 +79,7 @@ export default function useComponentCommon (config) {
    * @param value String
    * @returns {boolean}
    */
-  const isExpression = (value) => {
+  const isExpression = value => {
     return /^#\{\{.*\}\}$/.test(value)
   }
   /**
@@ -86,7 +87,7 @@ export default function useComponentCommon (config) {
    * @param value String
    * @returns {string}
    */
-  const getExpression = (value) => {
+  const getExpression = value => {
     if (isExpression(value)) {
       const path = value.slice(3, -2)
       return get(dataSource.value, path, '')
@@ -99,12 +100,14 @@ export default function useComponentCommon (config) {
    * @returns {Promise<void>}
    */
   const handleClick = async () => {
-    if (mode.value !== 'pc') {
+    if (mode !== 'pc') {
       const eventList = config.events
       if (Array.isArray(eventList) && eventList.length > 0) {
         for (let i = 0; i < eventList.length; i++) {
           const element = eventList[i]
-          await eventUtils[element.key](element.params).then((res) => logger.primary(res)).catch(e => logger.error(e))
+          await eventUtils[element.key](element.params)
+            .then(res => logger.primary(res))
+            .catch(e => logger.error(e))
         }
       }
     }
@@ -114,12 +117,15 @@ export default function useComponentCommon (config) {
    * @returns {Promise<void>}
    */
   const playAnimations = async () => {
-    if (mode.value !== 'pc') {
-      await runAnimation(document.querySelector(`#${config.id}`), config.animations)
+    if (mode !== 'pc') {
+      await runAnimation(
+        document.querySelector(`#${config.id}`),
+        config.animations
+      )
     }
   }
-  const computedStyle = (component) => {
-    return transferStyleMode(component, mode.value)
+  const computedStyle = component => {
+    return transferStyleMode(component, mode)
   }
   onMounted(async () => {
     await playAnimations()

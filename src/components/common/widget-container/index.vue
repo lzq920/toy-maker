@@ -28,7 +28,7 @@
   </Vue3DraggableResizable>
 </template>
 <script>
-import { computed, ref, provide } from 'vue'
+import { computed, reactive, provide } from 'vue'
 import useDraggableResizable from '../../../hooks/useDraggableResizable'
 import { useStore } from 'vuex'
 
@@ -42,12 +42,14 @@ export default {
   },
   setup (props) {
     const store = useStore()
-    const mode = ref('pc')
-    const dataSource = computed(() => {
-      return store.state.editor.dataSource
+    const provider = reactive({
+      mode: 'pc',
+      dataSource: computed(() => {
+        return store.state.editor.dataSource
+      })
     })
-    provide('mode', mode)
-    provide('dataSource', dataSource)
+    provide('mode', provider.mode)
+    provide('dataSource', provider.dataSource)
     const {
       activated,
       deactivated,

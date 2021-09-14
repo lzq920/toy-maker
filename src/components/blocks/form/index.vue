@@ -46,7 +46,7 @@ export default {
           }
         }
         const formObject = Object.fromEntries(formMap)
-        if (mode.value === 'pc') {
+        if (mode === 'pc') {
           return logger.primary(JSON.stringify(formObject))
         } else if (location.href.includes('preview.html')) {
           return logger.primary(JSON.stringify(formObject))

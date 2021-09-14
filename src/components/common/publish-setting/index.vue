@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { reactive, watch } from 'vue'
+import { onMounted, reactive, watch } from 'vue'
 import useStorage from '@/hooks/useStorage'
 
 export default {
@@ -26,14 +26,19 @@ export default {
   setup () {
     const { storage } = useStorage()
     const githubConfig = reactive({
-      githubName: storage.getItem('githubName'),
-      githubRepo: storage.getItem('githubRepo'),
-      accessToken: storage.getItem('accessToken')
+      githubName: '',
+      githubRepo: '',
+      accessToken: ''
     })
     watch(githubConfig, (val) => {
       storage.setItem('accessToken', val.accessToken)
       storage.setItem('githubName', val.githubName)
       storage.setItem('githubRepo', val.githubRepo)
+    })
+    onMounted(() => {
+      githubConfig.accessToken = storage.getItem('accessToken') || ''
+      githubConfig.githubName = storage.getItem('githubName') || ''
+      githubConfig.githubRepo = storage.getItem('githubRepo') || ''
     })
     return {
       githubConfig
