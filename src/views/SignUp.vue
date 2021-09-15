@@ -2,16 +2,16 @@
   <div class="flex justify-center items-center h-screen w-screen">
     <el-card class="w-96">
       <h1>用户登录注册</h1>
-      <el-form :model="user" ref="form" :rules="rules">
+      <el-form ref="form" :model="user" :rules="rules" label-width="100px">
         <el-form-item label="Email" prop="email">
-          <el-input type="text" v-model="user.email"></el-input>
+          <el-input v-model="user.email" type="text"></el-input>
         </el-form-item>
         <el-form-item label="Password" prop="password">
-          <el-input type="password" v-model="user.password"></el-input>
+          <el-input v-model="user.password" type="password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="login" :loading="loginLoading">登录</el-button>
-          <el-button @click="register" :loading="signLoading">注册</el-button>
+          <el-button :loading="loginLoading" type="primary" @click="login">登录</el-button>
+          <el-button :loading="signLoading" @click="register">注册</el-button>
         </el-form-item>
       </el-form>
     </el-card>

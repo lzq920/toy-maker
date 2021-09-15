@@ -1,10 +1,5 @@
 import { inject, onMounted, reactive } from 'vue'
-import {
-  runAnimation,
-  transferStyleMode,
-  copyToClipboard,
-  scrollToTop
-} from '@/utils'
+import { copyToClipboard, runAnimation, scrollToTop, transferStyleMode } from '@/utils'
 import { get } from 'lodash'
 import { useShare } from '@vueuse/core'
 import useConsole from '@/hooks/useConsole'
@@ -14,7 +9,10 @@ import useConsole from '@/hooks/useConsole'
  * @param config 组件配置
  */
 export default function useComponentCommon (config) {
-  const { share, isSupported } = useShare()
+  const {
+    share,
+    isSupported
+  } = useShare()
   const { logger } = useConsole()
   const eventUtils = reactive({
     redirect (str) {
@@ -62,8 +60,10 @@ export default function useComponentCommon (config) {
               text: str,
               url: location.href
             })
-              .then(() => {})
-              .catch(e => {})
+              .then(() => {
+              })
+              .catch(e => {
+              })
           }
           resolve()
         } else {
@@ -90,7 +90,7 @@ export default function useComponentCommon (config) {
   const getExpression = value => {
     if (isExpression(value)) {
       const path = value.slice(3, -2)
-      return get(dataSource.value, path, '')
+      return get(dataSource, path, '')
     } else {
       return value
     }

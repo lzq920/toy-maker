@@ -3,27 +3,27 @@ export default function useConsole () {
   const logger = {
     primary (msg) {
       if (isDev) {
-        console.log(`%c>>>${msg}`, 'color:#409EFF')
+        console.log(`%c:::${msg}`, 'color:#409EFF')
       }
     },
     warning (msg) {
       if (isDev) {
-        console.log(`%c>>>${msg}`, 'color:#E6A23C')
+        console.log(`%c:::${msg}`, 'color:#E6A23C')
       }
     },
     success (msg) {
       if (isDev) {
-        console.log(`%c>>>${msg}`, 'color:#67C23A')
+        console.log(`%c:::${msg}`, 'color:#67C23A')
       }
     },
     info (msg) {
       if (isDev) {
-        console.log(`%c>>>${msg}`, 'color:#909399')
+        console.log(`%c:::${msg}`, 'color:#909399')
       }
     },
     danger (msg) {
       if (isDev) {
-        console.log(`%c>>>${msg}`, 'color:#F56C6C')
+        console.log(`%c:::${msg}`, 'color:#F56C6C')
       }
     }
   }

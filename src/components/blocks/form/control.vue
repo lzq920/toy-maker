@@ -2,28 +2,28 @@
   <el-tabs v-model="activeName" class="pl-2 pr-2">
     <el-tab-pane label="属性" name="attrs">
       <el-collapse>
-        <el-collapse-item title="位置" name="position">
+        <el-collapse-item name="position" title="位置">
           <position-setting :config="config"></position-setting>
         </el-collapse-item>
-        <el-collapse-item title="盒子模型" name="box-model">
+        <el-collapse-item name="box-model" title="盒子模型">
           <box-model-setting :config="config"></box-model-setting>
         </el-collapse-item>
       </el-collapse>
     </el-tab-pane>
     <el-tab-pane label="配置" name="config">
       <ul class="list-none cursor-pointer border">
-        <li v-for="(item,index) in formItems" class="p-2 border-b" :key="index">
+        <li v-for="(item,index) in formItems" :key="index" class="p-2 border-b">
           <span>{{ `${item.description}(${item.name || ''})` }}</span>
           <span class="absolute right-2">
-            <i class="el-icon-delete mr-2" v-if="item.componentName!=='form-input-submit'"
+            <i v-if="item.componentName!=='form-input-submit'" class="el-icon-delete mr-2"
                @click="handleDelete(item)"></i>
             <i class="el-icon-setting" @click="handleConfig(item)"></i>
           </span>
         </li>
         <li class="p-2 flex justify-between items-center">
           <el-select v-model="selectIndex" placeholder="请选择">
-            <el-option v-for="(item,index) in formItemsOptions" :key="index" :value="index"
-                       :label="item.title"></el-option>
+            <el-option v-for="(item,index) in formItemsOptions" :key="index" :label="item.title"
+                       :value="index"></el-option>
           </el-select>
           <el-button @click="addItem">添加</el-button>
         </li>
@@ -33,9 +33,9 @@
           v-for="(item,index) in errors"
           :key="index"
           :title="item"
-          type="error"
-          size="mini"
           class="mt-2"
+          size="mini"
+          type="error"
         >
         </el-alert>
       </div>
@@ -43,7 +43,7 @@
         <el-button type="primary" @click="checkFormRule">检测表单是否合法</el-button>
       </div>
       <el-drawer v-model="configDrawer" :close-on-press-escape="false" :show-close="false"
-                 :title="`(${activeItems.description})配置`" direction="rtl" :size="400" destroy-on-close>
+                 :size="400" :title="`(${activeItems.description})配置`" destroy-on-close direction="rtl">
         <component :is="`${activeItems.componentName}-control`" :config="activeItems"></component>
         <div class="flex justify-center">
           <el-button @click="configDrawer = false">取消</el-button>
@@ -60,6 +60,7 @@ import { useStore } from 'vuex'
 import formItemsEnum from '@/enum/formItem'
 import { generatorUUID } from '@/utils'
 import { uniq } from 'lodash'
+import { ElMessage } from 'element-plus'
 
 export default {
   name: 'blocks-form-control',
@@ -139,6 +140,9 @@ export default {
       }
       if (uniq(names).length !== names.length) {
         errors.value.push('表单字段名称存在重复')
+      }
+      if (!errors.value.length) {
+        ElMessage.success('表单参数正常')
       }
     }
     return {
