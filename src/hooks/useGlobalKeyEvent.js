@@ -5,8 +5,9 @@ import { generatorUUID } from '@/utils'
 import useEditorMethod from '@/hooks/useEditorMethod'
 import { useRoute } from 'vue-router'
 import useConsole from '@/hooks/useConsole'
-import { useMagicKeys, useActiveElement, whenever, and } from '@vueuse/core'
-import { ref, computed, watch } from 'vue'
+import { and, useActiveElement, useMagicKeys, whenever } from '@vueuse/core'
+import { computed, ref, watch } from 'vue'
+
 export default function useGlobalKeyEvent () {
   const { mergeComponent } = useUpdateComponent()
   const { savePageData } = useEditorMethod()
@@ -14,11 +15,37 @@ export default function useGlobalKeyEvent () {
   const route = useRoute()
   const { logger } = useConsole()
   const ctrlKey = ref(false)
-  // eslint-disable-next-line camelcase
-  const { Ctrl, Ctrl_Z, Ctrl_Y, Ctrl_C, Ctrl_V, Ctrl_S, Ctrl_P, Alt_ArrowUp, Alt_ArrowDown, Alt_Shift_ArrowUp, Alt_Shift_ArrowDown, Delete, Backspace, current } = useMagicKeys({
+  const {
+    Ctrl,
+    // eslint-disable-next-line camelcase
+    Ctrl_Z,
+    // eslint-disable-next-line camelcase
+    Ctrl_Y,
+    // eslint-disable-next-line camelcase
+    Ctrl_C,
+    // eslint-disable-next-line camelcase
+    Ctrl_V,
+    // eslint-disable-next-line camelcase
+    Ctrl_S,
+    // eslint-disable-next-line camelcase
+    Ctrl_P,
+    // eslint-disable-next-line camelcase
+    Alt_ArrowUp,
+    // eslint-disable-next-line camelcase
+    Alt_ArrowDown,
+    // eslint-disable-next-line camelcase
+    Alt_Shift_ArrowUp,
+    // eslint-disable-next-line camelcase
+    Alt_Shift_ArrowDown,
+    Delete,
+    Backspace,
+    current
+  } = useMagicKeys({
     passive: false,
     onEventFired (e) {
-      e.preventDefault()
+      if (notUsingInput.value) {
+        e.preventDefault()
+      }
     }
   })
   const activeElement = useActiveElement()

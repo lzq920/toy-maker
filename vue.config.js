@@ -8,7 +8,14 @@ module.exports = {
     },
     plugins: [new MonacoWebpackPlugin({
       languages: ['json']
-    })]
+    })],
+    module: {
+      rules: [{
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      }]
+    }
   },
 
   pwa: {
