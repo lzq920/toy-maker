@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-wrap gap-2">
     <el-button
-      type="primary"
       v-for="(item, index) in configList"
       :key="index"
+      type="primary"
       @click="handleClick(item)"
     >
       矩形
@@ -23,14 +23,17 @@ export default {
     const configList = ref([
       {
         styles: {
-          background: '#cccccc'
+          backgroundColor: '#cccccc'
         }
       }
     ])
     const handleClick = item => {
       store.dispatch('editor/addItem', new BlocksRect(item))
     }
-    return { configList, handleClick }
+    return {
+      configList,
+      handleClick
+    }
   }
 }
 </script>

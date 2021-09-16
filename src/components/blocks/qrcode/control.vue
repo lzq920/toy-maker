@@ -8,8 +8,11 @@
         <el-collapse-item name="box-model" title="盒子模型">
           <box-model-setting :config="config"></box-model-setting>
         </el-collapse-item>
+        <el-collapse-item name="style-setting" title="样式设置">
+          <style-setting :config="config"></style-setting>
+        </el-collapse-item>
         <el-collapse-item name="text" title="内容配置">
-          <el-input v-model="text"></el-input>
+          <el-input v-model="text" @change="onChange"></el-input>
         </el-collapse-item>
       </el-collapse>
     </el-tab-pane>

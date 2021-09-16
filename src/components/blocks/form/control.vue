@@ -8,6 +8,9 @@
         <el-collapse-item name="box-model" title="盒子模型">
           <box-model-setting :config="config"></box-model-setting>
         </el-collapse-item>
+        <el-collapse-item name="style-setting" title="样式设置">
+          <style-setting :config="config"></style-setting>
+        </el-collapse-item>
       </el-collapse>
     </el-tab-pane>
     <el-tab-pane label="配置" name="config">
