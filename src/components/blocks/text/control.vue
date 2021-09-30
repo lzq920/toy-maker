@@ -2,14 +2,17 @@
   <el-tabs v-model="activeName" class="pl-2 pr-2">
     <el-tab-pane label="属性" name="attrs">
       <el-collapse>
-        <el-collapse-item title="位置" name="position">
+        <el-collapse-item name="position" title="位置">
           <position-setting :config="config"></position-setting>
         </el-collapse-item>
-        <el-collapse-item title="盒子模型" name="box-model">
+        <el-collapse-item name="box-model" title="盒子模型">
           <box-model-setting :config="config"></box-model-setting>
         </el-collapse-item>
-        <el-collapse-item title="样式设置" name="style-setting">
+        <el-collapse-item name="style-setting" title="样式设置">
           <style-setting :config="config"></style-setting>
+        </el-collapse-item>
+        <el-collapse-item name="content-setting" title="内容设置">
+          <el-input v-model="text" type="textarea"></el-input>
         </el-collapse-item>
       </el-collapse>
     </el-tab-pane>
@@ -23,7 +26,9 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
+import useComponentCommon from '@/hooks/useComponentCommon'
 
 export default {
   name: 'blocks-text-control',
@@ -33,9 +38,28 @@ export default {
       required: true
     }
   },
-  setup () {
+  setup (props) {
+    const store = useStore()
     const activeName = ref('attrs')
-    return { activeName }
+    const {
+      getExpression
+    } = useComponentCommon(props.config)
+    const text = computed({
+      get () {
+        return getExpression(props.config.innerText)
+      },
+      set (val) {
+        store.dispatch('editor/updateItem', {
+          id: props.config.id,
+          path: 'innerText',
+          value: val
+        })
+      }
+    })
+    return {
+      activeName,
+      text
+    }
   }
 }
 </script>

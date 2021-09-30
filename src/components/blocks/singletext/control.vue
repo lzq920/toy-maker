@@ -12,6 +12,7 @@
           <style-setting :config="config"></style-setting>
         </el-collapse-item>
         <el-collapse-item name="content-setting" title="内容设置">
+          <el-input v-model="text" type="textarea"></el-input>
         </el-collapse-item>
       </el-collapse>
     </el-tab-pane>
@@ -25,7 +26,9 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import useComponentCommon from '@/hooks/useComponentCommon'
+import { useStore } from 'vuex'
 
 export default {
   name: 'blocks-single-text-control',
@@ -36,9 +39,26 @@ export default {
     }
   },
   setup (props) {
+    const store = useStore()
     const activeName = ref('attrs')
+    const {
+      getExpression
+    } = useComponentCommon(props.config)
+    const text = computed({
+      get () {
+        return getExpression(props.config.innerText)
+      },
+      set (val) {
+        store.dispatch('editor/updateItem', {
+          id: props.config.id,
+          path: 'innerText',
+          value: val
+        })
+      }
+    })
     return {
-      activeName
+      activeName,
+      text
     }
   }
 }
